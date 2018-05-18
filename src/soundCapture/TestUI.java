@@ -5,7 +5,7 @@ import java.awt.GridLayout;
 
 import javax.swing.*;
 
-public class TestUI extends JFrame implements Runnable{
+public class TestUI extends JFrame implements Runnable,soundHandler{
 	LevelMeter v;
 	JPanel background;
 	JPanel[] control;
@@ -17,7 +17,7 @@ public class TestUI extends JFrame implements Runnable{
 	
 	public TestUI() {
 		t=new Thread(this);
-		v=new LevelMeter();
+		v=new LevelMeter(this,0.1,3);
 		standard=new JPanel();
 		standard.setSize(2000,2);
 		standard.setBackground(Color.black);
@@ -52,11 +52,16 @@ public class TestUI extends JFrame implements Runnable{
 		    try {
 		        Thread.sleep(50);
 		        for(int i=0;i<control.length;i++) {
-		            control[i].setLocation(4*i, 500-v.now);
+		            control[i].setLocation(4*i, 500-(int)(1000*v.now));
 		        }
 		    }catch(Exception e) {}
 		       
 		}
 	}
+
+    @Override
+    public void action(double[] pack) {
+        System.out.println("Event generated average : "+(int)pack[0]+",peak : "+(int)pack[1]);
+    }
 	
 }
