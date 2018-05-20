@@ -52,7 +52,7 @@ public class TestUI extends JFrame implements Runnable,soundHandler{
 		    try {
 		        Thread.sleep(50);
 		        for(int i=0;i<control.length;i++) {
-		            control[i].setLocation(4*i, 500-(int)(1000*v.now));
+		            control[i].setLocation(4*i, 500-(int)(1000*v.getNow()));
 		        }
 		    }catch(Exception e) {}
 		       

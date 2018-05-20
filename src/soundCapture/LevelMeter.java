@@ -11,14 +11,24 @@ interface soundHandler{
 
 public class LevelMeter implements Runnable {
     soundHandler target;
-    AudioFormat fmt = new AudioFormat(44100f, 16, 1, true, false);
-    final int bufferByteSize = 2048;
-    TargetDataLine line;
-    double now=0,nowPeak=0,lastPeak=0,lastNow=0;
-    double evAvg=0,evPeak=0;
-    int time=-1,timer;
-    double division;
-    boolean recorded=false;
+    private AudioFormat fmt = new AudioFormat(44100f, 16, 1, true, false);
+    private int bufferByteSize = 2048;
+    private TargetDataLine line;
+    private double now=0,nowPeak=0,lastPeak=0,lastNow=0;
+	private double evAvg=0,evPeak=0;
+    private int time=-1,timer;
+    private double division;
+    private boolean recorded=false;
+    Thread thread;
+    
+    public double getNow() {
+		return now;
+	}
+
+	public void setNow(double now) {
+		this.now = now;
+	}
+
     public double getDivision() {
         return division;
     }
@@ -27,9 +37,6 @@ public class LevelMeter implements Runnable {
         this.division = division;
         
     }
-
-    Thread thread;
-    
     public LevelMeter(soundHandler t,double div,int sampleDuration) {
         target=t;
         division=div;
