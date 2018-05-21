@@ -59,12 +59,12 @@ public class LevelMeter implements Runnable {
         double[] samples = new double[bufferByteSize / 2];
         line.start();
         for(int b; (b = line.read(buf, 0, buf.length)) > -1;) {
-            // convert bytes to samples here
+            
             for(int i = 0, s = 0; i < b;) {
                 int sample = 0;
-                sample |= buf[i++] & 0xFF; // (reverse these two lines
-                sample |= buf[i++] << 8;   //  if the format is big endian)
-                // normalize to range of +/-1.0f
+                sample |= buf[i++] & 0xFF;
+                sample |= buf[i++] << 8;
+                // normalize to range of +/-1
                 samples[s++] = sample / 32768f;
             }
             double rms = 0f;

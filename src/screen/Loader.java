@@ -3,22 +3,18 @@ package screen;
 import javax.swing.*;
 
 public class Loader extends JPanel { 
-	static ImageIcon loadStart=new ImageIcon("tenor.gif");
-	static ImageIcon load=new ImageIcon("tenor.gif");
-	static ImageIcon loadEnd=new ImageIcon("tenor.gif");
-	JPanel loadingScreen;
+	static ImageIcon loadStart=new ImageIcon("test.gif");
+	static ImageIcon load=new ImageIcon("tesk.gif");
+	static ImageIcon loadEnd=new ImageIcon("test.gif");
+	JLabel imageLabel;
 	public Loader() {
-		loadingScreen=new JPanel();
-		this.add(loadingScreen);
-		loadingScreen.setVisible(false);
+		imageLabel=new JLabel();
+		this.add(imageLabel);
+		this.setVisible(false);
 		
 	}
-	
-	public Loader(boolean loadScreenOn) {
-		 
-	}
-	
 	public void LoadIn() {
+		imageLabel.setIcon(loadStart);
 		
 	}
 	
