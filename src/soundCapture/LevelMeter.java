@@ -105,5 +105,15 @@ public class LevelMeter implements Runnable {
             }
         }
     }
+    /*public static void main(String args[]) {
+        LevelMeter lv=new LevelMeter(new ExampleSoundHandler(),0.1,3);
+    }*/
+}
+class ExampleSoundHandler implements soundHandler{
+
+    @Override
+    public void action(double[] pack) {
+        System.out.println("now : "+(int)pack[0]+" peak : "+(int)pack[1]);
+    }
     
 }
