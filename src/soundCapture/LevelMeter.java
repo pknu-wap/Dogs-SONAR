@@ -1,11 +1,14 @@
 package soundCapture;
-
+/*
+ * 소리 캡쳐
+ * 
+ */
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.TargetDataLine;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.LineUnavailableException;
 
-interface soundHandler{
+interface soundHandler{//이 인터페이스의 action 함수에서 할 행동들 선언
     void action(double[] pack);
 }
 
@@ -37,7 +40,7 @@ public class LevelMeter implements Runnable {
         this.division = division;
         
     }
-    public LevelMeter(soundHandler t,double div,int sampleDuration) {
+    public LevelMeter(soundHandler t,double div,int sampleDuration) {//생성자 t:액션대상 div:최소 이벤트 발생 레벨 sampleDuration:이벤트 발생시 측정하는 시간
         target=t;
         division=div;
         timer=sampleDuration;
