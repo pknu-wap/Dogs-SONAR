@@ -9,7 +9,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.LineUnavailableException;
 
 interface soundHandler{//이 인터페이스의 action 함수에서 할 행동들 선언
-    void action(double[] pack);
+    void action(double now,double peak);
 }
 
 public class LevelMeter implements Runnable {
@@ -26,10 +26,6 @@ public class LevelMeter implements Runnable {
     
     public double getNow() {
 		return now;
-	}
-
-	public void setNow(double now) {
-		this.now = now;
 	}
 
     public double getDivision() {
@@ -97,8 +93,7 @@ public class LevelMeter implements Runnable {
             if(recorded) {
                 if(time<0) {
                     recorded=false;
-                    double[] t={1000*evAvg/(double)timer,1000*evPeak};
-                    target.action(t);
+                    target.action(1000*evAvg/(double)timer,1000*evPeak);
                 }
                 time-=1;
                 if(now>evPeak) {
@@ -108,15 +103,13 @@ public class LevelMeter implements Runnable {
             }
         }
     }
-    /*public static void main(String args[]) {
-        LevelMeter lv=new LevelMeter(new ExampleSoundHandler(),0.1,3);
-    }*/
+    
 }
 class ExampleSoundHandler implements soundHandler{
 
     @Override
-    public void action(double[] pack) {
-        System.out.println("now : "+(int)pack[0]+" peak : "+(int)pack[1]);
+    public void action(double now,double peak) {
+        System.out.println("now : "+(int)now+" peak : "+(int)peak);
     }
     
 }

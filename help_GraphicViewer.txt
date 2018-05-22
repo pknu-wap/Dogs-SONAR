@@ -1,0 +1,86 @@
+GraphicViewer guide
+
+java.awt.canvas 기반 수월한 처리를 위한 임의 라이브러리
+(ctrl+F 추천)
+
+Class
+GraphicViewer
+BufferedImg
+BufferedButton
+
+GraphicViewer
+	그림/버튼을 입력하는 배경이 되는 캔버스.
+	요소의 변화는 안의 요소를 변경하면 자동적용.
+	Constructor
+		GraphicViewer(int bufferSize,int width,int height)
+			bufferSize : 캔버스 안에 그릴수 있는 요소의 크기(버튼과 그림 각각)
+			width : 캔버스의 너비
+			height : 캔버스의 높이
+	Method
+		int addButton(BufferedButton btn) : 버튼 추가.
+			btn : 추가할 버튼
+			return : 추가된 버튼의 인덱스
+		void deleteButton(int index) : 특정 버튼 삭제.
+			index : 삭제할 버튼의 인덱스
+		BufferedButton getButtonById(int index) : 인덱스로 버튼 찾기
+			index : 버튼의 인덱스
+			return : 찾은 버튼
+		int addImage(BufferedImg img) : 이미지 추가
+			img : 추가할 이미지
+			return : 추가된 이미지의 인덱스
+		void deleteImage(int index) : 특정 이미지 삭제
+			index : 삭제할 이미지의 인덱스
+		BufferedImg getImgById(int index) : 인덱스로 이미지 찾기
+			index : 이미지의 인덱스
+			return : 찾은 이미지
+		그외 캔버스의 메소드들 : 오라클 문서 참조
+BufferedImg
+	GraphicViewer에서 쓰는 이미지.
+	Constructor
+		BufferedImg(String imgSrc,int locX,int locY,int sizeWidth,int sizeHeight)
+			imgSrc : 이미지 경로
+			locX : X좌표
+			locY : Y좌표
+			sizeWidth : 너비
+			sizeHeight : 높이
+	Method
+		int getId() : 이미지 인덱스 확인
+			return : 이미지의 인덱스(추가되지 않았다면 -1)
+		void setId(int id) : 인덱스 변경 (추가하면 자동변경)-버튼안의 이미지는 버튼의 인덱스로 이용할 것.
+		int getX() : 위치의 X좌표 얻기
+		void setX(int x) : 위치의 X좌표 설정
+		int getY() : 위치의 Y좌표 얻기
+		void setY() : 위치의 Y좌표 설정할
+		int getWidth() : 너비 얻기
+		void setWidth(int width) : 너비 입력
+		int getHeight() : 높이 얻기
+		void setHeight(int height) : 높이 입력
+		Image getImg() : 이미지를 class Image로 반환
+			return : 이미지
+		void setImg(String imgSrc) : 이미지를 수정
+			imgSrc : 새 이미지 경로
+			
+BufferedButton
+	GraphicViewer에서 쓰는 버튼. BufferedImg를 가지고 있음.
+	내부 이미지의 영역에 클릭시 run함수가 멀티쓰레딩으로 동작.
+	Constructor
+		BufferedButton(BufferedImg btnImg,String content,Font font,Color textColor)
+			btnImg : 이미지정보
+			content : 버튼에 쓰일 글
+			font : 글의 폰트
+			textColor : 글의 색상
+	Method
+		int getId() : 버튼의 인덱스 확인
+		void setId(int id) : 버튼의 인덱스 변경
+		BufferedImg getBoxData() : 버튼의 이미지 호출(BufferedImg)
+		void setBoxData(BufferedImg boxData) : 버튼의 이미지 변경
+		String getText() : 버튼의 텍스트 확인
+		void setText(String text) : 버튼의 텍스트 변경
+		Font getFont() : 텍스트 폰트 확인
+		void setFont(Font font) : 텍스트 폰트 변경
+		Color getTextColor() : 텍스트 색 확인
+		void setTextColor(Color textColor) : 텍스트 색 변경
+		void run() : 버튼을 누를시 할일(오버라이드 필요)
+	
+	
+	

@@ -17,10 +17,10 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
 	boolean[] isBtnBuf;
 	boolean firstPainted=false;
 	Thread thr;
-	public GraphicViewer(int bufferSize) {
+	public GraphicViewer(int bufferSize,int width,int height) {
 		this.addMouseListener(this);
 		this.size=bufferSize;
-		this.setSize(1000,1000);
+		this.setSize(width,height);
 		this.setBackground(Color.white);
 		imgBuffer=new BufferedImg[size];
 		btnBuffer=new BufferedButton[size];
@@ -249,13 +249,13 @@ class BufferedImg{
 		return img;
 	}
 
-	public void setImg(Image img) {
-		this.img = img;
+	public void setImg(String imgSrc) {
+		this.img=new ImageIcon(imgSrc).getImage();
 	}
 
 
 	public BufferedImg(String imgSrc,int locX,int locY,int sizeWidth,int sizeHeight) {
-		setImg(new ImageIcon(imgSrc).getImage());
+		setImg(imgSrc);
 		setX(locX);
 		setY(locY);
 		setWidth(sizeWidth);
