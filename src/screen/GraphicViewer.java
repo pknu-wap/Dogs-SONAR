@@ -73,6 +73,7 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
 	public void paint(Graphics g) {
 		if(!firstPainted) {
 			firstPainted=true;
+			thr=new Thread(this);
 			thr.start();
 		}
 		bf= new BufferedImage( this.getWidth(), this.getHeight(),BufferedImage.TYPE_INT_RGB);
@@ -147,12 +148,13 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
 	}
 }
 
-class BufferedButton{
+class BufferedButton implements Runnable{
 	BufferedImg boxData;
 	String text;
 	Font font;
 	int Id=-1;
 	Color textColor;
+	Thread thr;
 	public int getId() {
 		return Id;
 	}
@@ -188,10 +190,16 @@ class BufferedButton{
 		boxData=btnImg;
 		setText(content);
 		setFont(font);
-		setTextColor(textColor);
+		setTextColor(textColor);	
 	}
 	public void action() {
-
+		thr=new Thread(this);
+		thr.start();
+	}
+	@Override
+	
+	public void run() {
+		
 	}
 }
 
