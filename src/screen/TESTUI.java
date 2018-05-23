@@ -17,9 +17,9 @@ public class TESTUI {
 		GraphicViewer gV2=new GraphicViewer(100,500,500);
 		gV2.setLocation(new Point(100,100));
 		ExampleJFrame frame=new ExampleJFrame();
-		BufferedImg danos=new BufferedImg("danos.jpg",42, 176, 416, 229, "", new Font("Consolas",Font.BOLD,20), Color.white);
-		ExampleButton garageDoor=new ExampleButton("inside.png", 42, 176, 416, 229,"",new Font("Consolas",Font.BOLD,20),Color.red);
-		BufferedImg garageBack=new BufferedImg("outside.png", 0, 0, 500, 500, "", new Font("Consolas",Font.BOLD,20), Color.white);
+		BufferedImg danos=new BufferedImg("danos.jpg",84, 352, 832, 458, "", new Font("Consolas",Font.BOLD,20), Color.white);
+		ExampleButton garageDoor=new ExampleButton("inside.png", 84, 352, 832, 458,"",new Font("Consolas",Font.BOLD,20),Color.red);
+		BufferedImg garageBack=new BufferedImg("outside.png", 0, 0, 1000, 1000, "", new Font("Consolas",Font.BOLD,20), Color.white);
 		frame.add(gV1);
 		gV1.addButton(danos);
 		gV1.addButton(garageBack);
@@ -37,7 +37,7 @@ class ExampleButton extends BufferedImg{
 	boolean isOpened=false;
     @Override
 	public void run() {
-		int k=240;
+		int k=440;
 		int v=50;
 		if(!isOpened) {
 			for(;k>0;k-=v) {
@@ -66,6 +66,6 @@ class ExampleJFrame extends JFrame{
 	public ExampleJFrame() {
 		this.setTitle("custom canvas test");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setSize(510,540);
+		this.setSize(1010,1040);
 	}
 }
