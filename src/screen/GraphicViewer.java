@@ -122,9 +122,9 @@ class BufferedImg implements Runnable{
 	private int x,y,width,height;
 	private Image img;
 	private int Id=-1;
-	String text;
-    Font font;
-    Color textColor;
+	String text="";
+    Font font=new Font("Consolas",Font.PLAIN,20);
+    Color textColor=Color.WHITE;
     Thread thr;
     public BufferedImg(String imgSrc,int locX,int locY,int sizeWidth,int sizeHeight,String content,Font font,Color textColor) {
         setImg(imgSrc);
@@ -135,6 +135,20 @@ class BufferedImg implements Runnable{
         setText(content);
         setFont(font);
         setTextColor(textColor);
+    }
+    public BufferedImg(String imgSrc,int locX,int locY,int sizeWidth,int sizeHeight) {
+        setImg(imgSrc);
+        setX(locX);
+        setY(locY);
+        setWidth(sizeWidth);
+        setHeight(sizeHeight);
+    }
+    public BufferedImg(String imgSrc,int locX,int locY) {
+        setImg(imgSrc);
+        setX(locX);
+        setY(locY);
+        setWidth(getImg().getWidth(null));
+        setHeight(getImg().getHeight(null));
     }
     public String getText() {
         return text;
