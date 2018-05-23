@@ -71,6 +71,10 @@ BufferedImg
 			textColor : 글의 색상
 	Method
 	
+		float getAlpha() : 알파값(투명도) 확인
+		
+		void setAlpha() : 알파값 변경
+		
 		int getId() : 버튼의 인덱스 확인
 		
 		void setId(int id) : 버튼의 인덱스 변경
