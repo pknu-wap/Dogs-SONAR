@@ -3,13 +3,14 @@ package screen;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Point;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
 public class TESTUI {
-	public static void main(String args[]) throws IOException {//TODO main method
+	public static void main(String args[]){//TODO main method
 		GraphicViewer gV1=new GraphicViewer(100,500,500);
 		gV1.setLocation(new Point(0,0));
 		ExampleJFrame frame=new ExampleJFrame();
@@ -24,41 +25,20 @@ public class TESTUI {
 	}
 }
 class ExampleButton extends BufferedImg{
-	public ExampleButton(String imgSrc, int locX, int locY, int sizeWidth, int sizeHeight, String content, Font font,
-            Color textColor) throws IOException {
-        super(imgSrc, locX, locY, sizeWidth, sizeHeight, content, font, textColor);
-        // TODO Auto-generated constructor stub
+    public ExampleButton(String string, int i, int j, int k, int l, String string2, Font font, Color col){
+        super(string,i,j,k,l,string2,font,col);
     }
     Random rand=new Random();
 	boolean isOpened=false;
 	@Override
 	
-	public void act() {
-		float k1=1f;
-		float v1=0.05f;
-		int v2=10;
+	public void act(MouseEvent e) {
 		if(!isOpened) {
-			for(;k1>0;k1-=v1) {
-				this.setAlpha(this.getAlpha()-v1);
-				this.setY(this.getY()-v2);
-				try {
-					Thread.sleep(40);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-			isOpened=true;
+		    this.setAlpha(0f);
+		    isOpened=true;
 		}else {
-			for(;k1>0;k1-=v1) {
-				this.setAlpha(this.getAlpha()+v1);
-				this.setY(this.getY()+v2);
-				try {
-					Thread.sleep(40);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-			isOpened=false;
+		    this.setAlpha(1f);
+		    isOpened=false;
 		}
 	}
 }

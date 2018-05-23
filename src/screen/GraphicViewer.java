@@ -27,6 +27,17 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
             imgCheck[i]=false;
         }
     }
+    public GraphicViewer(int bufferSize) {
+        this.addMouseListener(this);
+        this.size=bufferSize;
+        this.setSize(100,100);
+        this.setBackground(Color.white);
+        imgBuffer=new BufferedImg[size];
+        imgCheck=new boolean[size];
+        for(int i=0;i<size;i++) {
+            imgCheck[i]=false;
+        }
+    }
 
     public int addButton(BufferedImg btn) {
         for(int i=0;i<size;i++) {
@@ -66,7 +77,7 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
 
             }	
         }
-
+        g2d.dispose();
         g.drawImage(bf,0,0,null);
 
     }
@@ -104,17 +115,16 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
         int tY=arg0.getY();
         for(int i=size-1;i>=0;i--) {
             if(imgCheck[i]) {
-                if(imgBuffer[i].getX()<tX&&tX<imgBuffer[i].getX()+imgBuffer[i].getWidth()&&imgBuffer[i].getY()<tY&&tY<imgBuffer[i].getY()+imgBuffer[i].getHeight()) {
-                    try {
-                        imgBuffer[i].action();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                if(imgBuffer[i].getX()<tX&&tX<imgBuffer[i].getX()+imgBuffer[i].getWidth()&&imgBuffer[i].getY()<tY&&tY<imgBuffer[i].getY()+imgBuffer[i].getHeight()&&imgBuffer[i].getImg().getRGB(tX-imgBuffer[i].getX(),tY-imgBuffer[i].getY())!=0) {
+                    System.out.println("coordinate : "+tX+" "+tY);
+                    System.out.println("clicked ID : "+i);
+                    System.out.printf("color(argb) : %x\n",imgBuffer[i].getImg().getRGB(tX-imgBuffer[i].getX(),tY-imgBuffer[i].getY()));
+                    imgBuffer[i].action(arg0);
                     break;
                 }
             }
         }
-        System.out.println(tX+" "+tY);
+
     }
 
     @Override
@@ -124,7 +134,7 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
     }
 }
 interface Actable extends Runnable{
-    public void act();
+    public void act(MouseEvent e);
 }
 class BufferedImg implements Actable{
     private int x,y,width,height;
@@ -134,6 +144,7 @@ class BufferedImg implements Actable{
     private String text="";
     private Font font=new Font("Consolas",Font.PLAIN,20);
     private Color textColor=Color.WHITE;
+    private MouseEvent tmp;
     private boolean isRun=false;
     Thread thr;
     public float getAlpha() {
@@ -147,8 +158,14 @@ class BufferedImg implements Actable{
         }
         this.alpha = alpha;
     }
-    public BufferedImg(String imgSrc,int locX,int locY,int sizeWidth,int sizeHeight,String content,Font font,Color textColor) throws IOException {
+    public BufferedImg(String imgSrc) {
+        setX(100);
+        setY(100);
+        setWidth(getImg().getWidth(null));
+        setHeight(getImg().getHeight(null));
         setImg(imgSrc);
+    }
+    public BufferedImg(String imgSrc,int locX,int locY,int sizeWidth,int sizeHeight,String content,Font font,Color textColor){
         setX(locX);
         setY(locY);
         setWidth(sizeWidth);
@@ -156,20 +173,21 @@ class BufferedImg implements Actable{
         setText(content);
         setFont(font);
         setTextColor(textColor);
-    }
-    public BufferedImg(String imgSrc,int locX,int locY,int sizeWidth,int sizeHeight) throws IOException {
         setImg(imgSrc);
+    }
+    public BufferedImg(String imgSrc,int locX,int locY,int sizeWidth,int sizeHeight){
         setX(locX);
         setY(locY);
         setWidth(sizeWidth);
         setHeight(sizeHeight);
-    }
-    public BufferedImg(String imgSrc,int locX,int locY) throws IOException {
         setImg(imgSrc);
+    }
+    public BufferedImg(String imgSrc,int locX,int locY){
         setX(locX);
         setY(locY);
         setWidth(getImg().getWidth(null));
         setHeight(getImg().getHeight(null));
+        setImg(imgSrc);
     }
     public String getText() {
         return text;
@@ -232,14 +250,22 @@ class BufferedImg implements Actable{
         return img;
     }
 
-    public void setImg(String imgSrc) throws IOException {
-        this.img=ImageIO.read(new File(imgSrc));
+    public void setImg(String imgSrc){
+        this.img=new BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR);
+        Graphics2D bGr = img.createGraphics();
+        try {
+            bGr.drawImage(ImageIO.read(new File(imgSrc)).getScaledInstance(width, height,Image.SCALE_SMOOTH), 0, 0, null);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        bGr.dispose();
     }
 
 
 
-    public void action() throws InterruptedException {
+    public void action(MouseEvent e){
         if(!isRun) {
+            tmp=e;
             thr=new Thread(this);
             thr.start();
         }
@@ -248,10 +274,10 @@ class BufferedImg implements Actable{
 
     public void run() {
         this.isRun=true;
-        act();
+        act(tmp);
         this.isRun=false;
     }
-    public void act() {
+    public void act(MouseEvent e) {
 
     }
 } 
