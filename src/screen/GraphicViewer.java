@@ -123,8 +123,10 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
 
     }
 }
-
-class BufferedImg implements Runnable{
+interface Actable extends Runnable{
+    public void act();
+}
+class BufferedImg implements Actable{
     private int x,y,width,height;
     private BufferedImage img;
     private int Id=-1;
@@ -234,7 +236,7 @@ class BufferedImg implements Runnable{
         this.img=ImageIO.read(new File(imgSrc));
     }
 
-   
+
 
     public void action() throws InterruptedException {
         if(!isRun) {
@@ -249,8 +251,8 @@ class BufferedImg implements Runnable{
         act();
         this.isRun=false;
     }
-public void act() {
-        
+    public void act() {
+
     }
 } 
 
