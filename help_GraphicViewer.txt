@@ -12,6 +12,7 @@ GraphicViewer
 
 	그림/버튼을 입력하는 배경이 되는 캔버스.
 	요소의 변화는 안의 요소를 변경하면 자동적용.
+	클릭이 일어날 때마다 좌표, 선택한 요소 ID, 선택 픽셀 색을 차례로 출력(좌표는 자신 기준 좌표)
 	
 	Constructor
 	
@@ -113,7 +114,8 @@ BufferedImg
 		
 		void setTextColor(Color textColor) : 텍스트 색 변경
 		
-		void act() : 버튼을 누를시 할일(오버라이드 필요)
+		void act(MouseEvent e) : 버튼을 누를시 할일(오버라이드 필요)
+			e : 마우스 이벤트 (오라클 문서 MouseEvent 참조)
 	
 	
 	
