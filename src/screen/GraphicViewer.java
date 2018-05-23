@@ -234,23 +234,24 @@ class BufferedImg implements Runnable{
         this.img=ImageIO.read(new File(imgSrc));
     }
 
-
+   
 
     public void action() throws InterruptedException {
         if(!isRun) {
-            isRun=true;
             thr=new Thread(this);
             thr.start();
         }
-        thr.join();
-        isRun=false;
-        
     }
     @Override
 
     public void run() {
-
+        this.isRun=true;
+        act();
+        this.isRun=false;
     }
-}
+public void act() {
+        
+    }
+} 
 
 

@@ -31,8 +31,9 @@ class ExampleButton extends BufferedImg{
     }
     Random rand=new Random();
 	boolean isOpened=false;
-    @Override
-	public void run() {
+	@Override
+	
+	public void act() {
 		float k1=1f;
 		float v1=0.05f;
 		int v2=10;
