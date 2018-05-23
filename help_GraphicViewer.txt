@@ -115,7 +115,7 @@ BufferedImg
 		void setTextColor(Color textColor) : 텍스트 색 변경
 		
 		void act(MouseEvent e) : 버튼을 누를시 할일(오버라이드 필요)
-			e : 마우스 이벤트 (오라클 문서 MouseEvent 참조)
+			e : 마우스 이벤트 (오라클 문서 MouseEvent 참조)-GraphicViewer에서 매개받음.
 	
 	
 	

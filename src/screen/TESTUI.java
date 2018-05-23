@@ -33,13 +33,8 @@ class ExampleButton extends BufferedImg{
 	@Override
 	
 	public void act(MouseEvent e) {
-		if(!isOpened) {
-		    this.setAlpha(0f);
-		    isOpened=true;
-		}else {
-		    this.setAlpha(1f);
-		    isOpened=false;
-		}
+		GraphicViewer t=(GraphicViewer) e.getSource();
+		t.deleteButton(this.getId());
 	}
 }
 class ExampleJFrame extends JFrame{
