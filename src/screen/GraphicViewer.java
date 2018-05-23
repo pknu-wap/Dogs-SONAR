@@ -105,7 +105,11 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
         for(int i=size-1;i>=0;i--) {
             if(imgCheck[i]) {
                 if(imgBuffer[i].getX()<tX&&tX<imgBuffer[i].getX()+imgBuffer[i].getWidth()&&imgBuffer[i].getY()<tY&&tY<imgBuffer[i].getY()+imgBuffer[i].getHeight()) {
-                    imgBuffer[i].action();
+                    try {
+                        imgBuffer[i].action();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 }
             }
@@ -125,9 +129,10 @@ class BufferedImg implements Runnable{
     private BufferedImage img;
     private int Id=-1;
     private float alpha=1f;
-    String text="";
-    Font font=new Font("Consolas",Font.PLAIN,20);
-    Color textColor=Color.WHITE;
+    private String text="";
+    private Font font=new Font("Consolas",Font.PLAIN,20);
+    private Color textColor=Color.WHITE;
+    private boolean isRun=false;
     Thread thr;
     public float getAlpha() {
         return alpha;
@@ -231,9 +236,15 @@ class BufferedImg implements Runnable{
 
 
 
-    public void action() {
-        thr=new Thread(this);
-        thr.start();
+    public void action() throws InterruptedException {
+        if(!isRun) {
+            isRun=true;
+            thr=new Thread(this);
+            thr.start();
+        }
+        thr.join();
+        isRun=false;
+        
     }
     @Override
 
