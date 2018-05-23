@@ -17,7 +17,7 @@ public class TESTUI {
 		GraphicViewer gV2=new GraphicViewer(100,500,500);
 		gV2.setLocation(new Point(100,100));
 		ExampleJFrame frame=new ExampleJFrame();
-		BufferedImg danos=new BufferedImg("danos.jpg",84, 352, 832, 458, "", new Font("Consolas",Font.BOLD,20), Color.white);
+		BufferedImg danos=new BufferedImg("danos.jpg",0, 0, 1000, 1000, "", new Font("Consolas",Font.BOLD,20), Color.white);
 		ExampleButton garageDoor=new ExampleButton("inside.png", 84, 352, 832, 458,"",new Font("Consolas",Font.BOLD,20),Color.red);
 		BufferedImg garageBack=new BufferedImg("outside.png", 0, 0, 1000, 1000, "", new Font("Consolas",Font.BOLD,20), Color.white);
 		frame.add(gV1);

@@ -9,21 +9,36 @@ Interface
 	soundHandler
 
 LevelMeter
+	
 	소리를 측정하는 클래스. 이벤트 발생시 soundHandler 인터페이스에게 이벤트를 전달한다.
+	
 	Constructor
+		
 		LevelMeter(soundHandler t,double div,int sampleDuration)
+			
 			t : 이벤트를 받을 대상.
+			
 			div : 이벤트 발생 기준치(0.1당 기준치 100)
+			
 			sampleDuration : 이벤트 발생시 측정하는 표본수
+	
 	Method
+		
 		double getNow() : 현재 소리크기 반환
+		
 		double getDivision() : 현재 이벤트 발생 기준치 반환
+		
 		void setDivision(double division) : 이벤트 발생 기준치 변경
 		
 		
 soundHandler
+	
 	LevelMeter로부터 이벤트를 받는 인터페이스.
+	
 	Interface Method
+		
 		void action(double now,double peak) : 이벤트 발생시 작동하는 메소드
+			
 			now : 측정한 표본들의 평균값
+			
 			peak : 측정한 표본들의 최댓값
