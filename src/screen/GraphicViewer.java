@@ -12,8 +12,6 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
 	int size;
 	BufferedImage bf;
 	BufferedImg[] imgBuffer;
-	BufferedButton[] btnBuffer;
-	boolean[] isImgBuf;
 	boolean[] isBtnBuf;
 	boolean firstPainted=false;
 	Thread thr;
@@ -23,19 +21,16 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
 		this.setSize(width,height);
 		this.setBackground(Color.white);
 		imgBuffer=new BufferedImg[size];
-		btnBuffer=new BufferedButton[size];
-		isImgBuf=new boolean[size];
 		isBtnBuf=new boolean[size];
 		for(int i=0;i<size;i++) {
-			isImgBuf[i]=false;
 			isBtnBuf[i]=false;
 		}
 	}
 
-	public int addButton(BufferedButton btn) {
+	public int addButton(BufferedImg btn) {
 		for(int i=0;i<size;i++) {
 			if(!isBtnBuf[i]) {
-				btnBuffer[i]=btn;
+				imgBuffer[i]=btn;
 				isBtnBuf[i]=true;
 				btn.setId(i);
 				return i;
@@ -43,32 +38,12 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
 		}
 		return -1;
 	}
-	public BufferedButton getButtonById(int index) {
-		return btnBuffer[index];
-	}
-	public void deleteButton(int index) {
-		btnBuffer[index]=null;
-		isBtnBuf[index]=false;
-	}
-
-
-	public int addImage(BufferedImg img) {
-		for(int i=0;i<size;i++) {
-			if(!isImgBuf[i]) {
-				imgBuffer[i]=img;
-				isImgBuf[i]=true;
-				img.setId(i);
-				return i;
-			}
-		}
-		return -1;
-	}
-	public BufferedImg getImgById(int index) {
+	public BufferedImg getButtonById(int index) {
 		return imgBuffer[index];
 	}
-	public void deleteImage(int index) {
+	public void deleteButton(int index) {
 		imgBuffer[index]=null;
-		isImgBuf[index]=false;
+		isBtnBuf[index]=false;
 	}
 	public void paint(Graphics g) {
 		if(!firstPainted) {
@@ -81,16 +56,12 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
 		g2d.setColor(Color.white);
 		g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
 		for(int i=0;i<size;i++) {
-			if(isImgBuf[i]) {
-				g2d.drawImage(imgBuffer[i].getImg(),imgBuffer[i].getX(),imgBuffer[i].getY(),imgBuffer[i].getWidth(),imgBuffer[i].getHeight(),this);
-			}
-		}
-		for(int i=0;i<size;i++) {
 			if(isBtnBuf[i]) {
-				g2d.drawImage(btnBuffer[i].getBoxData().getImg(),btnBuffer[i].getBoxData().getX(),btnBuffer[i].getBoxData().getY(),btnBuffer[i].getBoxData().getWidth(),btnBuffer[i].getBoxData().getHeight(),this);
-				g2d.setFont(btnBuffer[i].getFont());
-				g2d.setColor(btnBuffer[i].getTextColor());
-				g2d.drawString(btnBuffer[i].getText(),(int) (btnBuffer[i].getBoxData().getX()+0.76*btnBuffer[i].getFont().getSize()/2),(int) (btnBuffer[i].getBoxData().getY()+btnBuffer[i].getBoxData().getHeight()/2+0.76*btnBuffer[i].getFont().getSize()/2));
+				g2d.drawImage(imgBuffer[i].getImg(),imgBuffer[i].getX(),imgBuffer[i].getY(),imgBuffer[i].getWidth(),imgBuffer[i].getHeight(),this);
+				if(imgBuffer[i].getFont()!=null)
+				g2d.setFont(imgBuffer[i].getFont());
+				g2d.setColor(imgBuffer[i].getTextColor());
+				g2d.drawString(imgBuffer[i].getText(),(int) (imgBuffer[i].getX()+0.76*imgBuffer[i].getFont().getSize()/2),(int) (imgBuffer[i].getY()+imgBuffer[i].getHeight()/2+0.76*imgBuffer[i].getFont().getSize()/2));
 
 			}	
 		}
@@ -132,9 +103,8 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
 		int tY=arg0.getY();
 		for(int i=0;i<size;i++) {
 			if(isBtnBuf[i]) {
-				BufferedImg tmp=btnBuffer[i].getBoxData();
-				if(tmp.getX()<tX&&tX<tmp.getX()+tmp.getWidth()&&tmp.getY()<tY&&tY<tmp.getY()+tmp.getHeight()) {
-					btnBuffer[i].action();
+				if(imgBuffer[i].getX()<tX&&tX<imgBuffer[i].getX()+imgBuffer[i].getWidth()&&imgBuffer[i].getY()<tY&&tY<imgBuffer[i].getY()+imgBuffer[i].getHeight()) {
+					imgBuffer[i].action();
 				}
 			}
 		}
@@ -148,65 +118,43 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
 	}
 }
 
-class BufferedButton implements Runnable{
-	BufferedImg boxData;
-	String text;
-	Font font;
-	int Id=-1;
-	Color textColor;
-	Thread thr;
-	public int getId() {
-		return Id;
-	}
-	public void setId(int id) {
-		Id=id;
-	}
-	public BufferedImg getBoxData() {
-		return boxData;
-	}
-	public void setBoxData(BufferedImg boxData) {
-		this.boxData = boxData;
-	}
-	public String getText() {
-		return text;
-	}
-	public void setText(String text) {
-		this.text = text;
-	}
-	public Font getFont() {
-		return font;
-	}
-	public void setFont(Font font) {
-		this.font = font;
-	}
-	public Color getTextColor() {
-		return textColor;
-	}
-
-	public void setTextColor(Color textColor) {
-		this.textColor = textColor;
-	}
-	public BufferedButton(BufferedImg btnImg,String content,Font font,Color textColor) {
-		boxData=btnImg;
-		setText(content);
-		setFont(font);
-		setTextColor(textColor);	
-	}
-	public void action() {
-		thr=new Thread(this);
-		thr.start();
-	}
-	@Override
-	
-	public void run() {
-		
-	}
-}
-
-class BufferedImg{
+class BufferedImg implements Runnable{
 	private int x,y,width,height;
 	private Image img;
 	private int Id=-1;
+	String text;
+    Font font;
+    Color textColor;
+    Thread thr;
+    public BufferedImg(String imgSrc,int locX,int locY,int sizeWidth,int sizeHeight,String content,Font font,Color textColor) {
+        setImg(imgSrc);
+        setX(locX);
+        setY(locY);
+        setWidth(sizeWidth);
+        setHeight(sizeHeight);
+        setText(content);
+        setFont(font);
+        setTextColor(textColor);
+    }
+    public String getText() {
+        return text;
+    }
+    public void setText(String text) {
+        this.text = text;
+    }
+    public Font getFont() {
+        return font;
+    }
+    public void setFont(Font font) {
+        this.font = font;
+    }
+    public Color getTextColor() {
+        return textColor;
+    }
+
+    public void setTextColor(Color textColor) {
+        this.textColor = textColor;
+    }
 	public int getId() {
 		return Id;
 	}
@@ -254,13 +202,16 @@ class BufferedImg{
 	}
 
 
-	public BufferedImg(String imgSrc,int locX,int locY,int sizeWidth,int sizeHeight) {
-		setImg(imgSrc);
-		setX(locX);
-		setY(locY);
-		setWidth(sizeWidth);
-		setHeight(sizeHeight);
-	}
+	
+	public void action() {
+        thr=new Thread(this);
+        thr.start();
+    }
+    @Override
+    
+    public void run() {
+        
+    }
 }
 
 
