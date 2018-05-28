@@ -1,6 +1,6 @@
 package soundCapture;
 /*
- * ¼Ò¸® Ä¸ÃÄ
+ * ï¿½Ò¸ï¿½ Ä¸ï¿½ï¿½
  * 
  */
 import javax.sound.sampled.AudioFormat;
@@ -8,7 +8,7 @@ import javax.sound.sampled.TargetDataLine;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.LineUnavailableException;
 
-interface soundHandler{//ÀÌ ÀÎÅÍÆäÀÌ½ºÀÇ action ÇÔ¼ö¿¡¼­ ÇÒ Çàµ¿µé ¼±¾ð
+interface soundHandler{//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½ action ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½àµ¿ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     void action(double now,double peak);
 }
 
@@ -36,7 +36,7 @@ public class LevelMeter implements Runnable {
         this.division = division;
         
     }
-    public LevelMeter(soundHandler t,double div,int sampleDuration) {//»ý¼ºÀÚ t:¾×¼Ç´ë»ó div:ÃÖ¼Ò ÀÌº¥Æ® ¹ß»ý ·¹º§ sampleDuration:ÀÌº¥Æ® ¹ß»ý½Ã ÃøÁ¤ÇÏ´Â ½Ã°£
+    public LevelMeter(soundHandler t,double div,int sampleDuration) {//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ t:ï¿½×¼Ç´ï¿½ï¿½ div:ï¿½Ö¼ï¿½ ï¿½Ìºï¿½Æ® ï¿½ß»ï¿½ ï¿½ï¿½ï¿½ï¿½ sampleDuration:ï¿½Ìºï¿½Æ® ï¿½ß»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ã°ï¿½
         target=t;
         division=div;
         timer=sampleDuration;
@@ -78,7 +78,7 @@ public class LevelMeter implements Runnable {
             }
             rms = Math.sqrt(rms / samples.length);
             if(lastPeak > peak) {
-                peak = lastPeak * 0.875f;
+                peak = lastPeak;// * 0.875f;
             }
             lastPeak = peak;
             lastNow=now;
@@ -103,7 +103,15 @@ public class LevelMeter implements Runnable {
             }
         }
     }
-    
+    public static void main(String[] args) {
+        ExampleSoundHandler h=new ExampleSoundHandler();
+        LevelMeter lm=new LevelMeter(h, 0.08, 3);
+        try {
+            lm.thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }
 class ExampleSoundHandler implements soundHandler{
 

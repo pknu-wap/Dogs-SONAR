@@ -85,7 +85,7 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
     public void run() {
         while(true) {
             try {
-                Thread.sleep(40);
+                Thread.sleep(33);
                 paint(this.getGraphics());	
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -115,7 +115,7 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
         int tY=arg0.getY();
         for(int i=size-1;i>=0;i--) {
             if(imgCheck[i]) {
-                if(imgBuffer[i].getX()<tX&&tX<imgBuffer[i].getX()+imgBuffer[i].getWidth()&&imgBuffer[i].getY()<tY&&tY<imgBuffer[i].getY()+imgBuffer[i].getHeight()&&imgBuffer[i].getImg().getRGB(tX-imgBuffer[i].getX(),tY-imgBuffer[i].getY())!=0) {
+                if((imgBuffer[i].getX()<tX&&tX<imgBuffer[i].getX()+imgBuffer[i].getWidth()&&imgBuffer[i].getY()<tY&&tY<imgBuffer[i].getY()+imgBuffer[i].getHeight()&&imgBuffer[i].getImg().getRGB(tX-imgBuffer[i].getX(),tY-imgBuffer[i].getY())!=0)&&imgBuffer[i].getAlpha()>0) {
                     System.out.println("coordinate : "+tX+" "+tY);
                     System.out.println("clicked ID : "+i);
                     System.out.printf("color(argb) : %x\n",imgBuffer[i].getImg().getRGB(tX-imgBuffer[i].getX(),tY-imgBuffer[i].getY()));
