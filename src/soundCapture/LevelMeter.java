@@ -1,14 +1,11 @@
 package soundCapture;
-/*
- * �Ҹ� ĸ��
- * 
- */
+
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.TargetDataLine;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.LineUnavailableException;
 
-interface soundHandler{//�� �������̽��� action �Լ����� �� �ൿ�� ����
+interface soundHandler{
     void action(double now,double peak);
 }
 

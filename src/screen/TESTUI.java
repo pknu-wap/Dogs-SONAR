@@ -34,21 +34,7 @@ class ExampleButton extends BufferedImg{
 	
 	public void act(MouseEvent e) {
 		GraphicViewer t=(GraphicViewer) e.getSource();
-		double k=1.0;
-		while(true) {
-		    try {
-	            Thread.sleep(33);
-	            if(k<0) {
-	                this.setAlpha(0f);
-	                break;
-	            }
-	            else this.setAlpha((float)k);
-	            k-=0.05;
-	        } catch (InterruptedException e1) {
-	            // TODO Auto-generated catch block
-	            e1.printStackTrace();
-	        }
-		}
+		t.addEffect(new Effect("sprites\\explosion",rand.nextInt(400),rand.nextInt(400),200,200));
 	}
 }
 class ExampleJFrame extends JFrame{
