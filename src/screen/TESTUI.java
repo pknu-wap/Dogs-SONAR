@@ -25,8 +25,10 @@ public class TESTUI {
 	}
 }
 class ExampleButton extends BufferedImg{
+    LoadedEffect ef;
     public ExampleButton(String string, int i, int j, int k, int l, String string2, Font font, Color col){
         super(string,i,j,k,l,string2,font,col);
+        ef=new LoadedEffect("sprites\\explosion",200,200);
     }
     Random rand=new Random();
 	boolean isOpened=false;
@@ -34,7 +36,7 @@ class ExampleButton extends BufferedImg{
 	
 	public void act(MouseEvent e) {
 		GraphicViewer t=(GraphicViewer) e.getSource();
-		t.addEffect(new Effect("sprites\\explosion",rand.nextInt(400),rand.nextInt(400),200,200));
+		t.addEffect(new Effect(ef,rand.nextInt(400),rand.nextInt(400)));
 	}
 }
 class ExampleJFrame extends JFrame{

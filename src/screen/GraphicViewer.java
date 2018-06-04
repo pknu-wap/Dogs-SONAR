@@ -96,17 +96,14 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
         }
         for(int i=0;i<size;i++) {
             if(effectCheck[i]>-1) {
-                g2d.drawImage(effects[i].getFrame(effects[i].getLength()-effectCheck[i]-1), effects[i].getX(),effects[i].getY() , effects[i].getWidth(), effects[i].getHeight(),this);
+                g2d.drawImage(effects[i].getFrame(effects[i].getLength()-effectCheck[i]-1), effects[i].getX(),effects[i].getY() , effects[i].frames.getWidth(), effects[i].frames.getHeight(),this);
                 effectCheck[i]-=1;
-                if(effectCheck[i]<-1) {
-                    effectCheck[i]=-1;
-                    effects[i]=null;
-                }
             }
         }
         g2d.dispose();
         g.drawImage(bf,0,0,null);
         g.dispose();
+        System.gc();
     }
     @Override
     public void run() {
