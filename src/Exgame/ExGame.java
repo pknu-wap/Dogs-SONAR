@@ -10,25 +10,27 @@ interface soundHandler{
 }
 
 public class ExGame extends JFrame{
-	
+	int random = (int)(Math.random()*10);
 	ImageIcon iicon[];
 	JButton btn[];
-  
+	BorderLayout layout = new BorderLayout();
+	
 	ExGame(){
 		super("Exgame");
+		setLayout(layout);
 		iicon = new ImageIcon[2];
 		iicon[0]=new ImageIcon("¾Ç¸¶.jpg");
 		iicon[1]=new ImageIcon("ÁÖÀÎ°ø.png");
 		btn = new JButton[2];
 		btn[0]=new JButton(iicon[0]);
 		btn[1]=new JButton(iicon[1]);
-		setVisible(true);
-		JPanel pan = new JPanel();
-		pan.add(btn[0]);
-		pan.add(btn[1]);
-		getContentPane().add(pan,"Center");
+		if(random>5) {
+			add(btn[0],BorderLayout.WEST);}
+		else
+			add(btn[1],BorderLayout.EAST);
 		setSize(300,200);
 		setVisible(true);
+		System.out.println(random);
 	}
 	public static void main(String args[]) {
 		new ExGame();
