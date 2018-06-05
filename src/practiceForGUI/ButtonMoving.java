@@ -8,7 +8,6 @@ class MyRunnable implements Runnable {
 	public MyRunnable(JFrame jframe) {
 		f = jframe;
 		num = (int) (Math.random() * 5 + 1);
-		System.out.println(num + " 출력, " + num  + "번 버튼 Moving");
 //		try {
 //			Thread.sleep(1000);
 //		} catch (InterruptedException e) {
@@ -23,16 +22,17 @@ class MyRunnable implements Runnable {
 		JButton bt2 = new JButton("2");
 		JButton bt3 = new JButton("3");
 		JButton bt4 = new JButton("4");
-		JButton bt5 = new JButton("0");
+		JButton bt5 = new JButton("5");
 
 		int speed = (int) (Math.random() * 10 + 1);
+		System.out.println(num + " 출력, " + num  + "번 버튼 Moving, 속도 : "+speed);
 
 		if (num  == 1) {
 			for (int i = 0; i < 1000; i++) {
 				bt1.setBounds(i, 0, 100, 100);
 				f.add(bt1);
 				try {
-					Thread.sleep(speed);
+					Thread.sleep(10-speed);
 				} catch (InterruptedException e) {
 				}
 			}
@@ -41,7 +41,7 @@ class MyRunnable implements Runnable {
 				bt2.setBounds(i, 100, 100, 100);
 				f.add(bt2);
 				try {
-					Thread.sleep(speed);
+					Thread.sleep(10-speed);
 				} catch (InterruptedException e) {
 				}
 			}
@@ -50,7 +50,7 @@ class MyRunnable implements Runnable {
 				bt3.setBounds(i, 200, 100, 100);
 				f.add(bt3);
 				try {
-					Thread.sleep(speed);
+					Thread.sleep(10-speed);
 				} catch (InterruptedException e) {
 				}
 			}
@@ -59,16 +59,16 @@ class MyRunnable implements Runnable {
 				bt4.setBounds(i, 300, 100, 100);
 				f.add(bt4);
 				try {
-					Thread.sleep(speed);
+					Thread.sleep(10-speed);
 				} catch (InterruptedException e) {
 				}
 			}
-		} else if (num  == 0) {
+		} else if (num  == 5) {
 			for (int i = 0; i < 1000; i++) {
 				bt5.setBounds(i, 400, 100, 100);
 				f.add(bt5);
 				try {
-					Thread.sleep(speed);
+					Thread.sleep(10-speed);
 				} catch (InterruptedException e) {
 				}
 			}
