@@ -19,8 +19,8 @@ public class ExGame extends JFrame{
 		super("Exgame");
 		setLayout(layout);
 		iicon = new ImageIcon[2];
-		iicon[0]=new ImageIcon("æ«∏∂.jpg");
-		iicon[1]=new ImageIcon("¡÷¿Œ∞¯.png");
+		iicon[0]=new ImageIcon("ÏïÖÎãπ.jpg");
+		iicon[1]=new ImageIcon("Ï£ºÏù∏Í≥µ.png");
 		btn = new JButton[2];
 		btn[0]=new JButton(iicon[0]);
 		btn[1]=new JButton(iicon[1]);
