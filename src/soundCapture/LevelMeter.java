@@ -5,12 +5,9 @@ import javax.sound.sampled.TargetDataLine;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.LineUnavailableException;
 
-interface soundHandler{
-    void action(double now,double peak);
-}
 
 public class LevelMeter implements Runnable {
-    soundHandler target;
+    SoundHandler target;
     private AudioFormat fmt = new AudioFormat(44100f, 16, 1, true, false);
     private int bufferByteSize = 2048;
     private TargetDataLine line;
@@ -33,7 +30,7 @@ public class LevelMeter implements Runnable {
         this.division = division;
         
     }
-    public LevelMeter(soundHandler t,double div,int sampleDuration) {//������ t:�׼Ǵ�� div:�ּ� �̺�Ʈ �߻� ���� sampleDuration:�̺�Ʈ �߻��� �����ϴ� �ð�
+    public LevelMeter(SoundHandler t,double div,int sampleDuration) {//������ t:�׼Ǵ�� div:�ּ� �̺�Ʈ �߻� ���� sampleDuration:�̺�Ʈ �߻��� �����ϴ� �ð�
         target=t;
         division=div;
         timer=sampleDuration;
@@ -110,7 +107,7 @@ public class LevelMeter implements Runnable {
         }
     }
 }
-class ExampleSoundHandler implements soundHandler{
+class ExampleSoundHandler implements SoundHandler{
 
     @Override
     public void action(double now,double peak) {
