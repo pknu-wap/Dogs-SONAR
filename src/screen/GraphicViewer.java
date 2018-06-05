@@ -31,6 +31,7 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
             imgCheck[i]=false;
             effectCheck[i]=-1;
         }
+        new Thread(new GCControl()).start();
     }
     public GraphicViewer(int bufferSize) {
         this.addMouseListener(this);
@@ -103,7 +104,7 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
         g2d.dispose();
         g.drawImage(bf,0,0,null);
         g.dispose();
-        System.gc();
+        
     }
     @Override
     public void run() {
@@ -153,6 +154,21 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
 
     @Override
     public void mouseReleased(MouseEvent arg0) {}
+}
+class GCControl implements Runnable{
+
+    @Override
+    public void run() {
+        while(true) {
+            try {
+                System.gc();
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+    }
 }
 
 
