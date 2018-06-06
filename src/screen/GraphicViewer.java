@@ -14,7 +14,7 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
     BufferedImage bf;
     Button[] imgBuffer;
     Effect[] effects;
-    int[] effectCheck;
+    boolean[] effectCheck;
     boolean[] imgCheck;
     boolean firstPainted=false;
     Thread thr;
@@ -26,10 +26,10 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
         imgBuffer=new Button[size];
         effects=new Effect[size];
         imgCheck=new boolean[size];
-        effectCheck=new int[size];
+        effectCheck=new boolean[size];
         for(int i=0;i<size;i++) {
             imgCheck[i]=false;
-            effectCheck[i]=-1;
+            effectCheck[i]=false;
         }
         new Thread(new GCControl()).start();
     }
@@ -41,19 +41,19 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
         imgBuffer=new Button[size];
         effects=new Effect[size];
         imgCheck=new boolean[size];
-        effectCheck=new int[size];
+        effectCheck=new boolean[size];
         for(int i=0;i<size;i++) {
             imgCheck[i]=false;
-            effectCheck[i]=-1;
+            effectCheck[i]=false;
         }
     }
     public void addEffect(Effect effect) {
         for(int i=0;i<size;i++) {
-            if(effectCheck[i]!=-1) {
+            if(effectCheck[i]) {
                 continue;
             }else {
                 effects[i]=effect;
-                effectCheck[i]=effect.getLength()-1;
+                effectCheck[i]=true;
                 return;
             }
         }
@@ -96,9 +96,10 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
             }
         }
         for(int i=0;i<size;i++) {
-            if(effectCheck[i]>-1) {
-                g2d.drawImage(effects[i].getFrame(effects[i].getLength()-effectCheck[i]-1), effects[i].getX(),effects[i].getY() , effects[i].getWidth(), effects[i].getHeight(),this);
-                effectCheck[i]-=1;
+            if(effectCheck[i]) {
+                BufferedImage k=effects[i].getFrame();
+                if(k!=null)
+                g2d.drawImage(k,effects[i].getX(),effects[i].getY() , effects[i].getWidth(), effects[i].getHeight(),this);
             }
         }
         g2d.dispose();

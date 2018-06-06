@@ -26,10 +26,10 @@ public class TESTUI {
     }
 }
 class ExampleButton extends Button{
-    LoadedEffect ef;
+    Animation ef;
     public ExampleButton(String string, int i, int j, int k, int l, String string2, Font font, Color col){
         super(string,i,j,k,l,string2,font,col);
-        ef=new LoadedEffect("sprites\\explosion",200,200);
+        ef=new Animation("sprites\\explosion",200,200);
     }
     Random rand=new Random();
     boolean isOpened=false;

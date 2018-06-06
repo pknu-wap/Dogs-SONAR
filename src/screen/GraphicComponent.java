@@ -62,6 +62,9 @@ public class GraphicComponent{
         }
         bGr.dispose();
     }
+    public void setImg(BufferedImage target) {
+        this.img=target;
+    }
     public String getText() {
         return text;
     }
