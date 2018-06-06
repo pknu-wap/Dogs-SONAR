@@ -15,13 +15,13 @@ public class TESTUI {
         GraphicViewer gV1=new GraphicViewer(100,500,500);
         gV1.setLocation(new Point(0,0));
         ExampleJFrame frame=new ExampleJFrame();
-        Button danos=new Button("danos.jpg",0, 0, 500, 500);
+        FixedImage danos=new FixedImage("danos.jpg",0, 0, 500, 500);
         ExampleButton garageDoor=new ExampleButton("inside.png", 42, 178, 420, 225,"Yess!",new Font("Consolas",Font.BOLD,100),Color.red);
-        Button garageBack=new Button("outside.png", 0, 0, 500, 500);
+        FixedImage garageBack=new FixedImage("outside.png", 0, 0, 500, 500);
         frame.add(gV1);
-        gV1.addButton(danos);
-        gV1.addButton(garageBack);
-        gV1.addButton(garageDoor);
+        gV1.addComponent(danos);
+        gV1.addComponent(garageBack);
+        gV1.addComponent(garageDoor);
         frame.setVisible(true);
     }
 }
@@ -37,7 +37,7 @@ class ExampleButton extends Button{
 
     public void act(MouseEvent e) {
         GraphicViewer t=(GraphicViewer) e.getSource();
-        t.addEffect(new Effect(ef,rand.nextInt(400),rand.nextInt(400)));
+        t.addComponent(new Effect(ef,rand.nextInt(400),rand.nextInt(400)));
     }
 }
 

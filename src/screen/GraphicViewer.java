@@ -12,10 +12,8 @@ import java.io.IOException;
 public class GraphicViewer extends Canvas implements Runnable,MouseListener{
     int size;
     BufferedImage bf;
-    Button[] imgBuffer;
-    Effect[] effects;
-    boolean[] effectCheck;
-    boolean[] imgCheck;
+    GraphicComponent[] buffer;
+    boolean[] check;
     boolean firstPainted=false;
     Thread thr;
     public GraphicViewer(int bufferSize,int width,int height) {
@@ -23,13 +21,10 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
         this.size=bufferSize;
         this.setSize(width,height);
         this.setBackground(Color.white);
-        imgBuffer=new Button[size];
-        effects=new Effect[size];
-        imgCheck=new boolean[size];
-        effectCheck=new boolean[size];
+        buffer=new GraphicComponent[size];
+        check=new boolean[size];
         for(int i=0;i<size;i++) {
-            imgCheck[i]=false;
-            effectCheck[i]=false;
+            check[i]=false;
         }
         new Thread(new GCControl()).start();
     }
@@ -38,43 +33,30 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
         this.size=bufferSize;
         this.setSize(100,100);
         this.setBackground(Color.white);
-        imgBuffer=new Button[size];
-        effects=new Effect[size];
-        imgCheck=new boolean[size];
-        effectCheck=new boolean[size];
+        buffer=new GraphicComponent[size];
+        check=new boolean[size];
         for(int i=0;i<size;i++) {
-            imgCheck[i]=false;
-            effectCheck[i]=false;
+            check[i]=false;
         }
     }
-    public void addEffect(Effect effect) {
+    
+    public int addComponent(GraphicComponent btn) {
         for(int i=0;i<size;i++) {
-            if(effectCheck[i]) {
-                continue;
-            }else {
-                effects[i]=effect;
-                effectCheck[i]=true;
-                return;
-            }
-        }
-    }
-    public int addButton(Button btn) {
-        for(int i=0;i<size;i++) {
-            if(!imgCheck[i]) {
-                imgBuffer[i]=btn;
-                imgCheck[i]=true;
+            if(!check[i]) {
+                buffer[i]=btn;
+                check[i]=true;
                 btn.setId(i);
                 return i;
             }
         }
         return -1;
     }
-    public Button getButtonById(int index) {
-        return imgBuffer[index];
+    public GraphicComponent getComponentById(int index) {
+        return buffer[index];
     }
-    public void deleteButton(int index) {
-        imgBuffer[index]=null;
-        imgCheck[index]=false;
+    public void deleteComponent(int index) {
+        buffer[index]=null;
+        check[index]=false;
     }
     public void paint(Graphics g) {
         if(!firstPainted) {
@@ -87,19 +69,14 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
         g2d.setColor(Color.white);
         g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
         for(int i=0;i<size;i++) {
-            if(imgCheck[i]) {
-                g2d.setComposite(AlphaComposite.SrcOver.derive(imgBuffer[i].getAlpha()));
-                g2d.drawImage(imgBuffer[i].getImg(),imgBuffer[i].getX(),imgBuffer[i].getY(),imgBuffer[i].getWidth(),imgBuffer[i].getHeight(),this);
-                g2d.setFont(imgBuffer[i].getFont());
-                g2d.setColor(imgBuffer[i].getTextColor());
-                g2d.drawString(imgBuffer[i].getText(),(int) (imgBuffer[i].getX()+0.76*imgBuffer[i].getFont().getSize()/2),(int) (imgBuffer[i].getY()+imgBuffer[i].getHeight()/2+0.76*imgBuffer[i].getFont().getSize()/2));
-            }
-        }
-        for(int i=0;i<size;i++) {
-            if(effectCheck[i]) {
-                BufferedImage k=effects[i].getFrame();
+            if(check[i]) {
+                BufferedImage k=buffer[i].getImg();
                 if(k!=null)
-                g2d.drawImage(k,effects[i].getX(),effects[i].getY() , effects[i].getWidth(), effects[i].getHeight(),this);
+                g2d.setComposite(AlphaComposite.SrcOver.derive(buffer[i].getAlpha()));
+                g2d.drawImage(k,buffer[i].getX(),buffer[i].getY(),buffer[i].getWidth(),buffer[i].getHeight(),this);
+                g2d.setFont(buffer[i].getFont());
+                g2d.setColor(buffer[i].getTextColor());
+                g2d.drawString(buffer[i].getText(),(int) (buffer[i].getX()+0.76*buffer[i].getFont().getSize()/2),(int) (buffer[i].getY()+buffer[i].getHeight()/2+0.76*buffer[i].getFont().getSize()/2));
             }
         }
         g2d.dispose();
@@ -140,12 +117,13 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
         int tX=arg0.getX();
         int tY=arg0.getY();
         for(int i=size-1;i>=0;i--) {
-            if(imgCheck[i]) {
-                if((imgBuffer[i].getX()<tX&&tX<imgBuffer[i].getX()+imgBuffer[i].getWidth()&&imgBuffer[i].getY()<tY&&tY<imgBuffer[i].getY()+imgBuffer[i].getHeight()&&imgBuffer[i].getImg().getRGB(tX-imgBuffer[i].getX(),tY-imgBuffer[i].getY())!=0)&&imgBuffer[i].getAlpha()>0) {
+            if(check[i]&&buffer[i].isClickable()) {
+                Button tmp=(Button)buffer[i];
+                if((tmp.getX()<tX&&tX<tmp.getX()+tmp.getWidth()&&tmp.getY()<tY&&tY<tmp.getY()+tmp.getHeight()&&tmp.getImg().getRGB(tX-tmp.getX(),tY-tmp.getY())!=0)&&tmp.getAlpha()>0) {
                     System.out.println("coordinate : "+tX+" "+tY);
                     System.out.println("clicked ID : "+i);
-                    System.out.printf("color(argb) : %x\n",imgBuffer[i].getImg().getRGB(tX-imgBuffer[i].getX(),tY-imgBuffer[i].getY()));
-                    imgBuffer[i].action(arg0);
+                    System.out.printf("color(argb) : %x\n",tmp.getImg().getRGB(tX-tmp.getX(),tY-tmp.getY()));
+                    tmp.action(arg0);
                     break;
                 }
             }

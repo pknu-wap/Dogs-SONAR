@@ -22,6 +22,7 @@ public class Button extends GraphicComponent implements Actable{
         setImg(imgSrc);
         setWidth(getImg().getWidth(null));
         setHeight(getImg().getHeight(null));
+        setClickable(true);
     }
     public Button(String imgSrc,int locX,int locY,int sizeWidth,int sizeHeight,String content,Font font,Color textColor){
         setX(locX);
@@ -32,6 +33,7 @@ public class Button extends GraphicComponent implements Actable{
         setFont(font);
         setTextColor(textColor);
         setImg(imgSrc);
+        setClickable(true);
     }
     public Button(String imgSrc,int locX,int locY,int sizeWidth,int sizeHeight){
         setX(locX);
@@ -39,6 +41,7 @@ public class Button extends GraphicComponent implements Actable{
         setWidth(sizeWidth);
         setHeight(sizeHeight);
         setImg(imgSrc);
+        setClickable(true);
     }
     public Button(String imgSrc,int locX,int locY){
         setX(locX);
@@ -46,6 +49,7 @@ public class Button extends GraphicComponent implements Actable{
         setWidth(getImg().getWidth(null));
         setHeight(getImg().getHeight(null));
         setImg(imgSrc);
+        setClickable(true);
     }
     public void action(MouseEvent e){
         if(!isRun) {

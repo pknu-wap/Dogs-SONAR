@@ -29,10 +29,10 @@ public class Effect extends GraphicComponent {
         return frames.length;
     }
     
-    public BufferedImage getFrame() {
-        this.setImg(frames.getFrame(index));
+    public BufferedImage getImg() {
+        BufferedImage t=frames.getFrame(index);
         index+=1;
-        return this.getImg();
+        return t;
     }
 }
 

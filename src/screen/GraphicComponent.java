@@ -18,7 +18,14 @@ public class GraphicComponent{
     private Color textColor=Color.WHITE;
     private int id=-1,x=0,y=0,width=10,height=10;
     private BufferedImage img;
-    private boolean isClickAble=true;
+    private boolean isClickable=false;
+    public boolean isClickable() {
+        return isClickable;
+    }
+    public void setClickable(boolean isClickable) {
+        this.isClickable = isClickable;
+    }
+    
     public int getId() {
         return id;
     }
