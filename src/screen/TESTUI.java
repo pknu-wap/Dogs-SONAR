@@ -15,9 +15,9 @@ public class TESTUI {
         GraphicViewer gV1=new GraphicViewer(100,500,500);
         gV1.setLocation(new Point(0,0));
         ExampleJFrame frame=new ExampleJFrame();
-        BufferedImg danos=new BufferedImg("danos.jpg",0, 0, 500, 500);
+        Button danos=new Button("danos.jpg",0, 0, 500, 500);
         ExampleButton garageDoor=new ExampleButton("inside.png", 42, 178, 420, 225,"Yess!",new Font("Consolas",Font.BOLD,100),Color.red);
-        BufferedImg garageBack=new BufferedImg("outside.png", 0, 0, 500, 500);
+        Button garageBack=new Button("outside.png", 0, 0, 500, 500);
         frame.add(gV1);
         gV1.addButton(danos);
         gV1.addButton(garageBack);
@@ -25,7 +25,7 @@ public class TESTUI {
         frame.setVisible(true);
     }
 }
-class ExampleButton extends BufferedImg{
+class ExampleButton extends Button{
     LoadedEffect ef;
     public ExampleButton(String string, int i, int j, int k, int l, String string2, Font font, Color col){
         super(string,i,j,k,l,string2,font,col);

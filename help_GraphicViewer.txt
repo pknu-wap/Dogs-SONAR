@@ -3,6 +3,9 @@ GraphicViewer guide
 java.awt.canvas 기반 수월한 처리를 위한 임의 라이브러리
 (ctrl+F 추천)
 
+
+현재 많은 요소가 바뀌었습니다. 곧 업데이트 예정입니다.
+
 Class
 GraphicViewer
 BufferedImg

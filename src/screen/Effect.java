@@ -7,17 +7,39 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-class LoadedEffect{
+
+public class Effect extends GraphicComponent {
+    Animation frames;
+    public Effect(String src,int locX,int locY,int width,int height) {
+        setX(locX);
+        setY(locY);
+        setWidth(width);
+        setHeight(height);
+        frames=new Animation(src,width,height);
+    }
+    public Effect(Animation effect,int locX,int locY) {
+        this.frames=effect;
+        setX(locX);
+        setY(locY);
+    }
+    public int getLength() {
+        return frames.length;
+    }
+    public BufferedImage getFrame(int index) {
+        return frames.getFrame(index);
+    }
+}
+class Animation{
     BufferedImage[] frames;
-    int width,height,length;
-    public int getWidth() {
+    int width=0,height=0,length=0;
+    public int setWidth() {
         return width;
     }
-    public int getHeight() {
+    public int setHeight() {
         return height;
     }
     String src;
-    public LoadedEffect(String src,int width,int height) {
+    public Animation(String src,int width,int height) {
         length=new File(src).list().length;
         frames=new BufferedImage[length];
         this.width=width;
@@ -46,36 +68,4 @@ class LoadedEffect{
         }
     }
     
-}
-class Effect {
-    LoadedEffect frames;
-    int x,y,id;
-    public int getLength() {
-        return frames.length;
-    }
-    public int getX() {
-        return x;
-    }
-    public BufferedImage getFrame(int ind) {
-        return frames.getFrame(ind);
-    }
-    public void setX(int x) {
-        this.x = x;
-    }
-    public int getY() {
-        return y;
-    }
-    public void setY(int y) {
-        this.y = y;
-    }
-    public Effect(String src,int locX,int locY,int width,int height) {
-        setX(locX);
-        setY(locY);
-        frames=new LoadedEffect(src,width,height);
-    }
-    public Effect(LoadedEffect effect,int locX,int locY) {
-        this.frames=effect;
-        setX(locX);
-        setY(locY);
-    }
 }

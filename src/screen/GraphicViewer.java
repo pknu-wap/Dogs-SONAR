@@ -12,7 +12,7 @@ import java.io.IOException;
 public class GraphicViewer extends Canvas implements Runnable,MouseListener{
     int size;
     BufferedImage bf;
-    BufferedImg[] imgBuffer;
+    Button[] imgBuffer;
     Effect[] effects;
     int[] effectCheck;
     boolean[] imgCheck;
@@ -23,7 +23,7 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
         this.size=bufferSize;
         this.setSize(width,height);
         this.setBackground(Color.white);
-        imgBuffer=new BufferedImg[size];
+        imgBuffer=new Button[size];
         effects=new Effect[size];
         imgCheck=new boolean[size];
         effectCheck=new int[size];
@@ -38,7 +38,7 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
         this.size=bufferSize;
         this.setSize(100,100);
         this.setBackground(Color.white);
-        imgBuffer=new BufferedImg[size];
+        imgBuffer=new Button[size];
         effects=new Effect[size];
         imgCheck=new boolean[size];
         effectCheck=new int[size];
@@ -58,7 +58,7 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
             }
         }
     }
-    public int addButton(BufferedImg btn) {
+    public int addButton(Button btn) {
         for(int i=0;i<size;i++) {
             if(!imgCheck[i]) {
                 imgBuffer[i]=btn;
@@ -69,7 +69,7 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
         }
         return -1;
     }
-    public BufferedImg getButtonById(int index) {
+    public Button getButtonById(int index) {
         return imgBuffer[index];
     }
     public void deleteButton(int index) {
@@ -97,7 +97,7 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
         }
         for(int i=0;i<size;i++) {
             if(effectCheck[i]>-1) {
-                g2d.drawImage(effects[i].getFrame(effects[i].getLength()-effectCheck[i]-1), effects[i].getX(),effects[i].getY() , effects[i].frames.getWidth(), effects[i].frames.getHeight(),this);
+                g2d.drawImage(effects[i].getFrame(effects[i].getLength()-effectCheck[i]-1), effects[i].getX(),effects[i].getY() , effects[i].getWidth(), effects[i].getHeight(),this);
                 effectCheck[i]-=1;
             }
         }
