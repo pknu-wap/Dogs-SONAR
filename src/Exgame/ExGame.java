@@ -26,7 +26,7 @@ public class ExGame extends JFrame{
         add(btn[0],BorderLayout.WEST);
         add(btn[1],BorderLayout.EAST);
         actor=new Reactor(btn[0],btn[1]);
-        capture=new LevelMeter(actor,0.08,3);
+        capture=new LevelMeter(actor,0.01,3);
 		setSize(300,200);
 		setVisible(true);
 		System.out.println(random);
@@ -44,12 +44,14 @@ public class ExGame extends JFrame{
 	    }
 	    @Override
 	    public void action(double now,double peak) {
-	        if(now>150) {
+	        if(now>50) {
 	            me.setVisible(false);
 	            enemy.setVisible(true);
+	            System.out.println("switched to enemy");
 	        }else {
 	            me.setVisible(true);
 	            enemy.setVisible(false);
+	            System.out.println("switched to main");
 	        }
 	            
 	    }
