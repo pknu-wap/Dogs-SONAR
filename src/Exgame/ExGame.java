@@ -5,9 +5,7 @@ import java.awt.*;
 import java.awt.event.*;
 import soundCapture.*;
 
-interface soundHandler{
-    void action(double now,double peak);
-}
+
 
 public class ExGame extends JFrame{
 	int random = (int)(Math.random()*10);
