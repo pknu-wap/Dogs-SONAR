@@ -15,18 +15,27 @@ public class TESTUI {
         GraphicViewer gV1=new GraphicViewer(100,500,500);
         gV1.setLocation(new Point(0,0));
         ExampleJFrame frame=new ExampleJFrame();
-        FixedImage danos=new FixedImage("danos.jpg",0, 0, 500, 500);
-        ExampleButton garageDoor=new ExampleButton("inside.png", 42, 178, 420, 225,"Yess!",new Font("Consolas",Font.BOLD,100),Color.red);
-        FixedImage garageBack=new FixedImage("outside.png", 0, 0, 500, 500);
+        Animation enemyRun=new Animation("sprites\\thief\\normal\\run",200,200);
+        Animation enemyMove=new Animation("sprites\\thief\\normal\\move",200,200);
+        Animation enemyHit=new Animation("sprites\\thief\\normal\\hit",200,200);
+        Animator enemy=new Animator(3,200,200);
+        ExampleButton garageDoor=new ExampleButton("inside.png", 100, 100,100, 100,"Yess!",new Font("Consolas",Font.BOLD,50),Color.red);
+        enemy.setX(200);
+        enemy.setY(200);
+        enemy.addAnimation(enemyMove, "move");
+        enemy.addAnimation(enemyRun, "run");
+        enemy.addAnimation(enemyHit, "hit");
+        enemy.setNext("hit", "run");
+        enemy.setNowAnim("move");
         frame.add(gV1);
-        gV1.addComponent(danos);
-        gV1.addComponent(garageBack);
-        gV1.addComponent(garageDoor);
+        gV1.addComponent(garageDoor,"doorButton");
+        gV1.addComponent(enemy,"enemy");
         frame.setVisible(true);
     }
 }
 class ExampleButton extends Button{
     Animation ef;
+    boolean isRun=false;
     public ExampleButton(String string, int i, int j, int k, int l, String string2, Font font, Color col){
         super(string,i,j,k,l,string2,font,col);
         ef=new Animation("sprites\\explosion",200,200);
@@ -37,7 +46,17 @@ class ExampleButton extends Button{
 
     public void act(MouseEvent e) {
         GraphicViewer t=(GraphicViewer) e.getSource();
-        t.addComponent(new Effect(ef,rand.nextInt(400),rand.nextInt(400)));
+        Animator k=(Animator)t.getComponentByName("enemy");
+        if(isRun) {
+            k.setNowAnim("move");
+            isRun=false;
+        }else {
+            k.setNowAnim("hit");
+            t.addComponent(new Effect(ef,200,200),"explosion");
+            isRun=true;
+            
+        }
+        
     }
 }
 

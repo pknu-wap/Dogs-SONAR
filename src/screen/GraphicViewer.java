@@ -13,6 +13,7 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
     int size;
     BufferedImage bf;
     GraphicComponent[] buffer;
+    String[] names;
     boolean[] check;
     boolean firstPainted=false;
     Thread thr;
@@ -23,6 +24,7 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
         this.setBackground(Color.white);
         buffer=new GraphicComponent[size];
         check=new boolean[size];
+        names=new String[size];
         for(int i=0;i<size;i++) {
             check[i]=false;
         }
@@ -35,27 +37,37 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
         this.setBackground(Color.white);
         buffer=new GraphicComponent[size];
         check=new boolean[size];
+        names=new String[size];
         for(int i=0;i<size;i++) {
             check[i]=false;
         }
     }
     
-    public int addComponent(GraphicComponent btn) {
+    public int addComponent(GraphicComponent btn,String name) {
         for(int i=0;i<size;i++) {
             if(!check[i]) {
                 buffer[i]=btn;
+                names[i]=name;
                 check[i]=true;
-                btn.setId(i);
                 return i;
             }
         }
         return -1;
     }
-    public GraphicComponent getComponentById(int index) {
-        return buffer[index];
+    int getIdByName(String name) {
+        for(int i=0;i<size;i++) {
+            if(check[i]&&names[i].equals(name)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    public GraphicComponent getComponentByName(String name) {
+        return buffer[getIdByName(name)];
     }
     public void deleteComponent(int index) {
         buffer[index]=null;
+        names[index]=null;
         check[index]=false;
     }
     public void paint(Graphics g) {
@@ -88,7 +100,7 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
     public void run() {
         while(true) {
             try {
-                Thread.sleep(33);
+                Thread.sleep(50);
                 paint(this.getGraphics());	
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -121,7 +133,7 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
                 Button tmp=(Button)buffer[i];
                 if((tmp.getX()<tX&&tX<tmp.getX()+tmp.getWidth()&&tmp.getY()<tY&&tY<tmp.getY()+tmp.getHeight()&&tmp.getImg().getRGB(tX-tmp.getX(),tY-tmp.getY())!=0)&&tmp.getAlpha()>0) {
                     System.out.println("coordinate : "+tX+" "+tY);
-                    System.out.println("clicked ID : "+i);
+                    System.out.println("clicked Name : "+i);
                     System.out.printf("color(argb) : %x\n",tmp.getImg().getRGB(tX-tmp.getX(),tY-tmp.getY()));
                     tmp.action(arg0);
                     break;
