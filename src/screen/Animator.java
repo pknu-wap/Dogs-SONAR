@@ -28,9 +28,14 @@ public class Animator extends GraphicComponent{
         next[rear]=rear;
         rear+=1;
     }
+    void syncSize() {
+        this.setWidth(Anim[animInd].getWidth());
+        this.setHeight(Anim[animInd].getHeight());
+    }
     public void setNowAnim(String name) {
         animInd=getIndexByName(name);
         this.frameInd=0;
+        syncSize();
     }
     int getIndexByName(String name) {
         for(int i=0;i<rear;i++) {
@@ -47,6 +52,7 @@ public class Animator extends GraphicComponent{
         if(frameInd==Anim[animInd].getLength()) {
             animInd=next[animInd];
             frameInd=0;
+            syncSize();
         }
         ;
         return t;
