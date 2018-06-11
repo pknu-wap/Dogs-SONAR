@@ -19,7 +19,7 @@ public class TESTUI {
         Animation enemyMove=new Animation("sprites\\thief\\normal\\move",200,200);
         Animation enemyHit=new Animation("sprites\\thief\\normal\\hit",200,200);
         Animator enemy=new Animator(3,200,200);
-        ExampleButton garageDoor=new ExampleButton("inside.png", 100, 100,100, 100,"switch",new Font("Consolas",Font.BOLD,30),Color.red);
+        ExampleButton garageDoor=new ExampleButton("sprites\\button\\greenButton.png", 100, 100,100, 100,"switch",new Font("Consolas",Font.BOLD,30),Color.red);
         enemy.setX(200);
         enemy.setY(200);
         enemy.addAnimation(enemyMove, "move");
