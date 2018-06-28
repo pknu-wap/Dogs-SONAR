@@ -21,8 +21,8 @@ public class ExGame extends JFrame{
 		btn = new JButton[2];
 		setLayout(layout);
 		iicon = new ImageIcon[2];
-        iicon[0]=new ImageIcon(new ImageIcon("악당.jpg").getImage().getScaledInstance(150, 200, Image.SCALE_FAST));
-        iicon[1]=new ImageIcon(new ImageIcon("주인공.png").getImage().getScaledInstance(150, 200, Image.SCALE_FAST));
+        iicon[0]=new ImageIcon(new ImageIcon("demon.jpg").getImage().getScaledInstance(150, 200, Image.SCALE_FAST));
+        iicon[1]=new ImageIcon(new ImageIcon("angel.png").getImage().getScaledInstance(150, 200, Image.SCALE_FAST));
         btn[0]=new JButton(iicon[0]);
         btn[1]=new JButton(iicon[1]);
         btn[0].setSize(150,200);
