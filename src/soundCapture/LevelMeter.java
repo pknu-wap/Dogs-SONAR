@@ -16,7 +16,7 @@ public class LevelMeter implements Runnable {
     private int time=-1,timer;
     private double division;
     private boolean recorded=false;
-    Thread thread;
+    public Thread thread;
     
     public double getNow() {
 		return now;
