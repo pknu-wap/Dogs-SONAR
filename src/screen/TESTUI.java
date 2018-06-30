@@ -15,11 +15,11 @@ public class TESTUI {
         GraphicViewer gV1=new GraphicViewer(100,500,500);
         gV1.setLocation(new Point(0,0));
         ExampleJFrame frame=new ExampleJFrame();
-        Animation enemyRun=new Animation("sprites\\thief\\normal\\run",200,200);
+        Animation enemyRun=new Animation("sprites\\thief\\normal\\run",150,150);
         Animation enemyMove=new Animation("sprites\\thief\\normal\\move",200,200);
         Animation enemyHit=new Animation("sprites\\thief\\normal\\hit",200,200);
         Animator enemy=new Animator(3,200,200);
-        ExampleButton garageDoor=new ExampleButton("inside.png", 100, 100,100, 100,"Yess!",new Font("Consolas",Font.BOLD,50),Color.red);
+        ExampleButton garageDoor=new ExampleButton("sprites\\button\\greenButton.png", 100, 100,100, 100,"switch",new Font("Consolas",Font.BOLD,30),Color.red);
         enemy.setX(200);
         enemy.setY(200);
         enemy.addAnimation(enemyMove, "move");
