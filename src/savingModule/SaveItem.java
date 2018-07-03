@@ -53,4 +53,20 @@ public class SaveItem {
 	public Type getType() {
 		return type;
 	}
+	public String toString() {
+		String ret="";
+		ret+=key+" : ";
+		switch(type) {
+		case STRING:
+			ret+=valueString;
+			break;
+		case INT:
+			ret+=valueInt;
+			break;
+		case DOUBLE:
+			ret+=valueDouble;
+			break;
+		}
+		return ret; 
+	}
 }

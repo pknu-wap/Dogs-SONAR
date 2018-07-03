@@ -43,6 +43,7 @@ public class SaveManager {
 	}
 	public void add(SaveItem sv) {
 		arr.add(sv);
+		count+=1;
 	}
 	public void delete(String key) {
 		for(int i=0;i<count;i++) {
@@ -82,11 +83,41 @@ public class SaveManager {
 			e.printStackTrace();
 		}
 	}
+	/*
 	public static void main(String args[]) {
 		Scanner scan=new Scanner(System.in);
 		SaveManager sv=new SaveManager();
-		
-		scan.nextLine();
-		
+		int T=Integer.parseInt(scan.nextLine());
+		for(int i=0;i<T;i++) {
+			String key=scan.nextLine();
+			switch(Integer.parseInt(scan.nextLine())) {
+			case 0:
+				sv.add(new SaveItem(key,scan.nextLine()));
+				break;
+			case 1:
+				sv.add(new SaveItem(key,Integer.parseInt(scan.nextLine())));
+				break;
+			case 2:
+				sv.add(new SaveItem(key,Double.parseDouble(scan.nextLine())));
+				break;
+			default:
+				break;
+			}
+		}
+		sv.save("save.txt");
+	}
+	*/
+	public static void main(String args[]) {
+		SaveManager sv=new SaveManager();
+		try {
+			sv.load("save.txt");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		for(int i=0;i<sv.count;i++) {
+			System.out.println(sv.arr.get(i).toString());
+					
+		}
 	}
 }
