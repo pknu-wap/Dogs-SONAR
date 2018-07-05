@@ -19,9 +19,10 @@ GraphicViewer
 	
 	Constructor
 	
+		GraphicViewer(int bufferSize)
 		GraphicViewer(int bufferSize,int width,int height)
 			
-			bufferSize : 캔버스 안에 그릴수 있는 요소의 크기(버튼과 그림 각각)
+			bufferSize : 캔버스 안에 그릴수 있는 요소의 크기
 			
 			width : 캔버스의 너비
 			
@@ -29,32 +30,135 @@ GraphicViewer
 	
 	Method
 		
-		int addImage(BufferedImg img) : 이미지 추가
+		int addComponent(GraphicComponent img) : 요소 추가
 			
-			img : 추가할 이미지
+			img : 추가할 요소
 			
-			return : 추가된 이미지의 인덱스
+			return : 추가된 요소의 인덱스
 		
-		void deleteImage(int index) : 특정 이미지 삭제
+		void deleteComponent(int index) : 특정 요소 삭제
 			
-			index : 삭제할 이미지의 인덱스
+			index : 삭제할 요소의 인덱스
 		
-		BufferedImg getImgById(int index) : 인덱스로 이미지 찾기
+		BufferedImg getComponentByName(String name) : 이름으로 이미지 찾기
 			
-			index : 이미지의 인덱스
+			name : 요소 이름
 			
-			return : 찾은 이미지
+			return : 찾은 요소
 		
 		그외 캔버스의 메소드들 : 오라클 문서 참조
 
-BufferedImg
+Actable extends Runnable
+	
+	이벤트 처리가 가능한 요소들에 대한 인터페이스
+	
+	void act(MouseEvent e)
+		마우스 이벤트로 활동할 부분
 
-	GraphicViewer에서 쓰는 이미지.
+GraphicComponent
+	
+	각종 GraphicViewer에 들어갈 요소들. 추상클래스라 그냥 쓰지는 않음.
+	
+	Constructor
+	
+		X
+		
+	Method
+		
+		int getId()
+		
+			해당 요소의 ID를 반환
+			
+		void setId(int id)
+		
+			해당 요소의 ID를 수정
+			
+		int getX()
+		
+			해당 요소의 X위치를 반환
+			
+		void setX(int x)
+		
+			해당 요소의 X위치를 수정
+			
+		int getY()
+		
+			해당 요소의 Y위치를 반환
+			
+		void setY(int y)
+		
+			해당 요소의 Y위치를 수정
+			
+		int getWidth()
+		
+			해당 요소의 너비를 반환
+			
+		void setWidth(int width)
+		
+			해당 요소의 너비를 수정
+			
+		int getHeight()
+		
+			해당 요소의 높이를 반환
+			
+		void setHeight(int height)
+		
+			해당 요소의 높이를 수정
+			
+		BufferedImage getImg()
+		
+			해당 요소의 이미지를 반환
+			
+		void setImg(String imgSrc)
+		
+			해당 요소의 이미지를 수정(이미지 경로)
+			
+		void setImg(BufferedImage target)
+		
+			해당 요소의 이미지를 수정(이미지)
+			
+		String getText()
+		
+			해당 요소에 쓰인 텍스트를 반환
+			
+		void setText(String text)
+		
+			해당 요소에 쓰인 텍스트를 수정
+			
+		Font getFont()
+		
+			해당 요소의 글꼴을 반환
+			
+		void setFont(Font font)
+		
+			해당 요소의 글꼴을 수정
+			
+		Color getTextColor()
+		
+			해당 요소에 쓰인 텍스트 색을 반환
+			
+		void setTextColor(Color textColor)
+		
+			해당 요소에 쓰인 텍스트 색을 수정
+			
+		float getAlpha()
+			
+			해당 요소의 투명도 반환
+			
+		void setAlpha(float alpha)
+			
+			해당 요소의 투명도를 수정
+		
+Button extends GraphicComponent implements Actable
+
+	GraphicViewer에서 쓰는 이미지형 버튼.
 	내부 이미지의 영역에 클릭시 run함수가 멀티쓰레딩으로 동작.
 	
 	Constructor
 	
-		BufferedImg(String imgSrc,int locX,int locY,int sizeWidth,int sizeHeight,String content,Font font,Color textColor)
+		Button(String imgSrc,int locX,int locY,int sizeWidth,int sizeHeight,String content,Font font,Color textColor)
+		Button(String imgSrc,int locX,int locY,int sizeWidth,int sizeHeight)
+		Button(String imgSrc,int locX,int locY)
 			
 			imgSrc : 이미지 경로
 			
@@ -65,60 +169,146 @@ BufferedImg
 			sizeWidth : 너비
 			
 			sizeHeight : 높이
-			
-			btnImg : 이미지정보
-			
+			(사이즈 없으면 이미지 사이즈로)
 			content : 버튼에 쓰일 글
 			
 			font : 글의 폰트
 			
 			textColor : 글의 색상
+			(없으면 기본글꼴)
 	Method
-	
-		float getAlpha() : 알파값(투명도) 확인
-			
-		void setAlpha() : 알파값 변경
 		
-		int getId() : 버튼의 인덱스 확인
-		
-		void setId(int id) : 버튼의 인덱스 변경
-		
-		int getX() : 위치의 X좌표 얻기
-		
-		void setX(int x) : 위치의 X좌표 설정
-		
-		int getY() : 위치의 Y좌표 얻기
-		
-		void setY() : 위치의 Y좌표 설정할
-		
-		int getWidth() : 너비 얻기
-		
-		void setWidth(int width) : 너비 입력
-		
-		int getHeight() : 높이 얻기
-		
-		void setHeight(int height) : 높이 입력
-		
-		Image getImg() : 이미지를 class Image로 반환
-			return : 이미지
-		
-		void setImg(String imgSrc) : 이미지를 수정
-			imgSrc : 새 이미지 경로
-		
-		String getText() : 버튼의 텍스트 확인
-		
-		void setText(String text) : 버튼의 텍스트 변경
-		
-		Font getFont() : 텍스트 폰트 확인
-		
-		void setFont(Font font) : 텍스트 폰트 변경
-		
-		Color getTextColor() : 텍스트 색 확인
-		
-		void setTextColor(Color textColor) : 텍스트 색 변경
+		GraphicComponent에 있던 메소드들
 		
 		void act(MouseEvent e) : 버튼을 누를시 할일(오버라이드 필요)
 			e : 마우스 이벤트 (오라클 문서 MouseEvent 참조)-GraphicViewer에서 매개받음.
+
+FixedImage extends GraphicComponent
 	
+	GraphicComponent 에서 쓰이는 그냥 이미지.
+	효과 그런거 없이 그냥 움직이는것.	
 	
+	Constructor
+		
+		FixedImage(String imgSrc, int locX, int locY, int sizeWidth, int sizeHeight, String content, Font font, Color textColor)
+		FixedImage(String imgSrc, int locX, int locY, int sizeWidth, int sizeHeight)
+		FixedImage(String imgSrc, int locX, int locY)
+		
+			imgSrc : 이미지 경로
+			
+			locX : X좌표
+			
+			locY : Y좌표
+			
+			sizeWidth : 너비
+			
+			sizeHeight : 높이
+			(사이즈 없으면 이미지 사이즈로)
+			content : 버튼에 쓰일 글
+			
+			font : 글의 폰트
+			
+			textColor : 글의 색상
+			(없으면 기본글꼴)
+		
+	Method
+		
+		GraphicComponent에 있던 메소드들
+		
+Animated
+	움직이는 요소들을 통합하기 위한 인터페이스
 	
+	Method
+		
+		void nextFrame()
+			해당 요소의 프레임 카운터를 다음으로 넘김.
+	
+Effect extends GraphicComponent
+	
+	GraphicComponent 에서 쓰이는 한번쓰고 메모리 해제되는 애니메이션 요소
+	
+	Constructor
+		
+		Effect(String imgSrc, int locX, int locY, int sizeWidth, int sizeHeight)
+		Effect(String imgSrc, int locX, int locY, int sizeWidth, int sizeHeight)
+		
+			imgSrc : 이미지 경로
+			
+			locX : X좌표
+			
+			locY : Y좌표
+			
+			sizeWidth : 너비
+			
+			sizeHeight : 높이
+			(사이즈 없으면 이미지 사이즈로)
+
+	Method
+		
+		GraphicComponent에 있던 메소드들
+		Animated의 nextFrame()
+		
+		int getLength()
+			프레임 갯수를 반환
+			
+		BuffeeredImage getImg()
+			오버라이드 : 현재 프레임을 반환
+			
+		void 
+			
+Animator extends GraphicComponents
+	
+	GraphicComponent 에서 쓰이는 바꿔가며 쓰는 애니메이션 요소 (캐릭터 같은)
+	
+	Constructor
+		
+		Animator(int size, int width,int height)
+			
+			size : 들어갈 수 있는 애니메이션의 수
+			
+			width : 너비
+			
+			height : 높이
+		
+	Method
+	
+		GraphicComponent에 있던 메소드들
+		Animated의 nextFrame()
+		
+		void addAnimation(Animation animation, String name)
+			애니메이션을 추가
+			
+			animation : 추가할 애니메이션
+			
+			name : 애니메이션 이름
+			
+		void setNowAnim(String name)
+			현재 애니메이션을 바로 변경
+			
+			name : 바꿀 애니메이션 이름
+			
+		void setNext(String target, String next)
+			애니메이션의 다음 순서를 변경
+			
+			target : 끝나고 반복 없이 다른 순서로 넘길 애니메이션 이름
+			
+			next : 다음 순서로 오게될 애니메이션 이름
+			
+		BufferedImage getImg()
+			오버라이드 :  현재 나온 프레임을 반환
+		
+		int getIndex()
+			현재 프레임을 반환
+		
+		int getLength()
+			현재 진행중인 애니메이션 길이를 반환
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		

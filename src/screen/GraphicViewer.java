@@ -42,7 +42,7 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
             check[i]=false;
         }
     }
-    
+
     public int addComponent(GraphicComponent btn,String name) {
         for(int i=0;i<size;i++) {
             if(!check[i]) {
@@ -83,8 +83,14 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
         for(int i=0;i<size;i++) {
             if(check[i]) {
                 BufferedImage k=buffer[i].getImg();
+                if(buffer[i].isAnimated()) {
+                    ((Animated)buffer[i]).nextFrame();
+                    if(buffer[i].isEffect()&&((Effect)buffer[i]).getLength()<=((Effect)buffer[i]).getIndex()) {
+                        deleteComponent(i);
+                    }
+                }
                 if(k!=null)
-                g2d.setComposite(AlphaComposite.SrcOver.derive(buffer[i].getAlpha()));
+                    g2d.setComposite(AlphaComposite.SrcOver.derive(buffer[i].getAlpha()));
                 g2d.drawImage(k,buffer[i].getX(),buffer[i].getY(),buffer[i].getWidth(),buffer[i].getHeight(),this);
                 g2d.setFont(buffer[i].getFont());
                 g2d.setColor(buffer[i].getTextColor());
@@ -94,7 +100,7 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
         g2d.dispose();
         g.drawImage(bf,0,0,null);
         g.dispose();
-        
+
     }
     @Override
     public void run() {
@@ -145,22 +151,24 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
 
     @Override
     public void mouseReleased(MouseEvent arg0) {}
-}
-class GCControl implements Runnable{
 
-    @Override
-    public void run() {
-        while(true) {
-            try {
-                System.gc();
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+    class GCControl implements Runnable{
+
+        @Override
+        public void run() {
+            while(true) {
+                try {
+                    System.gc();
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
         }
     }
 }
+
 
 
 

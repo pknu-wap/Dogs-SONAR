@@ -11,7 +11,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class GraphicComponent{
+public abstract class GraphicComponent{
     private float alpha=1f;
     private String text="";
     private Font font=new Font("Consolas",Font.PLAIN,20);
@@ -19,6 +19,20 @@ public class GraphicComponent{
     private int id=-1,x=0,y=0,width=10,height=10;
     private BufferedImage img;
     private boolean isClickable=false;
+    private boolean isAnimated=false;
+    private boolean isEffect=false;
+    public boolean isEffect() {
+        return isAnimated;
+    }
+    public void setEffect(boolean isEffect) {
+        this.isEffect = isEffect;
+    }
+    public boolean isAnimated() {
+        return isAnimated;
+    }
+    public void setAnimated(boolean isAnimated) {
+        this.isAnimated = isAnimated;
+    }
     public boolean isClickable() {
         return isClickable;
     }

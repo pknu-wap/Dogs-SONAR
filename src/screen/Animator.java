@@ -5,8 +5,10 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
-public class Animator extends GraphicComponent{
+interface Animated {
+    public void nextFrame();
+}
+public class Animator extends GraphicComponent implements Animated{
     String[] AnimName;
     Animation[] Anim;
     int[] next;
@@ -17,6 +19,7 @@ public class Animator extends GraphicComponent{
         next=new int[size];
         AnimName=new String[size];
         Anim=new Animation[size];
+        setAnimated(true);
     }
     public void addAnimation(Animation animation,String name) {
         if(rear==Anim.length) {
@@ -48,13 +51,14 @@ public class Animator extends GraphicComponent{
     }
     public synchronized BufferedImage getImg() {
         BufferedImage t = Anim[animInd].getFrame(frameInd);
+        return t;
+    }
+    public void nextFrame() {
         frameInd+=1;
         if(frameInd==Anim[animInd].getLength()) {
             animInd=next[animInd];
             frameInd=0;
             syncSize();
         }
-        ;
-        return t;
     }
 }
