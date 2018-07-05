@@ -82,12 +82,13 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
         g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
         for(int i=0;i<size;i++) {
             if(check[i]) {
+                if(buffer[i].isEffect()&&((Effect)buffer[i]).getLength()<=((Effect)buffer[i]).getIndex()) {
+                    deleteComponent(i);
+                    continue;
+                }
                 BufferedImage k=buffer[i].getImg();
                 if(buffer[i].isAnimated()) {
-                    ((Animated)buffer[i]).nextFrame();
-                    if(buffer[i].isEffect()&&((Effect)buffer[i]).getLength()<=((Effect)buffer[i]).getIndex()) {
-                        deleteComponent(i);
-                    }
+                    ((Animated)buffer[i]).nextFrame();   
                 }
                 if(k!=null)
                     g2d.setComposite(AlphaComposite.SrcOver.derive(buffer[i].getAlpha()));

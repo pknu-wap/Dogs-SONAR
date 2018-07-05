@@ -22,7 +22,7 @@ public abstract class GraphicComponent{
     private boolean isAnimated=false;
     private boolean isEffect=false;
     public boolean isEffect() {
-        return isAnimated;
+        return isEffect;
     }
     public void setEffect(boolean isEffect) {
         this.isEffect = isEffect;

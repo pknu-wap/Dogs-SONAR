@@ -26,6 +26,8 @@ public class Effect extends GraphicComponent implements Animated{
         setHeight(frames.getHeight());
         setX(locX);
         setY(locY);
+        setAnimated(true);
+        setEffect(true);
     }
     public int getLength() {
         return frames.length;
