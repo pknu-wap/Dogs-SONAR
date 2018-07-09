@@ -15,9 +15,9 @@ public class TESTUI {
         GraphicViewer gV1=new GraphicViewer(100,500,500);
         gV1.setLocation(new Point(0,0));
         ExampleJFrame frame=new ExampleJFrame();
-        Animation enemyRun=new Animation("sprites\\thief\\normal\\run",150,150);
-        Animation enemyMove=new Animation("sprites\\thief\\normal\\move",200,200);
-        Animation enemyHit=new Animation("sprites\\thief\\normal\\hit",200,200);
+        Animation enemyRun=new Animation("sprites\\cat\\down",200,200);
+        Animation enemyMove=new Animation("sprites\\cat\\move",200,200);
+        Animation enemyHit=new Animation("sprites\\cat\\hit",200,200);
         Animator enemy=new Animator(3,200,200);
         ExampleButton garageDoor=new ExampleButton("sprites\\button\\greenButton.png", 100, 100,100, 100,"switch",new Font("Consolas",Font.BOLD,30),Color.red);
         enemy.setX(200);
@@ -52,7 +52,7 @@ class ExampleButton extends Button{
             isRun=false;
         }else {
             k.setNowAnim("hit");
-            t.addComponent(new Effect(ef,200,200),"explosion");
+            //t.addComponent(new Effect(ef,200,200),"explosion");
             isRun=true;
             
         }
