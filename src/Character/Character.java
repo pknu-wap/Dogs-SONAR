@@ -10,7 +10,9 @@ public class Character {
 	public void getDamge(double dmg) {
 		hp-=dmg;
 	}
-
+	public void get_sound(double dmg) {
+		damage= dmg;
+	}
 	public static void main(String args[]) {
 		Me me=new Me();
 		Enemy enemy=new Enemy();
@@ -18,20 +20,19 @@ public class Character {
 		//Play p=new Play();
 		re.c=me;
 		re.t=enemy;
+		
 		LevelMeter lm=new LevelMeter(re, 0.08, 3);
 //		p.e_in(enemy);
 //		p.m_in(me);
 //		p.run();
-	
+		
         try {
             lm.thread.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 	}
-	public void get_sound(double dmg) {
-		damage= dmg;
-	}
+	
 }
 
 class Me extends Character {
@@ -73,14 +74,16 @@ class Enemy extends Character{
 class Reactor implements SoundHandler{
 	Me c;
 	Enemy t;
+	
     @Override
     public void action(double now,double peak) {
              if(now>50) {
            	 c.attack_to_enemy(now*0.5,t);
-//            	 System.out.println(t.hp);
-//            	 if(t.hp<=0) {
-//            		 t.enemy_die();
- //           	 }
+           	 c.get_sound(now*0.5);
+            	 System.out.println(t.hp);
+            	 if(t.hp<=0) {
+            		 t.enemy_die();
+            	 }
             	 
              }
              else {
