@@ -4,9 +4,14 @@ import soundCapture.*;
 import java.util.ArrayList;
 
 public class Character {
-	double hp=100;
+	boolean timeout = false;
+	double hp=100.0;
 	double damage;
+	int length;
 	
+	int get_length() {
+		return length;
+	}
 	public void getDamge(double dmg) {
 		hp-=dmg;
 	}
@@ -16,15 +21,14 @@ public class Character {
 	public static void main(String args[]) {
 		Me me=new Me();
 		Enemy enemy=new Enemy();
+		Move m = new Move();
 		Reactor re=new Reactor();
-		//Play p=new Play();
+		
 		re.c=me;
 		re.t=enemy;
 		
 		LevelMeter lm=new LevelMeter(re, 0.08, 3);
-//		p.e_in(enemy);
-//		p.m_in(me);
-//		p.run();
+
 		
         try {
             lm.thread.join();
@@ -32,17 +36,22 @@ public class Character {
             e.printStackTrace();
         }
 	}
-	
+	void run() {
+		int clock = 0;
+		while(!timeout) {
+			clock++;
+			
+			try{Thread.sleep(200);} catch(Exception e){}
+			if(clock>45) stop();
+		}
+	}
+	void stop(){
+		timeout=true;
+	}
 }
 
 class Me extends Character {
-	double Me_length = 100;
-	double get_me_length() {
-		return Me_length;
-	}
-	void set_enemy_length(double length) {
-		Me_length=length;
-	}
+	
 	double get_hp() {
 		return this.hp;
 	}
@@ -55,14 +64,7 @@ class Me extends Character {
 	}
 }
 
-class Enemy extends Character{
-	double Enemy_length = 0;
-	double get_enemy_length() {
-		return Enemy_length;
-	}
-	void set_enemy_length(double length) {
-		Enemy_length=length;
-	}
+class Enemy extends Character{	
 	void attack_to_me(double dmg, Character target) {
 		target.getDamge(dmg);
 	}
@@ -70,7 +72,22 @@ class Enemy extends Character{
 		
 	}
 }
-
+class Move{
+	int x;
+	double dx,speed;
+	int move(Character c) {
+		dash(c);
+		x=c.length+(int)dx;
+		return x;
+	}
+	void dash(Character c) {
+		speed = speed * 0.8 + randM(4);
+		dx=c.get_length()*speed;
+	}
+	double randM(int M){
+		return Math.random()*M;
+	}
+}
 class Reactor implements SoundHandler{
 	Me c;
 	Enemy t;
