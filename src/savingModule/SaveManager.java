@@ -82,6 +82,15 @@ public class SaveManager {
 			e.printStackTrace();
 		}
 	}
+	
+	public SaveItem getItem(String key) {
+	    for(int i=0;i<arr.size();i++) {
+	        if(arr.get(i).getKey().equals(key)) return arr.get(i);
+	    }
+	    return null;
+	}
+	
+	
 	public static void main(String args[]) {
 		Scanner scan=new Scanner(System.in);
 		SaveManager sv=new SaveManager();

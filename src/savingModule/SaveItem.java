@@ -1,13 +1,14 @@
 package savingModule;
 public class SaveItem {
 	enum Type{
-		INT,DOUBLE,STRING;
+		INT,DOUBLE,STRING,BOOLEAN;
 	}
 	public String key;
 	Type type;
 	String valueString;
 	int valueInt;
 	double valueDouble;
+	boolean valueBoolean;
 	public SaveItem(String key,String value) {
 		this.key=key;
 		this.valueString=value;
@@ -18,11 +19,19 @@ public class SaveItem {
 		this.valueDouble=value;
 		type=Type.DOUBLE;
 	}
-	public SaveItem(String key,int value) {
+	public SaveItem(String key,boolean value) {
 		this.key=key;
-		this.valueInt=value;
-		type=Type.INT;
+		this.valueBoolean=value;
+		type=Type.BOOLEAN;
 	}
+	public boolean getValueBoolean(String valueString) {
+	    return valueBoolean;
+	}
+	public SaveItem(String key,int value) {
+        this.key=key;
+        this.valueInt=value;
+        type=Type.INT;
+    }
 	public String getKey() {
 		return key;
 	}
