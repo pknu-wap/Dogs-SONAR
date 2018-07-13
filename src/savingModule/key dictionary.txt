@@ -1,3 +1,9 @@
-dmgUp : upgrade value of damage
-critChanceUp : upgrade value of critical chance
-critDmgUp : upgrade value of critical damage multiplexer
+int--
+	dmgUp : upgrade value of damage
+	critChanceUp : upgrade value of critical chance
+	critDmgUp : upgrade value of critical damage multiplexer
+double--
+
+boolean--
+
+string--
