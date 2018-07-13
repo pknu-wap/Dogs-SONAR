@@ -52,6 +52,10 @@ public class SaveManager {
 			}
 		}
 	}
+	public void modify(SaveItem target) {
+	    delete(target.getKey());
+	    add(target);
+	}
 	public void save(String src) {
 		try {
 			PrintWriter pw = new PrintWriter(src);
