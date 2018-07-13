@@ -29,7 +29,6 @@ public class Character {
 		
 		LevelMeter lm=new LevelMeter(re, 0.08, 3);
 
-		
         try {
             lm.thread.join();
         } catch (InterruptedException e) {
@@ -72,6 +71,7 @@ class Enemy extends Character{
 		
 	}
 }
+
 class Move{
 	int x;
 	double dx,speed;
@@ -87,6 +87,15 @@ class Move{
 	double randM(int M){
 		return Math.random()*M;
 	}
+}
+
+class Chance{
+	public double heal(double hp,double heal_amount) {
+		hp=hp+heal_amount;
+		return hp;
+	}
+	
+	
 }
 class Reactor implements SoundHandler{
 	Me c;
