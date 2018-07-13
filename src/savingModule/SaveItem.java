@@ -1,6 +1,6 @@
 package savingModule;
 public class SaveItem {
-	enum Type{
+	public enum Type{
 		INT,DOUBLE,STRING,BOOLEAN;
 	}
 	public String key;
