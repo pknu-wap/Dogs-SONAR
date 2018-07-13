@@ -9,6 +9,7 @@ public class SaveItem {
 	int valueInt;
 	double valueDouble;
 	boolean valueBoolean;
+	public SaveItem() {}
 	public SaveItem(String key,String value) {
 		this.key=key;
 		this.valueString=value;
