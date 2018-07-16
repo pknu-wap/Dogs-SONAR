@@ -94,7 +94,14 @@ class Chance{
 		hp=hp+heal_amount;
 		return hp;
 	}
-	
+	public double slow(double speed) {
+		speed = speed/2;
+		return speed;
+	}
+	public double fast(double speed) {
+		speed = speed*2;
+		return speed;
+	}
 	
 }
 class Reactor implements SoundHandler{
