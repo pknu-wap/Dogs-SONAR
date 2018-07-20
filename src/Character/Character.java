@@ -20,12 +20,12 @@ public class Character {
 	}
 	public static void main(String args[]) {
 		Me me=new Me();
-		Enemy enemy=new Enemy();
+		ArrayList<Enemy> emy = new ArrayList<Enemy>();
 		Move m = new Move();
 		Reactor re=new Reactor();
 		
 		re.c=me;
-		re.t=enemy;
+		re.t=emy;
 		
 		LevelMeter lm=new LevelMeter(re, 0.08, 3);
 
@@ -89,7 +89,7 @@ class Move{
 	}
 }
 
-class Chance{
+class Chance extends Enemy{
 	public double heal(double hp,double heal_amount) {
 		hp=hp+heal_amount;
 		return hp;
@@ -104,9 +104,10 @@ class Chance{
 	}
 	
 }
+
 class Reactor implements SoundHandler{
 	Me c;
-	Enemy t;
+	ArrayList<Enemy> t;
 	
     @Override
     public void action(double now,double peak) {
