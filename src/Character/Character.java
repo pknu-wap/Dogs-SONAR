@@ -22,7 +22,7 @@ public class Character {
 		Me me=new Me();
 		ArrayList<Enemy> emy = new ArrayList<Enemy>();
 		Move m = new Move();
-		Reactor re=new Reactor();
+		Reactor re = new Reactor();
 		
 		re.c=me;
 		re.t=emy;
@@ -58,8 +58,8 @@ class Me extends Character {
 	void set_hp(double hp) {
 		this.hp=hp;
 	}
-	void attack_to_enemy(double dmg,Character target) {
-		target.getDamge(dmg);
+	void attack_to_enemy(double dmg,Character target<enemy>) {
+		target<enemy>.getDamge(dmg);
 	}
 }
 
@@ -118,7 +118,6 @@ class Reactor implements SoundHandler{
             	 if(t.hp<=0) {
             		 t.enemy_die();
             	 }
-            	 
              }
              else {
             	 
