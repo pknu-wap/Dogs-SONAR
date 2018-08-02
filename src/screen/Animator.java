@@ -14,7 +14,7 @@ public class Animator extends GraphicComponent implements Animated{
     TreeMap<String,String> next;
     String animInd,rear;
     int frameInd=0;
-    public Animator(int size,int width,int height) {
+    public Animator(int width,int height) {
         setWidth(width);
         setHeight(height);
         anim=new TreeMap<String,Animation>();
@@ -24,6 +24,7 @@ public class Animator extends GraphicComponent implements Animated{
     public void addAnimation(Animation animation,String name) {
         anim.put(name,animation);
         next.put(name,name);
+        animInd=name;
     }
     void syncSize() {
         this.setWidth(anim.get(animInd).getWidth());

@@ -12,13 +12,13 @@ import javax.swing.Timer;
 public class TESTUI {
     
     public static void main(String args[]){//TODO main method
-        GraphicViewer gV1=new GraphicViewer(100,500,500);
+        GraphicViewer gV1=new GraphicViewer(500,500);
         gV1.setLocation(new Point(0,0));
         ExampleJFrame frame=new ExampleJFrame();
         Animation enemyRun=new Animation("sprites\\cat\\down",200,200);
         Animation enemyMove=new Animation("sprites\\cat\\move",200,200);
         Animation enemyHit=new Animation("sprites\\cat\\hit",200,200);
-        Animator enemy=new Animator(3,200,200);
+        Animator enemy=new Animator(200,200);
         ExampleButton garageDoor=new ExampleButton("sprites\\button\\greenButton.png", 100, 100,100, 100,"switch",new Font("Consolas",Font.BOLD,30),Color.red);
         enemy.setX(200);
         enemy.setY(200);

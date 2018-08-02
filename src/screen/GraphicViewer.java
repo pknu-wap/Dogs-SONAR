@@ -14,17 +14,20 @@ import java.util.TreeMap;
 
 public class GraphicViewer extends Canvas implements Runnable,MouseListener{
     BufferedImage bf;
+    int frameRate=50;
     TreeMap<String,GraphicComponent> buffer;
     boolean firstPainted=false;
     Thread thr;
-    public GraphicViewer(int width,int height) {
+    public GraphicViewer(int width,int height,int rate) {
+        frameRate=rate;
         this.addMouseListener(this);
         this.setSize(width,height);
         this.setBackground(Color.white);
         buffer=new TreeMap<String,GraphicComponent>();
         new Thread(new GCControl()).start();
     }
-    public GraphicViewer() {
+    public GraphicViewer(int rate) {
+        frameRate=rate;
         this.addMouseListener(this);
         this.setSize(100,100);
         this.setBackground(Color.white);
@@ -78,7 +81,7 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
     public void run() {
         while(true) {
             try {
-                Thread.sleep(50);
+                Thread.sleep(frameRate);
                 paint(this.getGraphics());	
             } catch (InterruptedException e) {
                 e.printStackTrace();
