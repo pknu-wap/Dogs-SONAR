@@ -35,25 +35,28 @@ public class TESTUI {
 }
 class ExampleButton extends Button{
     Animation ef;
-    boolean isRun=false;
+    boolean isRunning;
     public ExampleButton(String string, int i, int j, int k, int l, String string2, Font font, Color col){
         super(string,i,j,k,l,string2,font,col);
         ef=new Animation("sprites\\explosion",200,200);
+        isRunning=false;
     }
     Random rand=new Random();
     boolean isOpened=false;
+    
     @Override
 
-    public void act(MouseEvent e) {
+    public synchronized void act(MouseEvent e) {
         GraphicViewer t=(GraphicViewer) e.getSource();
         Animator k=(Animator)t.getComponentByName("enemy");
-        if(isRun) {
+        if(isRunning) {
+            this.isRunning=false;
             k.setNowAnim("move");
-            isRun=false;
         }else {
+            this.isRunning=true;
             k.setNowAnim("hit");
-            //t.addComponent(new Effect(ef,200,200),"explosion");
-            isRun=true;
+            t.addComponent(new Effect(ef,200,200),"explosion");
+            
             
         }
         

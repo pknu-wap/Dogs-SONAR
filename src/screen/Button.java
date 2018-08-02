@@ -53,17 +53,23 @@ public class Button extends GraphicComponent implements Actable{
     }
     public void action(MouseEvent e){
         if(!isRun) {
+            isRun=true;
             tmp=e;
             thr=new Thread(this);
             thr.start();
+            try {
+                thr.join(100);
+            } catch (InterruptedException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+            isRun=false;
         }
     }
     @Override
 
     public void run() {
-        this.isRun=true;
         act(tmp);
-        this.isRun=false;
     }
     public void act(MouseEvent e) {
 
