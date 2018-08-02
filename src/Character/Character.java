@@ -3,12 +3,15 @@ package Character;
 import soundCapture.*;
 import java.util.ArrayList;
 
+
+
+
 public class Character {
 	boolean timeout = false;
 	double hp=100.0;
 	double damage;
 	int length;
-	
+	static ArrayList<Enemy> emy = new ArrayList<Enemy>();
 	int get_length() {
 		return length;
 	}
@@ -18,9 +21,9 @@ public class Character {
 	public void get_sound(double dmg) {
 		damage= dmg;
 	}
+	
 	public static void main(String args[]) {
 		Me me=new Me();
-		ArrayList<Enemy> emy = new ArrayList<Enemy>();
 		Move m = new Move();
 		Reactor re = new Reactor();
 		
@@ -58,17 +61,17 @@ class Me extends Character {
 	void set_hp(double hp) {
 		this.hp=hp;
 	}
-	void attack_to_enemy(double dmg,Character target<enemy>) {
-		target<enemy>.getDamge(dmg);
+	void attack_to_enemy(double dmg, Character target) {
+		target.getDamge(dmg);
 	}
 }
 
-class Enemy extends Character{	
+class Enemy extends Character {	
 	void attack_to_me(double dmg, Character target) {
 		target.getDamge(dmg);
 	}
-	void enemy_die() {
-		
+	void enemy_die(ArrayList<Enemy> t) {
+		emy.remove(t);
 	}
 }
 
@@ -116,53 +119,14 @@ class Reactor implements SoundHandler{
            	 c.get_sound(now*0.5);
             	 System.out.println(t.hp);
             	 if(t.hp<=0) {
-            		 t.enemy_die();
+            		 enemy_die(t);
             	 }
              }
-             else {
+             else{
             	 
              }
     }
+
+
 }
-
-//class Play implements Runnable{
-//	int index=0;
-//	Me m;
-//	//Enemy[] emy=new Enemy[10];
-//	ArrayList<Integer> emy = new ArrayList<>();
-//
-//	public Play(){
-//	for(int i=0; i<10; i++) {
-//		emy.add(i);
-//	}
-//
-//	}
-//	@Override
-//	public void run() {
-//		
-//		while(true) {
-//			for(int i=0; i<10; i++) {
-//				emy[i].set_enemy_length(emy[i].get_enemy_length()+1);
-//			}
-//			for(int i=0; i<10; i++) {
-//			if(m.get_me_length()==emy[i].get_enemy_length()) {
-//				m.set_hp(m.get_hp()-5);
-//				if(m.get_hp()<=0) {
-//					System.out.println("Game Over");
-//				}
-//			}
-//			}
-//			
-//			try {Thread.sleep(1000);}catch(Exception e) {}
-//		}
-//	}
-//	void e_in(Enemy e){
-//		emy[index]=e;
-//		index++;
-//	}
-//	void m_in(Me m) {
-//		this.m=m;
-//	}
-//}
-
 
