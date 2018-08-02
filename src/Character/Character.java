@@ -53,7 +53,6 @@ public class Character {
 }
 
 class Me extends Character {
-	
 	double get_hp() {
 		return this.hp;
 	}
@@ -61,12 +60,15 @@ class Me extends Character {
 	void set_hp(double hp) {
 		this.hp=hp;
 	}
-	void attack_to_enemy(double dmg, Character target) {
-		target.getDamge(dmg);
+	void attack_to_enemy(double dmg, ArrayList<Enemy> t) {
+		t.getDamge(dmg);
 	}
 }
 
 class Enemy extends Character {	
+	public Enemy() {
+		this.hp = 100;
+	}
 	void attack_to_me(double dmg, Character target) {
 		target.getDamge(dmg);
 	}
@@ -127,6 +129,9 @@ class Reactor implements SoundHandler{
              }
     }
 
-
+	private void enemy_die(ArrayList<Enemy> t2) {
+		// TODO Auto-generated method stub
+		t.remove(t2);
+	}
 }
 
