@@ -13,22 +13,19 @@ import java.util.Map.Entry;
 import java.util.TreeMap;
 
 public class GraphicViewer extends Canvas implements Runnable,MouseListener{
-    int size;
     BufferedImage bf;
     TreeMap<String,GraphicComponent> buffer;
     boolean firstPainted=false;
     Thread thr;
-    public GraphicViewer(int bufferSize,int width,int height) {
+    public GraphicViewer(int width,int height) {
         this.addMouseListener(this);
-        this.size=bufferSize;
         this.setSize(width,height);
         this.setBackground(Color.white);
         buffer=new TreeMap<String,GraphicComponent>();
         new Thread(new GCControl()).start();
     }
-    public GraphicViewer(int bufferSize) {
+    public GraphicViewer() {
         this.addMouseListener(this);
-        this.size=bufferSize;
         this.setSize(100,100);
         this.setBackground(Color.white);
         buffer=new TreeMap<String,GraphicComponent>();
