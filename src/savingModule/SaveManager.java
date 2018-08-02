@@ -10,11 +10,13 @@ import screen.GraphicComponent;
 
 public class SaveManager {
     int count=0;
+    String src;
     TreeMap<String,SaveItem> arr;
-    public SaveManager() {
+    public SaveManager(String src) {
+        this.src=src;
         arr=new TreeMap<String,SaveItem>();
     }
-    public void load(String src) throws IOException {
+    public void load() throws IOException {
         try {
             BufferedReader r=new BufferedReader(new FileReader(src));
             count=Integer.parseInt(r.readLine());
@@ -42,7 +44,7 @@ public class SaveManager {
             PrintWriter pw = new PrintWriter(src);
             pw.println(0);
             pw.close();
-            this.load(src);
+            this.load();
         }
     }
     public void add(String key,SaveItem sv) {
@@ -60,7 +62,7 @@ public class SaveManager {
         delete(key);
         add(key,target);
     }
-    public void save(String src) {
+    public void save() {
         try {
             PrintWriter pw = new PrintWriter(src);
             pw.println(count);
@@ -99,7 +101,7 @@ public class SaveManager {
 
     public static void main(String args[]) {
         Scanner scan=new Scanner(System.in);
-        SaveManager sv=new SaveManager();
+        SaveManager sv=new SaveManager("save.dat");
 
         scan.nextLine();
 
