@@ -3,39 +3,31 @@ public class SaveItem {
 	public enum Type{
 		INT,DOUBLE,STRING,BOOLEAN;
 	}
-	public String key;
 	Type type;
 	String valueString;
 	int valueInt;
 	double valueDouble;
 	boolean valueBoolean;
 	public SaveItem() {}
-	public SaveItem(String key,String value) {
-		this.key=key;
+	public SaveItem(String value) {
 		this.valueString=value;
 		type=Type.STRING;
 	}
-	public SaveItem(String key,double value) {
-		this.key=key;
+	public SaveItem(double value) {
 		this.valueDouble=value;
 		type=Type.DOUBLE;
 	}
-	public SaveItem(String key,boolean value) {
-		this.key=key;
+	public SaveItem(boolean value) {
 		this.valueBoolean=value;
 		type=Type.BOOLEAN;
 	}
 	public boolean getValueBoolean(String valueString) {
 	    return valueBoolean;
 	}
-	public SaveItem(String key,int value) {
-        this.key=key;
+	public SaveItem(int value) {
         this.valueInt=value;
         type=Type.INT;
     }
-	public String getKey() {
-		return key;
-	}
 	public String getValueString() {
 		return valueString;
 	}
@@ -53,9 +45,6 @@ public class SaveItem {
 	}
 	public void setValueDouble(double valueDouble) {
 		this.valueDouble = valueDouble;
-	}
-	public void setKey(String key) {
-		this.key = key;
 	}
 	public void setType(Type type) {
 		this.type = type;

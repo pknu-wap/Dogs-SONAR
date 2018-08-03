@@ -22,10 +22,10 @@ public class Upgrades {
     }
     public Upgrades(SaveManager save) {
         this.sv=save;
-        dmg=sv.getItem("dmgUp",SaveItem.Type.INT).getValueInt();
-        critChance=sv.getItem("critChanceUp",SaveItem.Type.INT).getValueInt();
-        critDmg=sv.getItem("critDmgUp",SaveItem.Type.INT).getValueInt();
-        hull=sv.getItem("hullUp",SaveItem.Type.INT).getValueInt();
+        dmg=sv.getItem("dmgUp").getValueInt();
+        critChance=sv.getItem("critChanceUp").getValueInt();
+        critDmg=sv.getItem("critDmgUp").getValueInt();
+        hull=sv.getItem("hullUp").getValueInt();
     }
     public double calcDamage(double baseDmg) {
         return baseDmg+(5*dmg);
@@ -44,26 +44,26 @@ public class Upgrades {
         case DAMAGE:
             if(dmg+amount<=limit) {
                 dmg+=amount;
-                sv.modify(new SaveItem("dmgUp",dmg));
+                sv.modify("dmgUp",new SaveItem(dmg));
             }
             break;
         case CRITCHANCE:
             if(critChance+amount<=limit) {
                 critChance+=amount;
-                sv.modify(new SaveItem("critChnaceUp",critChance));
+                sv.modify("critChnaceUp",new SaveItem(critChance));
             }
             
             break;
         case CRITDAMAGE:
             if(critDmg+amount<=limit) {
                 critDmg+=amount;
-                sv.modify(new SaveItem("critDmgUp",critDmg));
+                sv.modify("critDmgUp",new SaveItem(critDmg));
             }
             break;
         case HULL:
             if(hull+amount<=limit) {
                 hull+=amount;
-                sv.modify(new SaveItem("hullUp",hull));
+                sv.modify("hullUp",new SaveItem(hull));
             }
             break;
         }

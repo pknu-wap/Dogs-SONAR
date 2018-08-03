@@ -3,14 +3,20 @@ package savingModule;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.TreeMap;
+import java.util.Map.Entry;
+
+import screen.GraphicComponent;
 
 public class SaveManager {
     int count=0;
-    ArrayList<SaveItem> arr;
-    public SaveManager() {
-        arr=new ArrayList<SaveItem>();
+    String src;
+    TreeMap<String,SaveItem> arr;
+    public SaveManager(String src) {
+        this.src=src;
+        arr=new TreeMap<String,SaveItem>();
     }
-    public void load(String src) throws IOException {
+    public void load() throws IOException {
         try {
             BufferedReader r=new BufferedReader(new FileReader(src));
             count=Integer.parseInt(r.readLine());
@@ -19,62 +25,63 @@ public class SaveManager {
                 String key=r.readLine();
                 switch(Integer.parseInt(r.readLine())) {
                 case 0://string
-                    t=new SaveItem(key,r.readLine());
+                    t=new SaveItem(r.readLine());
                     break;
                 case 1://integer
-                    t=new SaveItem(key,Integer.parseInt(r.readLine()));
+                    t=new SaveItem(Integer.parseInt(r.readLine()));
                     break;
                 case 2://double
-                    t=new SaveItem(key,Double.parseDouble(r.readLine()));
+                    t=new SaveItem(Double.parseDouble(r.readLine()));
                     break;
                 default:
-                    t=new SaveItem(key,null);
+                    t=new SaveItem(null);
                     break;
                 }
-                arr.add(t);
+                add(key,t);
             }
             r.close();
         }catch(FileNotFoundException e) {
             PrintWriter pw = new PrintWriter(src);
             pw.println(0);
             pw.close();
-            this.load(src);
+            this.load();
         }
     }
-    public void add(SaveItem sv) {
-        arr.add(sv);
+    public void add(String key,SaveItem sv) {
+        arr.put(key,sv);
     }
     public void delete(String key) {
         for(int i=0;i<count;i++) {
             SaveItem t=arr.get(i);
-            if(t.key.equals(key)) {
+            if(key.equals(key)) {
                 arr.remove(i);
             }
         }
     }
-    public void modify(SaveItem target) {
-        delete(target.getKey());
-        add(target);
+    public void modify(String key,SaveItem target) {
+        delete(key);
+        add(key,target);
     }
-    public void save(String src) {
+    public void save() {
         try {
             PrintWriter pw = new PrintWriter(src);
             pw.println(count);
-            for(int i=0;i<count;i++) {
-                SaveItem t = arr.get(i);
-                pw.println(t.getKey());
-                switch(t.getType()) {
+            for (Entry<String, SaveItem> entry : arr.entrySet()) {
+                String key   = entry.getKey();
+                SaveItem value =  entry.getValue();
+                pw.println(key);
+                switch(value.getType()) {
                 case INT:
                     pw.println(1);
-                    pw.println(t.getValueInt());
+                    pw.println(value.getValueInt());
                     break;
                 case DOUBLE:
                     pw.println(2);
-                    pw.println(t.getValueDouble());
+                    pw.println(value.getValueDouble());
                     break;
                 case STRING:
                     pw.println(0);
-                    pw.println(t.getValueString());
+                    pw.println(value.getValueString());
                     break;
                 default:
                     break;
@@ -87,32 +94,14 @@ public class SaveManager {
         }
     }
 
-    public SaveItem getItem(String key,SaveItem.Type type) {
-        for(int i=0;i<arr.size();i++) {
-            if(arr.get(i).getKey().equals(key)) return arr.get(i);
-        }
-        SaveItem t=new SaveItem();
-        switch(type) {
-        case BOOLEAN:
-            t=new SaveItem(key,false);
-            break;
-        case DOUBLE:
-            t=new SaveItem(key,0.0);
-            break;
-        case INT:
-            t=new SaveItem(key,0);
-            break;
-        case STRING:
-            t=new SaveItem(key,"");
-            break;
-        }
-        return t;
+    public SaveItem getItem(String key) {
+        return arr.get(key);
     }
 
 
     public static void main(String args[]) {
         Scanner scan=new Scanner(System.in);
-        SaveManager sv=new SaveManager();
+        SaveManager sv=new SaveManager("save.dat");
 
         scan.nextLine();
 

@@ -60,8 +60,8 @@ class Me extends Character {
 	void set_hp(double hp) {
 		this.hp=hp;
 	}
-	void attack_to_enemy(double dmg, ArrayList<Enemy> t) {
-		t.getDamge(dmg);
+	void attack_to_enemy(double dmg, ArrayList<Enemy> t,int i) {
+		t.get(i).getDamge(dmg);
 	}
 }
 
@@ -117,10 +117,10 @@ class Reactor implements SoundHandler{
     @Override
     public void action(double now,double peak) {
              if(now>50) {
-           	 c.attack_to_enemy(now*0.5,t);
+           	 c.attack_to_enemy(now*0.5,t,i);
            	 c.get_sound(now*0.5);
-            	 System.out.println(t.hp);
-            	 if(t.hp<=0) {
+            	 System.out.println(t.get(i));
+            	 if(t.get(i)<=0) {
             		 enemy_die(t);
             	 }
              }

@@ -8,67 +8,40 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Map.Entry;
+import java.util.TreeMap;
 
 public class GraphicViewer extends Canvas implements Runnable,MouseListener{
-    int size;
     BufferedImage bf;
-    GraphicComponent[] buffer;
-    String[] names;
-    boolean[] check;
+    int frameRate=50;
+    TreeMap<String,GraphicComponent> buffer;
     boolean firstPainted=false;
     Thread thr;
-    public GraphicViewer(int bufferSize,int width,int height) {
+    public GraphicViewer(int width,int height,int rate) {
+        frameRate=rate;
         this.addMouseListener(this);
-        this.size=bufferSize;
         this.setSize(width,height);
         this.setBackground(Color.white);
-        buffer=new GraphicComponent[size];
-        check=new boolean[size];
-        names=new String[size];
-        for(int i=0;i<size;i++) {
-            check[i]=false;
-        }
+        buffer=new TreeMap<String,GraphicComponent>();
         new Thread(new GCControl()).start();
     }
-    public GraphicViewer(int bufferSize) {
+    public GraphicViewer(int rate) {
+        frameRate=rate;
         this.addMouseListener(this);
-        this.size=bufferSize;
         this.setSize(100,100);
         this.setBackground(Color.white);
-        buffer=new GraphicComponent[size];
-        check=new boolean[size];
-        names=new String[size];
-        for(int i=0;i<size;i++) {
-            check[i]=false;
-        }
+        buffer=new TreeMap<String,GraphicComponent>();
     }
 
-    public int addComponent(GraphicComponent btn,String name) {
-        for(int i=0;i<size;i++) {
-            if(!check[i]) {
-                buffer[i]=btn;
-                names[i]=name;
-                check[i]=true;
-                return i;
-            }
-        }
-        return -1;
-    }
-    int getIdByName(String name) {
-        for(int i=0;i<size;i++) {
-            if(check[i]&&names[i].equals(name)) {
-                return i;
-            }
-        }
-        return -1;
+    public void addComponent(GraphicComponent btn,String name) {
+        buffer.put(name, btn);
     }
     public GraphicComponent getComponentByName(String name) {
-        return buffer[getIdByName(name)];
+        return buffer.get(name);
     }
-    public void deleteComponent(int index) {
-        buffer[index]=null;
-        names[index]=null;
-        check[index]=false;
+    public void deleteComponent(String name) {
+        buffer.remove(name);
     }
     public void paint(Graphics g) {
         if(!firstPainted) {
@@ -80,22 +53,23 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
         Graphics2D g2d=(Graphics2D) bf.getGraphics();
         g2d.setColor(Color.white);
         g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
-        for(int i=0;i<size;i++) {
-            if(check[i]) {
-                if(buffer[i].isEffect()&&((Effect)buffer[i]).getLength()<=((Effect)buffer[i]).getIndex()) {
-                    deleteComponent(i);
-                    continue;
-                }
-                BufferedImage k=buffer[i].getImg();
-                if(buffer[i].isAnimated()) {
-                    ((Animated)buffer[i]).nextFrame();   
-                }
-                if(k!=null)
-                    g2d.setComposite(AlphaComposite.SrcOver.derive(buffer[i].getAlpha()));
-                g2d.drawImage(k,buffer[i].getX(),buffer[i].getY(),buffer[i].getWidth(),buffer[i].getHeight(),this);
-                g2d.setFont(buffer[i].getFont());
-                g2d.setColor(buffer[i].getTextColor());
-                g2d.drawString(buffer[i].getText(),(int) (buffer[i].getX()+0.76*buffer[i].getFont().getSize()/2),(int) (buffer[i].getY()+buffer[i].getHeight()/2+0.76*buffer[i].getFont().getSize()/2));
+        for (Entry<String, GraphicComponent> entry : buffer.entrySet()) {
+            String key   = entry.getKey();
+            GraphicComponent value =  entry.getValue();
+            if(value.isEffect()&&((Effect)value).getLength()<=((Effect)value).getIndex()) {
+                deleteComponent(key);
+                continue;
+            }
+            BufferedImage k=value.getImg();
+            if(value.isAnimated()) {
+                ((Animated)value).nextFrame();   
+            }
+            if(k!=null) {
+                g2d.setComposite(AlphaComposite.SrcOver.derive(value.getAlpha()));
+                g2d.drawImage(k,value.getX(),value.getY(),value.getWidth(),value.getHeight(),this);
+                g2d.setFont(value.getFont());
+                g2d.setColor(value.getTextColor());
+                g2d.drawString(value.getText(),(int) (value.getX()+0.76*value.getFont().getSize()/2),(int) (value.getY()+value.getHeight()/2+0.76*value.getFont().getSize()/2));
             }
         }
         g2d.dispose();
@@ -107,7 +81,8 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
     public void run() {
         while(true) {
             try {
-                Thread.sleep(100);
+                Thread.sleep(frameRate);
+                if(this.getGraphics()==null)break;
                 paint(this.getGraphics());	
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -135,19 +110,20 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
     public void mousePressed(MouseEvent arg0) {
         int tX=arg0.getX();
         int tY=arg0.getY();
-        for(int i=size-1;i>=0;i--) {
-            if(check[i]&&buffer[i].isClickable()) {
-                Button tmp=(Button)buffer[i];
+        for (Entry<String, GraphicComponent> entry : buffer.entrySet()) {
+            String key   = entry.getKey();
+            GraphicComponent value =  entry.getValue();
+            if(value.isClickable()) {
+                Button tmp=(Button)value;
                 if((tmp.getX()<tX&&tX<tmp.getX()+tmp.getWidth()&&tmp.getY()<tY&&tY<tmp.getY()+tmp.getHeight()&&tmp.getImg().getRGB(tX-tmp.getX(),tY-tmp.getY())!=0)&&tmp.getAlpha()>0) {
                     System.out.println("coordinate : "+tX+" "+tY);
-                    System.out.println("clicked Name : "+i);
+                    System.out.println("clicked Name : "+key);
                     System.out.printf("color(argb) : %x\n",tmp.getImg().getRGB(tX-tmp.getX(),tY-tmp.getY()));
                     tmp.action(arg0);
                     break;
                 }
             }
         }
-
     }
 
     @Override
