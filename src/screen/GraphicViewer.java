@@ -82,6 +82,7 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
         while(true) {
             try {
                 Thread.sleep(frameRate);
+                if(this.getGraphics()==null)break;
                 paint(this.getGraphics());	
             } catch (InterruptedException e) {
                 e.printStackTrace();

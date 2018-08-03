@@ -12,7 +12,7 @@ import javax.swing.Timer;
 public class TESTUI {
     
     public static void main(String args[]){//TODO main method
-        GraphicViewer gV1=new GraphicViewer(500,500);
+        GraphicViewer gV1=new GraphicViewer(500,500,40);
         gV1.setLocation(new Point(0,0));
         ExampleJFrame frame=new ExampleJFrame();
         Animation enemyRun=new Animation("sprites\\cat\\down",200,200);

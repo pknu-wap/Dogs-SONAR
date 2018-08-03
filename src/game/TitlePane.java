@@ -98,9 +98,11 @@ public class TitlePane extends GraphicViewer{
         }
         @Override
         public void act(MouseEvent e) {
+            pane.w.upgrade=new UpgradePane(1280, 720, 50, pane.w);
+            pane.w.add(pane.w.upgrade);
             pane.w.remove(pane);
-            pane.w.add(pane.w.game);
             pane.dog.isPlaying=false;
+            
         }
         
     }
