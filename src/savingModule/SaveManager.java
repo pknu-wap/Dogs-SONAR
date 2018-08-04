@@ -106,15 +106,15 @@ public class SaveManager {
             ret=new SaveItem();
             arr.put(key,ret);
         }
-        return arr.get(key);
+        return ret;
     }
 
 
-    public static void main(String args[]) {
+    /*public static void main(String args[]) {
         Scanner scan=new Scanner(System.in);
         SaveManager sv=new SaveManager("save.dat");
 
         scan.nextLine();
 
-    }
+    }*/
 }

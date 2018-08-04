@@ -1,17 +1,21 @@
 package game;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.util.Random;
 
 import screen.*;
 
 public class TitlePane extends GraphicViewer{
-    FixedImage img=new FixedImage("sprites\\title\\title.jpg",0,0,1280,720);
+    FixedImage img=new FixedImage("sprites\\Title\\title.jpg",0,0,1280,720);
     StartBtn start=new StartBtn("sprites\\Buttons\\main.png",800,100,200,50);
     UpgradeBtn upgrade=new UpgradeBtn("sprites\\Buttons\\main.png",800,300,200,50);
     ExitBtn exit=new ExitBtn("sprites\\Buttons\\main.png",800,500,200,50);
     Window w;
     TitleDogAnimator dog=new TitleDogAnimator(100,100);
+    FixedImage moneyIcon=new FixedImage("sprites\\Money\\icon.png",1000,100,50,50);
+    FixedImage moneyValue=new FixedImage(null,1060,100,100,50);
     public TitlePane(Window w) {
         super(1280,720,200);
         this.w=w;
@@ -23,7 +27,9 @@ public class TitlePane extends GraphicViewer{
         addComponent(upgrade,"upgrade");
         addComponent(exit,"exit");
         addComponent(dog,"dog");
-        
+        addComponent(moneyIcon,"moneyIcon");
+        addComponent(moneyValue,"moneyValue");
+        moneyValue.setText(w.sv.getItem("money").getValueInt()+"");
     }
     class TitleDogAnimator extends Animator {
         Random rand;
