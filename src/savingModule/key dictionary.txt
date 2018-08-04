@@ -3,6 +3,7 @@ int--
 	critChanceUp : upgrade value of critical chance
 	critDmgUp : upgrade value of critical damage multiplexer
 	hullUp : upgrade value of hull
+	money : amount of money
 double--
 
 boolean--

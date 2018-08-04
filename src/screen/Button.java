@@ -24,14 +24,12 @@ public class Button extends GraphicComponent implements Actable{
         setHeight(getImg().getHeight(null));
         setClickable(true);
     }
-    public Button(String imgSrc,int locX,int locY,int sizeWidth,int sizeHeight,String content,Font font,Color textColor){
+    public Button(String imgSrc,int locX,int locY,int sizeWidth,int sizeHeight,String content){
         setX(locX);
         setY(locY);
         setWidth(sizeWidth);
         setHeight(sizeHeight);
         setText(content);
-        setFont(font);
-        setTextColor(textColor);
         setImg(imgSrc);
         setClickable(true);
     }

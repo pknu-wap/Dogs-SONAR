@@ -1,32 +1,21 @@
 package savingModule;
 public class SaveItem {
-	public enum Type{
-		INT,DOUBLE,STRING,BOOLEAN;
-	}
-	Type type;
-	String valueString="null";
-	int valueInt=-1;
-	double valueDouble=-1.0;
-	boolean valueBoolean=false;
+	String valueString="-1";
 	public SaveItem() {}
 	public SaveItem(String value) {
-		this.valueString=value;
-		type=Type.STRING;
+	    this.valueString=value;
 	}
 	public SaveItem(double value) {
-		this.valueDouble=value;
-		type=Type.DOUBLE;
+		this.valueString=""+value;
 	}
 	public SaveItem(boolean value) {
-		this.valueBoolean=value;
-		type=Type.BOOLEAN;
+	    this.valueString=""+value;
 	}
-	public boolean getValueBoolean(String valueString) {
-	    return valueBoolean;
+	public boolean getValueBoolean() {
+	    return Boolean.valueOf(valueString);
 	}
 	public SaveItem(int value) {
-        this.valueInt=value;
-        type=Type.INT;
+	    this.valueString=""+value;
     }
 	public String getValueString() {
 		return valueString;
@@ -35,21 +24,15 @@ public class SaveItem {
 		this.valueString = valueString;
 	}
 	public int getValueInt() {
-		return valueInt;
+		return Integer.valueOf(valueString);
 	}
-	public void setValueInt(int valueInt) {
-		this.valueInt = valueInt;
+	public void setValueInt(int value) {
+        this.valueString=""+value;
 	}
 	public double getValueDouble() {
-		return valueDouble;
+		return Double.valueOf(valueString);
 	}
-	public void setValueDouble(double valueDouble) {
-		this.valueDouble = valueDouble;
-	}
-	public void setType(Type type) {
-		this.type = type;
-	}
-	public Type getType() {
-		return type;
+	public void setValueDouble(double value) {
+	      this.valueString=""+value;
 	}
 }

@@ -19,7 +19,7 @@ public class TESTUI {
         Animation enemyMove=new Animation("sprites\\cat\\move",200,200);
         Animation enemyHit=new Animation("sprites\\cat\\hit",200,200);
         Animator enemy=new Animator(200,200);
-        ExampleButton garageDoor=new ExampleButton("sprites\\button\\greenButton.png", 100, 100,100, 100,"switch",new Font("Consolas",Font.BOLD,30),Color.red);
+        ExampleButton garageDoor=new ExampleButton("sprites\\button\\greenButton.png", 100, 100,100, 100,"switch");
         enemy.setX(200);
         enemy.setY(200);
         enemy.addAnimation(enemyMove, "move");
@@ -36,8 +36,8 @@ public class TESTUI {
 class ExampleButton extends Button{
     Animation ef;
     boolean isRunning;
-    public ExampleButton(String string, int i, int j, int k, int l, String string2, Font font, Color col){
-        super(string,i,j,k,l,string2,font,col);
+    public ExampleButton(String string, int i, int j, int k, int l, String string2){
+        super(string,i,j,k,l,string2);
         ef=new Animation("sprites\\explosion",200,200);
         isRunning=false;
     }

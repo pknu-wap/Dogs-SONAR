@@ -29,20 +29,7 @@ public class SaveManager {
             for(int i=0;i<count;i++) {
                 SaveItem t;
                 String key=r.readLine();
-                switch(Integer.parseInt(r.readLine())) {
-                case 0://string
-                    t=new SaveItem(r.readLine());
-                    break;
-                case 1://integer
-                    t=new SaveItem(Integer.parseInt(r.readLine()));
-                    break;
-                case 2://double
-                    t=new SaveItem(Double.parseDouble(r.readLine()));
-                    break;
-                default:
-                    t=new SaveItem(null);
-                    break;
-                }
+                t=new SaveItem(r.readLine());
                 add(key,t);
             }
             r.close();
@@ -71,27 +58,12 @@ public class SaveManager {
     public void save() {
         try {
             PrintWriter pw = new PrintWriter(src);
-            pw.println(count);
+            pw.println(count+"");
             for (Entry<String, SaveItem> entry : arr.entrySet()) {
                 String key   = entry.getKey();
                 SaveItem value =  entry.getValue();
                 pw.println(key);
-                switch(value.getType()) {
-                case INT:
-                    pw.println(1);
-                    pw.println(value.getValueInt());
-                    break;
-                case DOUBLE:
-                    pw.println(2);
-                    pw.println(value.getValueDouble());
-                    break;
-                case STRING:
-                    pw.println(0);
-                    pw.println(value.getValueString());
-                    break;
-                default:
-                    break;
-                }
+                pw.println(value.getValueString());
             }
             pw.close();
         } catch (FileNotFoundException e) {
@@ -105,6 +77,8 @@ public class SaveManager {
         if(ret==null) {
             ret=new SaveItem();
             arr.put(key,ret);
+            count+=1;
+            save();
         }
         return ret;
     }

@@ -9,6 +9,8 @@ public class UpgradePane extends GraphicViewer {
     Window w;
     FixedImage img;
     Group dmg,critChance,critDmg;
+    FixedImage moneyIcon=new FixedImage("sprites\\Money\\icon.png",1000,100,50,50);
+    FixedImage moneyValue=new FixedImage(null,1060,100,100,50);
     public UpgradePane(int width, int height, int rate,Window w) {
         super(width, height, rate);
         this.w=w;
@@ -20,6 +22,16 @@ public class UpgradePane extends GraphicViewer {
         dmg.addGroup(this);
         critChance.addGroup(this);
         critDmg.addGroup(this);
+        addComponent(moneyIcon,"moneyIcon");
+        addComponent(moneyValue,"moneyValue");
+        moneyValue.setText(w.sv.getItem("money").getValueInt()+"");
+        addComponent(new Button("sprites\\Buttons\\main.png",1000,650,100,50) {
+            @Override
+            public void act(MouseEvent e) {
+                w.add(new TitlePane(w));
+                w.remove(UpgradePane.this);
+            }
+        },"exit");
     }
     class Group{
         Button btn;

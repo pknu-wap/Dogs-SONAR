@@ -19,7 +19,7 @@ public class TitlePane extends GraphicViewer{
     public TitlePane(Window w) {
         super(1280,720,200);
         this.w=w;
-        start.setPane(this);
+        start.setPane();
         upgrade.setPane(this);
         exit.setPane(this);
         addComponent(img,"background");
@@ -61,9 +61,7 @@ public class TitlePane extends GraphicViewer{
         
     }
     class StartBtn extends Button{
-        TitlePane pane;
-        public void setPane(TitlePane pane) {
-            this.pane=pane;
+        public void setPane() {
             this.setText("Game Start");
         }
         public StartBtn(String imgSrc, int locX, int locY, int sizeWidth, int sizeHeight) {
@@ -72,9 +70,9 @@ public class TitlePane extends GraphicViewer{
         }
         @Override
         public void act(MouseEvent e) {
-            pane.w.remove(pane);
-            pane.w.add(pane.w.game);
-            pane.dog.isPlaying=false;
+            TitlePane.this.w.add(TitlePane.this.w.game);
+            TitlePane.this.w.remove(TitlePane.this);
+            TitlePane.this.dog.isPlaying=false;
         }
         
     }
@@ -90,6 +88,7 @@ public class TitlePane extends GraphicViewer{
         @Override
         public void act(MouseEvent e) {
             pane.w.dispose();
+            System.exit(0);
         }
     }
     class UpgradeBtn extends Button{
