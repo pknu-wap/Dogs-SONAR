@@ -23,6 +23,7 @@ public class Window extends JFrame{
         if(win.sv.getItem("critDmgUp").getValueInt()==-1) {
             win.sv.getItem("critDmgUp").setValueInt(0);
         }
+        win.sv.save();
     }
     public Window() {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);

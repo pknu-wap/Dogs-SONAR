@@ -25,13 +25,14 @@ public class UpgradePane extends GraphicViewer {
         addComponent(moneyIcon,"moneyIcon");
         addComponent(moneyValue,"moneyValue");
         moneyValue.setText(w.sv.getItem("money").getValueInt()+"");
-        addComponent(new Button("sprites\\Buttons\\main.png",1000,650,100,50) {
+        addComponent(new Button("sprites\\Buttons\\main.png",1000,600,100,50) {
             @Override
             public void act(MouseEvent e) {
                 w.add(new TitlePane(w));
                 w.remove(UpgradePane.this);
             }
         },"exit");
+        getComponentByName("exit").setText("Main Menu");
     }
     class Group{
         Button btn;
@@ -44,11 +45,27 @@ public class UpgradePane extends GraphicViewer {
             this.locX=locX;
             this.locY=locY;
             this.svKey=svKey;
-            btn=new Button("sprites\\Buttons\\main.png",this.locX+220,this.locY,100,50);
+            btn=new Button("sprites\\Buttons\\main.png",this.locX+370,this.locY,100,50) {
+              @Override
+              public void act(MouseEvent e) {
+                  SaveManager sv=UpgradePane.this.w.sv;
+                  if(sv.getItem("money").getValueInt()>100*sv.getItem(svKey).getValueInt()) {
+                        System.out.println("upgraded");
+                        sv.getItem("money").setValueInt(sv.getItem("money").getValueInt()-100*sv.getItem(svKey).getValueInt());
+                        sv.getItem(svKey).setValueInt(sv.getItem(svKey).getValueInt()+1);
+                        sv.save();
+                        tooltip.setText(text+" : "+100*UpgradePane.this.w.sv.getItem(svKey).getValueInt());
+                        value.update(svKey);
+                        moneyValue.setText(sv.getItem("money").getValueInt()+"");
+                  }else {
+                      System.out.println("not upgraded");
+                  }
+              }
+            };
             btn.setText("+");
-            tooltip=new FixedImage("sprites\\Buttons\\main.png",this.locX,this.locY,100,50);
-            tooltip.setText(text);
-            value=new ValueLabel("sprites\\Buttons\\main.png",this.locX+110,this.locY,100,50);
+            tooltip=new FixedImage("sprites\\Buttons\\main.png",this.locX,this.locY,250,50);
+            tooltip.setText(text+" : "+100*UpgradePane.this.w.sv.getItem(svKey).getValueInt());
+            value=new ValueLabel("sprites\\Buttons\\main.png",this.locX+260,this.locY,100,50);
             value.update(svKey);
         }
         public void addGroup(GraphicViewer v) {
