@@ -4,10 +4,10 @@ public class SaveItem {
 		INT,DOUBLE,STRING,BOOLEAN;
 	}
 	Type type;
-	String valueString;
-	int valueInt;
-	double valueDouble;
-	boolean valueBoolean;
+	String valueString="null";
+	int valueInt=-1;
+	double valueDouble=-1.0;
+	boolean valueBoolean=false;
 	public SaveItem() {}
 	public SaveItem(String value) {
 		this.valueString=value;

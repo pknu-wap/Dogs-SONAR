@@ -15,6 +15,12 @@ public class SaveManager {
     public SaveManager(String src) {
         this.src=src;
         arr=new TreeMap<String,SaveItem>();
+        try {
+            this.load();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
     public void load() throws IOException {
         try {
@@ -95,6 +101,11 @@ public class SaveManager {
     }
 
     public SaveItem getItem(String key) {
+        SaveItem ret=arr.get(key);
+        if(ret==null) {
+            ret=new SaveItem();
+            arr.put(key,ret);
+        }
         return arr.get(key);
     }
 
