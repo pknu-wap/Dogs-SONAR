@@ -6,9 +6,6 @@ import savingModule.SaveManager;
 
 public class Window extends JFrame{
     SaveManager sv;
-    TitlePane title;
-    GamePane game;
-    UpgradePane upgrade;
     public static void main(String[] args) {
         Window win=new Window();
         if(win.sv.getItem("money").getValueInt()==-1) {
@@ -30,7 +27,6 @@ public class Window extends JFrame{
         this.setSize(1280, 720);
         this.setVisible(true);
         sv=new SaveManager("sav.dat");
-        title=new TitlePane(this);
-        this.add(title);
+        this.add(new TitlePane(1280,720,200,this));
     }
 }

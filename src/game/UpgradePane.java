@@ -28,11 +28,19 @@ public class UpgradePane extends GraphicViewer {
         addComponent(new Button("sprites\\Buttons\\main.png",1000,600,100,50) {
             @Override
             public void act(MouseEvent e) {
-                w.add(new TitlePane(w));
+                w.add(new TitlePane(1280,720,200,w));
                 w.remove(UpgradePane.this);
             }
         },"exit");
         getComponentByName("exit").setText("Main Menu");
+        addComponent(new Button("sprites\\Buttons\\main.png",100,600,100,50) {
+            @Override
+            public void act(MouseEvent e) {
+                w.add(new GamePane(1280,720,200,w));
+                w.remove(UpgradePane.this);
+            }
+        },"start");
+        getComponentByName("start").setText("Game Start");
     }
     class Group{
         Button btn;

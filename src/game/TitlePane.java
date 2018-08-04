@@ -16,12 +16,9 @@ public class TitlePane extends GraphicViewer{
     TitleDogAnimator dog=new TitleDogAnimator(100,100);
     FixedImage moneyIcon=new FixedImage("sprites\\Money\\icon.png",1000,100,50,50);
     FixedImage moneyValue=new FixedImage(null,1060,100,100,50);
-    public TitlePane(Window w) {
-        super(1280,720,200);
+    public TitlePane(int width, int height, int rate,Window w) {
+        super(width,height,rate);
         this.w=w;
-        start.setPane();
-        upgrade.setPane(this);
-        exit.setPane(this);
         addComponent(img,"background");
         addComponent(start,"start");
         addComponent(upgrade,"upgrade");
@@ -29,6 +26,7 @@ public class TitlePane extends GraphicViewer{
         addComponent(dog,"dog");
         addComponent(moneyIcon,"moneyIcon");
         addComponent(moneyValue,"moneyValue");
+        start.setText("Game Start");
         moneyValue.setText(w.sv.getItem("money").getValueInt()+"");
     }
     class TitleDogAnimator extends Animator {
@@ -61,41 +59,30 @@ public class TitlePane extends GraphicViewer{
         
     }
     class StartBtn extends Button{
-        public void setPane() {
-            this.setText("Game Start");
-        }
         public StartBtn(String imgSrc, int locX, int locY, int sizeWidth, int sizeHeight) {
             super(imgSrc, locX, locY, sizeWidth, sizeHeight);
             // TODO Auto-generated constructor stub
         }
         @Override
         public void act(MouseEvent e) {
-            TitlePane.this.w.add(TitlePane.this.w.game);
-            TitlePane.this.w.remove(TitlePane.this);
+            w.remove(TitlePane.this);
+            w.add(new GamePane(1280,720,50,w));
             TitlePane.this.dog.isPlaying=false;
         }
         
     }
     class ExitBtn extends Button{
-        TitlePane pane;
-        public void setPane(TitlePane pane) {
-            this.pane=pane;
-        }
         public ExitBtn(String imgSrc, int locX, int locY, int sizeWidth, int sizeHeight) {
             super(imgSrc,locX,locY,sizeWidth,sizeHeight);
             this.setText("Exit");
         }
         @Override
         public void act(MouseEvent e) {
-            pane.w.dispose();
+            w.dispose();
             System.exit(0);
         }
     }
     class UpgradeBtn extends Button{
-        TitlePane pane;
-        public void setPane(TitlePane pane) {
-            this.pane=pane;
-        }
         public UpgradeBtn(String imgSrc, int locX, int locY, int sizeWidth, int sizeHeight) {
             super(imgSrc, locX, locY, sizeWidth, sizeHeight);
             this.setText("Upgrades");
@@ -103,10 +90,9 @@ public class TitlePane extends GraphicViewer{
         }
         @Override
         public void act(MouseEvent e) {
-            pane.w.upgrade=new UpgradePane(1280, 720, 50, pane.w);
-            pane.w.add(pane.w.upgrade);
-            pane.w.remove(pane);
-            pane.dog.isPlaying=false;
+            w.remove(TitlePane.this);
+            w.add(new UpgradePane(1280,720,50,w));
+            TitlePane.this.dog.isPlaying=false;
             
         }
         
