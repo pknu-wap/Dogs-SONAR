@@ -66,7 +66,7 @@ public class TitlePane extends GraphicViewer{
         @Override
         public void act(MouseEvent e) {
             w.remove(TitlePane.this);
-            w.add(new GamePane(1280,720,50,w));
+            w.add(new GamePane(1280,720,100,w));
             TitlePane.this.dog.isPlaying=false;
         }
         

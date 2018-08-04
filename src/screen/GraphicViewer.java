@@ -9,8 +9,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.TreeMap;
+import java.util.Map;
 
 public class GraphicViewer extends Canvas implements Runnable,MouseListener{
     BufferedImage bf;
@@ -43,7 +45,7 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
     public void deleteComponent(String name) {
         buffer.remove(name);
     }
-    public void paint(Graphics g) {
+    public synchronized void paint(Graphics g) {
         if(!firstPainted) {
             firstPainted=true;
             thr=new Thread(this);
@@ -53,16 +55,16 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
         Graphics2D g2d=(Graphics2D) bf.getGraphics();
         g2d.setColor(Color.white);
         g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
-        for (Entry<String, GraphicComponent> entry : buffer.entrySet()) {
-            String key   = entry.getKey();
-            GraphicComponent value =  entry.getValue();
-            if(value.isEffect()&&((Effect)value).getLength()<=((Effect)value).getIndex()) {
-                deleteComponent(key);
-                continue;
-            }
+        Iterator<String> keys = buffer.keySet().iterator(); 
+        while( keys.hasNext() ){
+            String key = keys.next();
+            GraphicComponent value =  buffer.get(key);
             BufferedImage k=value.getImg();
             if(value.isAnimated()) {
-                ((Animated)value).nextFrame();   
+                ((Animated)value).nextFrame();
+                if(value.isEffect()&&((Effect)value).isEnd()) {
+                    keys.remove();
+                }
             }
             if(k!=null) {
                 g2d.setComposite(AlphaComposite.SrcOver.derive(value.getAlpha()));
