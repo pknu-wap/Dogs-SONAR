@@ -62,7 +62,7 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
             BufferedImage k=value.getImg();
             if(value.isAnimated()) {
                 ((Animated)value).nextFrame();
-                if(value.isEffect()&&((Effect)value).isEnd()) {
+                if(value.isDestroy()) {
                     keys.remove();
                 }
             }

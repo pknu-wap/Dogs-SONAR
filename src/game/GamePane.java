@@ -2,6 +2,9 @@ package game;
 
 import screen.*;
 import soundCapture.*;
+
+import java.awt.event.MouseEvent;
+
 import Character.*;
 import savingModule.SaveManager;
 public class GamePane extends GraphicViewer {
@@ -11,15 +14,29 @@ public class GamePane extends GraphicViewer {
     VoiceHandler vh;
     Dog dog;
     FixedImage timer=new FixedImage(null,1000,50,200,50);
+    Button chargeBtn=new Button("sprites\\Buttons\\main.png",200,600,100,50) {
+    	@Override
+    	public void act(MouseEvent e) {
+    		if(dog.attackMode==1) {
+    			dog.command(1);
+    			this.setText("release charge");
+    		}else if(dog.attackMode==0) {
+    			dog.command(0);
+    			this.setText("start charge");
+    		}
+    	}
+    };
     int addMoney=0;
     public GamePane(int width, int height, int rate,Window w) {
         super(width,height,rate);
+        this.chargeBtn.setText("start charge");
         this.w=w;
         this.sv=w.sv;
         addComponent(new FixedImage("sprites\\title\\title.jpg",0,0,1280,720),"background");
-        dog=new Dog();
+        dog=new Dog(this);
         addComponent(dog.dogAnim,"dog");
         addComponent(timer,"timer");
+        addComponent(chargeBtn,"chargeBtn");
         vh=new VoiceHandler(dog);
         lm=new LevelMeter(vh,0.05,3);
         Thread k=new Thread(new Runnable() {
@@ -45,18 +62,7 @@ public class GamePane extends GraphicViewer {
         //TODO make result screen pane
         
     }
-    class Dog{
-        Animator dogAnim;
-        public Dog() {
-            dogAnim=new Animator(100,100);
-            dogAnim.setX(200);
-            dogAnim.setY(360);
-            dogAnim.addAnimation(new Animation("sprites\\Dog\\idle",100,100), "idle");
-            dogAnim.addAnimation(new Animation("sprites\\Dog\\bark",100,100), "bark");
-            dogAnim.setNowAnim("idle");
-            dogAnim.setNext("bark","idle");
-        }
-    }
+    
     class VoiceHandler implements SoundHandler{
         Dog dog;
         public VoiceHandler(Dog dog) {
@@ -65,7 +71,8 @@ public class GamePane extends GraphicViewer {
         @Override
         public synchronized void action(double now, double peak) {
             dog.dogAnim.setNowAnim("bark");
-            addComponent(new Effect(new Animation("sprites\\effect\\baseBark",100,100),230,360), "baseBark");
+            dog.attack(now);
+            
         }
         
     }

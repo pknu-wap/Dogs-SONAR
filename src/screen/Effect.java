@@ -11,10 +11,6 @@ import javax.imageio.ImageIO;
 public class Effect extends GraphicComponent implements Animated{
     Animation frames;
     int index=0;
-    public boolean isEnd() {
-        if(frames.length==index)return true;
-        else return false;
-    }
     public Effect(String src,int locX,int locY,int width,int height) {
         setX(locX);
         setY(locY);
@@ -46,6 +42,9 @@ public class Effect extends GraphicComponent implements Animated{
     @Override
     public void nextFrame() {
         index+=1;
+        if(index==frames.length) {
+        	dispose();
+        }
     }
 }
 

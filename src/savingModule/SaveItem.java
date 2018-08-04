@@ -35,20 +35,4 @@ public class SaveItem {
 	public void setValueDouble(double value) {
 	      this.valueString=""+value;
 	}
-	public String toString() {
-		String ret="";
-		ret+=key+" : ";
-		switch(type) {
-		case STRING:
-			ret+=valueString;
-			break;
-		case INT:
-			ret+=valueInt;
-			break;
-		case DOUBLE:
-			ret+=valueDouble;
-			break;
-		}
-		return ret; 
-	}
 }

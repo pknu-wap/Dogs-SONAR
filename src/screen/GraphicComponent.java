@@ -21,6 +21,13 @@ public abstract class GraphicComponent{
     private boolean isClickable=false;
     private boolean isAnimated=false;
     private boolean isEffect=false;
+    private boolean willDestroy=false;
+    public boolean isDestroy() {
+    	return willDestroy;
+    }
+    public void dispose() {
+    	willDestroy=true;
+    }
     public boolean isEffect() {
         return isEffect;
     }
