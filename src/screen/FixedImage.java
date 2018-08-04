@@ -9,28 +9,20 @@ public class FixedImage extends GraphicComponent{
         setWidth(getImg().getWidth(null));
         setHeight(getImg().getHeight(null));
     }
-    public FixedImage(String imgSrc,int locX,int locY,int sizeWidth,int sizeHeight,String content,Font font,Color textColor){
-        setX(locX);
-        setY(locY);
-        setWidth(sizeWidth);
-        setHeight(sizeHeight);
+    public FixedImage(String imgSrc,int locX,int locY,int sizeWidth,int sizeHeight,String content){
+        this(imgSrc,locX,locY,sizeWidth,sizeHeight);
         setText(content);
-        setFont(font);
-        setTextColor(textColor);
         setImg(imgSrc);
     }
     public FixedImage(String imgSrc,int locX,int locY,int sizeWidth,int sizeHeight){
-        setX(locX);
-        setY(locY);
+        this(imgSrc,locX,locY);
         setWidth(sizeWidth);
         setHeight(sizeHeight);
         setImg(imgSrc);
     }
     public FixedImage(String imgSrc,int locX,int locY){
+        this(imgSrc);
         setX(locX);
-        setY(locY);
-        setWidth(getImg().getWidth(null));
-        setHeight(getImg().getHeight(null));
-        setImg(imgSrc);
+        setY(locY);   
     }
 }

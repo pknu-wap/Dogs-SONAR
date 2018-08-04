@@ -68,7 +68,7 @@ public class Animation{
                 BufferedImage tmp=new BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR);
                 Graphics2D bGr = tmp.createGraphics();
                 try {
-                    bGr.drawImage(ImageIO.read(new File(src+"\\Frame"+i+".png")).getScaledInstance(width, height,Image.SCALE_SMOOTH), 0, 0, null);
+                        bGr.drawImage(ImageIO.read(new File(src+"\\Frame"+i+".png")).getScaledInstance(width, height,Image.SCALE_SMOOTH), 0, 0, null);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

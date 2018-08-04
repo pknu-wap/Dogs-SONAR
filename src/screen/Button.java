@@ -24,14 +24,12 @@ public class Button extends GraphicComponent implements Actable{
         setHeight(getImg().getHeight(null));
         setClickable(true);
     }
-    public Button(String imgSrc,int locX,int locY,int sizeWidth,int sizeHeight,String content,Font font,Color textColor){
+    public Button(String imgSrc,int locX,int locY,int sizeWidth,int sizeHeight,String content){
         setX(locX);
         setY(locY);
         setWidth(sizeWidth);
         setHeight(sizeHeight);
         setText(content);
-        setFont(font);
-        setTextColor(textColor);
         setImg(imgSrc);
         setClickable(true);
     }
@@ -53,17 +51,23 @@ public class Button extends GraphicComponent implements Actable{
     }
     public void action(MouseEvent e){
         if(!isRun) {
+            isRun=true;
             tmp=e;
             thr=new Thread(this);
             thr.start();
+            try {
+                thr.join(100);
+            } catch (InterruptedException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+            isRun=false;
         }
     }
     @Override
 
     public void run() {
-        this.isRun=true;
         act(tmp);
-        this.isRun=false;
     }
     public void act(MouseEvent e) {
 

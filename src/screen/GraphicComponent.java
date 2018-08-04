@@ -74,10 +74,16 @@ public abstract class GraphicComponent{
         return img;
     }
     public void setImg(String imgSrc){
+        String src;
+        if(imgSrc==null) {
+            src="sprites\\Debug\\transparent.png";
+        }else {
+            src=imgSrc;
+        }
         this.img=new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_4BYTE_ABGR);
         Graphics2D bGr = getImg().createGraphics();
         try {
-            bGr.drawImage(ImageIO.read(new File(imgSrc)).getScaledInstance(getWidth(), getHeight(),Image.SCALE_SMOOTH), 0, 0, null);
+            bGr.drawImage(ImageIO.read(new File(src)).getScaledInstance(getWidth(), getHeight(),Image.SCALE_SMOOTH), 0, 0, null);
         } catch (IOException e) {
             e.printStackTrace();
         }
