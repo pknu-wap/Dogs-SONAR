@@ -19,10 +19,10 @@ public class GamePane extends GraphicViewer {
     	public void act(MouseEvent e) {
     		if(dog.attackMode==1) {
     			dog.command(1);
-    			this.setText("release charge");
+    			this.setText("start charge");
     		}else if(dog.attackMode==0) {
     			dog.command(0);
-    			this.setText("start charge");
+    			this.setText("release charge");
     		}
     	}
     };
@@ -70,7 +70,6 @@ public class GamePane extends GraphicViewer {
         }
         @Override
         public synchronized void action(double now, double peak) {
-            dog.dogAnim.setNowAnim("bark");
             dog.attack(now);
             
         }

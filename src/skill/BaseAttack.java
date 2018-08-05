@@ -10,6 +10,7 @@ public class BaseAttack {
 		this.dog=dog;
 	}
 	public void attack(double now) {
+	    dog.dogAnim.setNowAnim("bark");
 		dog.pane.addComponent(new Effect(new Animation("sprites\\effect\\baseBark",100,100),230,360), "baseBark");
 		//TODO attacking
 	}

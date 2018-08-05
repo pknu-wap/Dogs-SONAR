@@ -16,6 +16,7 @@ public class Dog{
         dogAnim.setY(360);
         dogAnim.addAnimation(new Animation("sprites\\Dog\\idle",100,100), "idle");
         dogAnim.addAnimation(new Animation("sprites\\Dog\\bark",100,100), "bark");
+        dogAnim.addAnimation(new Animation("sprites\\Dog\\barking",100,100), "barking");
         dogAnim.setNowAnim("idle");
         dogAnim.setNext("bark","idle");
     }
