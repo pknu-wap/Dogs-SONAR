@@ -54,21 +54,20 @@ public class Animation{
         this.width=width;
         this.height=height;
         this.src=src;
-        for(int i=0;i<length;i++) {
-            setFrame(i,src);
-        }
+        System.out.println("initiated");
+        setFrame(src);
     }
     public BufferedImage getFrame(int ind) {
         if(ind>=length||ind<0)return null;
         else return frames[ind];
     }
-    public void setFrame(int ind, String src) {
+    public void setFrame(String src) {
         synchronized(this) {
             for(int i=0;i<length;i++) {
                 BufferedImage tmp=new BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR);
                 Graphics2D bGr = tmp.createGraphics();
                 try {
-                        bGr.drawImage(ImageIO.read(new File(src+"\\Frame"+i+".png")).getScaledInstance(width, height,Image.SCALE_SMOOTH), 0, 0, null);
+                        bGr.drawImage(ImageIO.read(new File(src+"\\Frame"+i+".png")).getScaledInstance(width, height,Image.SCALE_FAST), 0, 0, null);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

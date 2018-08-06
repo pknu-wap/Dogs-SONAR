@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 import java.util.Map;
@@ -17,7 +18,8 @@ import java.util.Map;
 public class GraphicViewer extends Canvas implements Runnable,MouseListener{
     BufferedImage bf;
     int frameRate=50;
-    TreeMap<String,GraphicComponent> buffer;
+    LinkedHashMap<String,GraphicComponent> buffer;
+    LinkedHashMap<String,GraphicComponent> queue;
     boolean firstPainted=false;
     Thread thr;
     public GraphicViewer(int width,int height,int rate) {
@@ -25,7 +27,8 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
         this.addMouseListener(this);
         this.setSize(width,height);
         this.setBackground(Color.white);
-        buffer=new TreeMap<String,GraphicComponent>();
+        buffer=new LinkedHashMap<String,GraphicComponent>();
+        queue=new LinkedHashMap<String,GraphicComponent>();
         new Thread(new GCControl()).start();
     }
     public GraphicViewer(int rate) {
@@ -33,11 +36,13 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
         this.addMouseListener(this);
         this.setSize(100,100);
         this.setBackground(Color.white);
-        buffer=new TreeMap<String,GraphicComponent>();
+        buffer=new LinkedHashMap<String,GraphicComponent>();
     }
 
     public void addComponent(GraphicComponent btn,String name) {
-        buffer.put(name, btn);
+        queue.put(name, btn);
+        
+        
     }
     public GraphicComponent getComponentByName(String name) {
         return buffer.get(name);
@@ -55,6 +60,8 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
         Graphics2D g2d=(Graphics2D) bf.getGraphics();
         g2d.setColor(Color.white);
         g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
+        buffer.putAll(queue);
+        queue.clear();
         Iterator<String> keys = buffer.keySet().iterator(); 
         while( keys.hasNext() ){
             String key = keys.next();

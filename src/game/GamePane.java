@@ -37,23 +37,32 @@ public class GamePane extends GraphicViewer {
         addComponent(dog.dogAnim,"dog");
         addComponent(timer,"timer");
         addComponent(chargeBtn,"chargeBtn");
+        addComponent(new Effect(new Animation("sprites\\effect\\startEffect",1280,720),-10,0),"starter");
+        
         vh=new VoiceHandler(dog);
         lm=new LevelMeter(vh,0.05,3);
+        
         Thread k=new Thread(new Runnable() {
             int i=0;
             @Override
             public void run() {
-                while(i<=60000) {
+                try {
                     try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
+                        Thread.sleep(2900);
+                    } catch (InterruptedException e1) {
                         // TODO Auto-generated catch block
-                        e.printStackTrace();
+                        e1.printStackTrace();
                     }
-                    i+=100;
-                    GamePane.this.timer.setText((60-(i/1000))+"");
+                    while(i<=60000) {
+                        Thread.sleep(100);
+                        i+=100;
+                        GamePane.this.timer.setText((60-(i/1000))+"");
+                    }
+                    GamePane.this.result(true);
+                }catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
                 }
-                GamePane.this.result(true);
             }
         });
         k.start();

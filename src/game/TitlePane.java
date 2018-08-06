@@ -28,6 +28,7 @@ public class TitlePane extends GraphicViewer{
         addComponent(moneyValue,"moneyValue");
         start.setText("Game Start");
         moneyValue.setText(w.sv.getItem("money").getValueInt()+"");
+        
     }
     class TitleDogAnimator extends Animator {
         Random rand;
