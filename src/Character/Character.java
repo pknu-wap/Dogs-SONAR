@@ -26,7 +26,8 @@ public class Character {
 		Me me=new Me();
 		Move m = new Move();
 		Reactor re = new Reactor();
-		
+		for(int i=0; i<10; i++) {
+			enemy_make();}
 		re.c=me;
 		re.t=emy;
 		
@@ -37,6 +38,10 @@ public class Character {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+	}
+	static void enemy_make() {
+		Enemy e = new Enemy();
+		emy.add(e);
 	}
 	void run() {
 		int clock = 0;
@@ -113,15 +118,16 @@ class Chance extends Enemy{
 class Reactor implements SoundHandler{
 	Me c;
 	ArrayList<Enemy> t;
-	
+	int i=0;
     @Override
     public void action(double now,double peak) {
              if(now>50) {
            	 c.attack_to_enemy(now*0.5,t,i);
            	 c.get_sound(now*0.5);
-            	 System.out.println(t.get(i));
-            	 if(t.get(i)<=0) {
+            	 System.out.println(t.get(i).hp);
+            	 if(t.get(i).hp<=0) {
             		 enemy_die(t);
+            		 i++;
             	 }
              }
              else{
