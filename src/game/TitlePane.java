@@ -87,7 +87,6 @@ public class TitlePane extends GraphicViewer{
         public UpgradeBtn(String imgSrc, int locX, int locY, int sizeWidth, int sizeHeight) {
             super(imgSrc, locX, locY, sizeWidth, sizeHeight);
             this.setText("Upgrades");
-            // TODO Auto-generated constructor stub
         }
         @Override
         public void act(MouseEvent e) {

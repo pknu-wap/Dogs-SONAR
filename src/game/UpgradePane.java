@@ -36,7 +36,7 @@ public class UpgradePane extends GraphicViewer {
         addComponent(new Button("sprites\\Buttons\\main.png",100,600,100,50) {
             @Override
             public void act(MouseEvent e) {
-                w.add(new GamePane(1280,720,200,w));
+                w.add(new GamePane(1280,720,100,w));
                 w.remove(UpgradePane.this);
             }
         },"start");

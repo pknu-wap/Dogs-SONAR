@@ -16,6 +16,7 @@ public class LevelMeter implements Runnable {
     private int time=-1,timer;
     private double division;
     private boolean recorded=false;
+    public boolean isDisposed=false;
     public Thread thread;
     
     public double getNow() {
@@ -44,7 +45,7 @@ public class LevelMeter implements Runnable {
             line = AudioSystem.getTargetDataLine(fmt);
             line.open(fmt, bufferByteSize);
         } catch(LineUnavailableException e) {
-            System.err.println(e);
+            e.printStackTrace();
             return;
         }
 
@@ -95,7 +96,15 @@ public class LevelMeter implements Runnable {
                 }
                 evAvg+=now;
             }
+            if(isDisposed) {
+                line.stop();
+                line.flush();
+                break;
+            }
         }
+    }
+    public void dispose() {
+        isDisposed=true;
     }
     public static void main(String[] args) {
         ExampleSoundHandler h=new ExampleSoundHandler();

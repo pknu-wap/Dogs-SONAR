@@ -45,7 +45,12 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
         
     }
     public GraphicComponent getComponentByName(String name) {
-        return buffer.get(name);
+        GraphicComponent ret=buffer.get(name);
+        if(ret==null) {
+            return queue.get(name);
+        }else {
+            return ret;
+        }
     }
     public void deleteComponent(String name) {
         buffer.remove(name);

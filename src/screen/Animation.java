@@ -54,7 +54,6 @@ public class Animation{
         this.width=width;
         this.height=height;
         this.src=src;
-        System.out.println("initiated");
         setFrame(src);
     }
     public BufferedImage getFrame(int ind) {
