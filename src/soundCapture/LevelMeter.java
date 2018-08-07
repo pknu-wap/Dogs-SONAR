@@ -108,7 +108,7 @@ public class LevelMeter implements Runnable {
     }
     public static void main(String[] args) {
         ExampleSoundHandler h=new ExampleSoundHandler();
-        LevelMeter lm=new LevelMeter(h, 0.08, 3);
+        LevelMeter lm=new LevelMeter(h, 0.08, 10);
         try {
             lm.thread.join();
         } catch (InterruptedException e) {
