@@ -34,6 +34,7 @@ public class GamePane extends GraphicViewer{
         this.chargeBtn.setText("start charge");
         this.w=w;
         this.sv=w.sv;
+        enemyController=new EnemyController(this);
         addComponent(new FixedImage("sprites\\title\\title.jpg",0,0,1280,720),"background");
         dog=new Dog(this);
         w.setDog(dog);
@@ -54,7 +55,7 @@ public class GamePane extends GraphicViewer{
                         // TODO Auto-generated catch block
                         e1.printStackTrace();
                     }
-                    enemyController=new EnemyController();
+                    enemyController.startGame();
                     while(i<=60000) {
                         Thread.sleep(100);
                         i+=100;
@@ -76,72 +77,82 @@ public class GamePane extends GraphicViewer{
         w.remove(GamePane.this);
         w.add(new ResultPane(1280,720,200,w,cleared,addMoney));
     }
-    class EnemyController implements Runnable{
-        int day=sv.getItem("day").getValueInt();
-        boolean stopping=true;
-        int count=0;
-        ArrayList<EnemyV2> enemies;
-        ArrayList<EnemyV2> buffer;
-        EnemyV2 nearest;
-        int minDist;
-        public void dispose() {
-            stopping=false;
-        }
-        public EnemyV2 getNearest() {
-            return nearest;
-        }
-        public EnemyController() {
-            
-            enemies=new ArrayList<EnemyV2>();
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    Random rand=new Random();
-                    while(stopping) {
-                        NormalEnemy tt=new NormalEnemy(day);
-                        tt.setAnimator();
-                        System.out.println("made");
-                        try {
-                            Thread.sleep(rand.nextInt(2500)+500);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        addComponent(tt.getAnimator(),"Enemy"+count);
-                        count+=1;
-                        buffer.add(tt);
-                    }
-                }
-            }).start();
-        }
-        
+    
+}
+
+class EnemyController implements Runnable{
+    GamePane pane;
+    int day;
+    boolean stopping=true;
+    int count=0;
+    ArrayList<EnemyV2> enemies;
+    ArrayList<EnemyV2> buffer;
+    EnemyV2 nearest;
+    int minDist;
+    public void dispose() {
+        stopping=false;
+    }
+    public EnemyV2 getNearest() {
+        return nearest;
+    }
+    public EnemyController(GamePane pane) {
+        this.pane=pane;
+        day=pane.w.sv.getItem("day").getValueInt();
+        enemies=new ArrayList<EnemyV2>();
+        buffer=new ArrayList<EnemyV2>();
+    }
+    public void startGame() {
+        new Thread(playing).start();
+        new Thread(EnemyController.this).start();
+    }
+    Runnable playing=new Runnable() {
         @Override
         public void run() {
+            Random rand=new Random();
             while(stopping) {
-                enemies.addAll(buffer);
-                buffer.clear();
-                Iterator<EnemyV2> iter = enemies.iterator();
-                minDist=9999;
-                while (iter.hasNext()) {
-                    EnemyV2 t=iter.next();
-                    if(t.dist<minDist) {
-                        nearest=t;
-                        minDist=t.dist;
-                    }
-                    t.timeGo();
-                    if(t.isDied) {
-                        iter.remove();
-                    }
-                }
+                
                 try {
-                    Thread.sleep(50);
+                    Thread.sleep(rand.nextInt(2500)+500);
                 } catch (InterruptedException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
+                synchronized(this) {
+                NormalEnemy tt=new NormalEnemy(day);
+                tt.setAnimator();
+                pane.addComponent(tt.getAnimator(),"Enemy"+count);
+                count+=1;
+                System.out.println(tt.toString());
+                buffer.add(tt);
+                }
             }
-            
+        }
+    };
+    @Override
+    public void run() {
+        while(stopping) {
+            enemies.addAll(buffer);
+            buffer.clear();
+            Iterator<EnemyV2> iter = enemies.iterator();
+            minDist=9999;
+            while (iter.hasNext()) {
+                EnemyV2 t=iter.next();
+                t.timeGo();
+                if(t.dist<minDist) {
+                    nearest=t;
+                    minDist=t.dist;
+                }
+                if(t.isDied) {
+                    iter.remove();
+                }   
+            }
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
         
     }
-
+    
 }

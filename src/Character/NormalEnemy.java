@@ -10,6 +10,9 @@ public class NormalEnemy extends EnemyV2 {
         Animator tAnim=new Animator(50,100);
         tAnim.addAnimation(new Animation("sprites\\Caroline\\idle",50,100), "idle");
         tAnim.addAnimation(new Animation("sprites\\Caroline\\moving",50,100), "moving");
+        tAnim.setNowAnim("moving");
+        tAnim.setY(360);
+        this.anim=tAnim;
     }
     public String toString() {
         String ret="type : normal Enemy\n hp : "+this.hp;
