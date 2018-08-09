@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 
-import Character.EnemyV2;
-import Character.NormalEnemy;
+import Character.*;
 
 public class EnemyController implements Runnable{
     GamePane pane;
@@ -55,9 +54,17 @@ public class EnemyController implements Runnable{
                 }
                 if(!isPaused) {
                     synchronized(this) {
-                    NormalEnemy tt=new NormalEnemy(day,pane);
-                    tt.addComponent(count++);
-                    buffer.add(tt);
+                        EnemyV2 tt;
+                        switch(rand.nextInt(2)) {
+                        case 0:
+                            tt=new LightEnemy(day,pane);
+                            break;
+                        default:
+                            tt=new NormalEnemy(day,pane);
+                            break;
+                        }
+                        tt.addComponent(count++);
+                        buffer.add(tt);
                     }
                 }
             }

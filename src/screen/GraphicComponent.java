@@ -22,6 +22,13 @@ public abstract class GraphicComponent{
     private boolean isAnimated=false;
     private boolean isEffect=false;
     private boolean willDestroy=false;
+    private boolean isVisible=true;
+    public boolean isVisible() {
+        return isVisible;
+    }
+    public void setVisible(boolean isVisible) {
+        this.isVisible = isVisible;
+    }
     public boolean isDestroy() {
     	return willDestroy;
     }

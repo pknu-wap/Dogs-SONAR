@@ -9,7 +9,7 @@ public class NormalEnemy extends EnemyV2 {
         anim.addAnimation(new Animation("sprites\\Caroline\\idle",50,100), "idle");
         anim.addAnimation(new Animation("sprites\\Caroline\\moving",50,100), "moving");
         anim.setNowAnim("moving");
-        
+        setSize();
     }
     
     @Override

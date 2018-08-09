@@ -1,3 +1,4 @@
+
 package Character;
 
 import java.awt.Color;
@@ -24,7 +25,10 @@ public class EnemyV2 {
     public EnemyV2(int hp,GamePane pane){
         this.pane=pane;
         this.hp=this.hp*Math.pow(1.02, hp);
-        anim.setY(360);
+        
+    }
+    public void setSize() {
+        anim.setY(460-anim.getHeight());
         anim.setX(dist);
     }
     public void addComponent(int index) {

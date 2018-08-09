@@ -71,6 +71,7 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
         while( keys.hasNext() ){
             String key = keys.next();
             GraphicComponent value =  buffer.get(key);
+            if(!value.isVisible())continue;
             BufferedImage k=value.getImg();
             if(value.isAnimated()) {
                 ((Animated)value).nextFrame();   

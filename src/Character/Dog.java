@@ -15,6 +15,7 @@ public class Dog{
     SaveManager sv;
     BaseAttack baseAttack=new BaseAttack(this);
     ChargeShot chargeShot=new ChargeShot(this);
+    FeverTime feverTime=new FeverTime(this);
     public Dog(GamePane pane) {
     	this.pane=pane;
         dogAnim=new Animator(100,100);
@@ -39,6 +40,9 @@ public class Dog{
     		chargeShot.release();
     		attackMode=0;
     		break;
+    	case 2:
+    	    feverTime.activate();
+    	    break;
     	}
     }
     public void attack(double now) {

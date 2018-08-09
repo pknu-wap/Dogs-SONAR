@@ -2,36 +2,24 @@ package skill;
 
 import Character.Dog;
 
-public class FeverTime implements Runnable{
+public class FeverTime {
     Dog dog;
     boolean isCooling=false;
     public FeverTime(Dog dog) {
         this.dog=dog;
     }
     public void activate() {
-        if(isCooling)return;
-        
-    }
-    @Override
-    public void run() {
-        // TODO Auto-generated method stub
-        isCooling=true;
         new Thread() {
             @Override
             public void run() {
-                int coolTime=20;
-                for(int i=coolTime;i>=0;i--) {
-                    try {
-                        Thread.sleep(1000);
-                        //dog.pane.
-                    } catch (InterruptedException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
+                dog.pane.w.lm.timer=3;
+                try {
+                    Thread.sleep(4000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-                isCooling=false;
+                dog.pane.w.lm.timer=12;
             }
         }.start();
     }
-
 }

@@ -25,10 +25,20 @@ public class GamePane extends GraphicViewer{
     FixedImage day=new FixedImage("sprites\\Buttons\\tooltip.png",100,50,200,50);
     FixedImage money=new FixedImage("sprites\\Buttons\\tooltip.png",950,50,250,30);
     FixedImage timer=new FixedImage("sprites\\Buttons\\tooltip.png",950,80,180,30);
-    Button chargeBtn=new Button("sprites\\Buttons\\main.png",200,600,150,50) {
+    SkillButton feverBtn=new SkillButton("sprites\\Buttons\\main.png",400,600,150,50,"attack fever",20) {
+        @Override
+        public void act(MouseEvent e) {
+            if(isCooling) return;
+            dog.command(2);
+            runCoolTime();
+        }
+    };
+    SkillButton chargeBtn=new SkillButton("sprites\\Buttons\\main.png",200,600,150,50,"start charge",3) {
     	@Override
     	public void act(MouseEvent e) {
+    	    if(isCooling) return;
     		if(dog.attackMode==1) {
+    		    this.runCoolTime();
     			dog.command(1);
     			this.setText("start charge");
     		}else if(dog.attackMode==0) {
@@ -41,7 +51,6 @@ public class GamePane extends GraphicViewer{
     public GamePane(int width, int height, int rate,Window w) {
         super(width,height,rate);
         setFocusable(true);
-        this.chargeBtn.setText("start charge");
         this.w=w;
         this.sv=w.sv;
         day.setText("Day "+sv.getItem("day").getValueString());
@@ -54,6 +63,9 @@ public class GamePane extends GraphicViewer{
         addComponent(dog.dogAnim,"dog");
         addComponent(timer,"timer");
         addComponent(chargeBtn,"chargeBtn");
+        addComponent(chargeBtn.getFader(),"chargeBtnFader");
+        addComponent(feverBtn,"feverBtn");
+        addComponent(feverBtn.getFader(),"feverBtnFader");
         addComponent(new Effect(new Animation("sprites\\effect\\startEffect",1280,720),-10,0),"starter");
         addComponent(money,"money");
         addComponent(day,"day");
@@ -120,6 +132,41 @@ public class GamePane extends GraphicViewer{
     }
     public void updateMoney() {
         money.setText("Money acquired : "+addMoney);
+    }
+    class SkillButton extends Button{
+        int coolTime=0;
+        boolean isCooling=false;
+        FixedImage fader;
+        public SkillButton(String imgSrc,int locX,int locY,int sizeWidth,int sizeHeight,String content,int coolTime) {
+            super(imgSrc,locX,locY,sizeWidth,sizeHeight,content);
+            this.coolTime=coolTime;
+            fader=new FixedImage("sprites\\bars\\back.png",locX,locY,sizeWidth,sizeHeight,""+coolTime);
+            fader.setAlpha(0.8f);
+            fader.setVisible(false);
+        }
+        public FixedImage getFader() {
+            return fader;
+        }
+        public void runCoolTime() {
+            this.isCooling=true;
+            new Thread() {
+                @Override
+                public void run() {
+                    fader.setVisible(true);
+                    for(int i=coolTime;i>=0;i--) {
+                        fader.setText("Wait : "+i);
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                    }
+                    fader.setVisible(false);
+                    isCooling=false;
+                }
+            }.start();
+        }
     }
 }
 
