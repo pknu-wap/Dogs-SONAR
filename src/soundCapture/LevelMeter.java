@@ -13,7 +13,8 @@ public class LevelMeter implements Runnable {
     private TargetDataLine line;
     private double now=0,nowPeak=0,lastPeak=0,lastNow=0;
 	private double evAvg=0,evPeak=0;
-    private int time=-1,timer;
+    private int time=-1;
+    public int timer;
     private double division;
     private boolean recorded=false;
     public boolean isDisposed=false;

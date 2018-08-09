@@ -1,5 +1,6 @@
 package skill;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 import Character.Dog;
@@ -7,6 +8,7 @@ import Character.EnemyV2;
 import screen.Animation;
 import screen.Animator;
 import screen.Effect;
+import screen.TextIndicator;
 
 public class ChargeShot implements Runnable{
 	double chargedDamage=0.0;
@@ -37,6 +39,8 @@ public class ChargeShot implements Runnable{
 	public void attack(double now) {
 		if(isCharging) {
 			chargedDamage+=(now/5);//TODO balance damage
+			dog.pane.addComponent(new TextIndicator((int)(now/5)+"",20,new Color(51, 153, 255),105,400,20),"charge");
+			
 		}else {
 			System.out.println("wrong access to chargeshot");
 		}		
@@ -55,7 +59,7 @@ public class ChargeShot implements Runnable{
 	    dog.pane.addComponent(new Effect(new Animation("sprites\\effect\\beam",1200,50),155,385), "baseBark");
 	    ArrayList<EnemyV2> arr=dog.pane.getEnemyController().getAll();
 	    for(int i=0;i<arr.size();i++) {
-	        arr.get(i).getDamage(chargedDamage);
+	        arr.get(i).getDamage(chargedDamage,false);
 	    }
 		//TODO make attack
 	}

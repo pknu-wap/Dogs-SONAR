@@ -8,7 +8,7 @@ public class TextIndicator extends GraphicComponent{
     int time;
     public static int counter=0;
     public TextIndicator(String src,int size,Color color,int locX,int locY,int time) {
-        System.out.println(src + locX+ " / "+locY);
+        System.out.println(src +" : "+ locX+ " / "+locY);
         this.setImg((String)null);
         this.setX(locX);
         this.setY(locY);

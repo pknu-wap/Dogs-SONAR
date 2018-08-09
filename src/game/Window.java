@@ -9,7 +9,7 @@ import soundCapture.SoundHandler;
 
 public class Window extends JFrame{
     public SaveManager sv;
-    LevelMeter lm;
+    public LevelMeter lm;
     VoiceHandler vh;
     Dog dog;
     boolean isGaming=false,isPaused=false;

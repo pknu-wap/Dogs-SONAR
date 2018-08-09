@@ -22,10 +22,10 @@ public class GamePane extends GraphicViewer{
         return enemyController;
     }
     Dog dog;
-    FixedImage day=new FixedImage(null,100,50,200,50);
-    FixedImage money=new FixedImage(null,1100,80,200,50);
-    FixedImage timer=new FixedImage(null,1100,50,200,50);
-    Button chargeBtn=new Button("sprites\\Buttons\\main.png",200,600,100,50) {
+    FixedImage day=new FixedImage("sprites\\Buttons\\tooltip.png",100,50,200,50);
+    FixedImage money=new FixedImage("sprites\\Buttons\\tooltip.png",950,50,250,30);
+    FixedImage timer=new FixedImage("sprites\\Buttons\\tooltip.png",950,80,180,30);
+    Button chargeBtn=new Button("sprites\\Buttons\\main.png",200,600,150,50) {
     	@Override
     	public void act(MouseEvent e) {
     		if(dog.attackMode==1) {
@@ -44,8 +44,8 @@ public class GamePane extends GraphicViewer{
         this.chargeBtn.setText("start charge");
         this.w=w;
         this.sv=w.sv;
-        day.setText(sv.getItem("day").getValueString());
-        money.setText("0");
+        day.setText("Day "+sv.getItem("day").getValueString());
+        money.setText("Money acquired : 0");
         enemyController=new EnemyController(this);
         addComponent(new FixedImage("sprites\\title\\title.jpg",0,0,1280,720),"background");
         dog=new Dog(this);
@@ -73,7 +73,7 @@ public class GamePane extends GraphicViewer{
                         Thread.sleep(100);
                         if(!isPaused) {
                             i+=100;
-                            GamePane.this.timer.setText((60-(i/1000))+"");
+                            GamePane.this.timer.setText("Time left : "+(60-(i/1000))+"");
                         }
                     }
                     GamePane.this.result(true);
@@ -119,7 +119,7 @@ public class GamePane extends GraphicViewer{
         w.add(new ResultPane(1280,720,200,w,cleared,addMoney));
     }
     public void updateMoney() {
-        money.setText(addMoney+"");
+        money.setText("Money acquired : "+addMoney);
     }
 }
 

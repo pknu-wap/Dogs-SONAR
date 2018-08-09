@@ -124,6 +124,7 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
     public void mousePressed(MouseEvent arg0) {
         int tX=arg0.getX();
         int tY=arg0.getY();
+        System.out.println("clicked : "+tX+" / "+tY);
         for (Entry<String, GraphicComponent> entry : buffer.entrySet()) {
             String key   = entry.getKey();
             GraphicComponent value =  entry.getValue();

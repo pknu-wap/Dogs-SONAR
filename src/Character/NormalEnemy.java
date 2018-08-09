@@ -13,8 +13,8 @@ public class NormalEnemy extends EnemyV2 {
     }
     
     @Override
-    public void deal (double dmg) {
-        super.deal(dmg);
-        knock("idle","moving");
+    public void deal (double dmg,boolean isCrit) {
+        super.deal(dmg,isCrit);
+        knock("idle","moving",dmg);
     }
 }

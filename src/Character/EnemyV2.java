@@ -13,7 +13,7 @@ public class EnemyV2 {
     public double armour=1;
     public double maxSpeed=2.0;
     public double speed=2.0;
-    public double knockback=5.5;
+    public double knockback=1;
     public boolean isDied=false;
     int price=10;
     double accSpeed=0;
@@ -57,35 +57,40 @@ public class EnemyV2 {
         hpBarBack.setX(dist);
         hpBarFore.setX(dist+1);
     }
-    public void getDamage(double dmg) {
+    public void getDamage(double dmg,boolean isCrit) {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                deal(calcDamage(dmg));
+                deal(calcDamage(dmg),isCrit);
             }
         }).start();
     }
-    public void deal(double dmg) {
+    public void deal(double dmg,boolean isCrit) {
         hp-=calcDamage(dmg);
-        pane.addComponent(new TextIndicator((int)dmg+"",20,Color.WHITE,dist,400,20), TextIndicator.counter+"text"+id);
+        Color textColor=Color.WHITE;
+        if(isCrit) {
+            textColor=Color.RED;
+        }
+        pane.addComponent(new TextIndicator((int)dmg+"",20,textColor,dist,400,20), TextIndicator.counter+"text"+id);
         pane.addComponent(new Effect(new Animation("sprites\\effect\\charging",50,50),dist,400),"hitEffect"+id);
         hpBarFore.setWidth((int)(48*hp/totHp));
         if(hp<0) {
             die();
         }
     }
-    public void knock(String startAnimSet,String endAnimSet) {
+    public void knock(String startAnimSet,String endAnimSet,double dmg) {
         double tmp=speed;
-        speed=tmp-knockback;
+        speed=tmp-calcDamage(dmg)/2*knockback;
         anim.setNowAnim(startAnimSet);
         while(maxSpeed>speed) {
-            speed+=0.1;
+            speed+=calcDamage(dmg)/20;
             try {
                 Thread.sleep(50);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
+        speed=maxSpeed;
         anim.setNowAnim(endAnimSet);
     }
     public double calcDamage(double dmg){

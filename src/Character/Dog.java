@@ -1,5 +1,7 @@
 package Character;
 
+import java.util.Random;
+
 import game.GamePane;
 import savingModule.SaveManager;
 import screen.*;
@@ -9,6 +11,7 @@ public class Dog{
     public Animator dogAnim;
     public int attackMode=0;
     public GamePane pane;
+    int critChanceUp,critDmgUp;
     SaveManager sv;
     BaseAttack baseAttack=new BaseAttack(this);
     ChargeShot chargeShot=new ChargeShot(this);
@@ -23,6 +26,8 @@ public class Dog{
         dogAnim.setNowAnim("idle");
         dogAnim.setNext("bark","idle");
         this.sv=pane.w.sv;
+        critChanceUp=sv.getItem("critChanceUp").getValueInt();
+        critDmgUp=sv.getItem("critDmgUp").getValueInt();
     }
     public void command(int code) {
     	switch(code) {
@@ -37,9 +42,15 @@ public class Dog{
     	}
     }
     public void attack(double now) {
+        Random rand=new Random();
+        boolean isCrit=false;
+        if(rand.nextInt(1000)<100+10*critChanceUp) {
+            isCrit=true;
+            now*=(20.0+critDmgUp)/10.0;
+        }
     	switch(attackMode) {
     		case 0:
-    			baseAttack.attack(now*Math.pow(1.01, sv.getItem("dmgUp").getValueInt()));
+    			baseAttack.attack(now*Math.pow(1.01, sv.getItem("dmgUp").getValueInt()),isCrit);
     			break;
     		case 1:
     			chargeShot.attack(now*Math.pow(1.01, sv.getItem("dmgUp").getValueInt()));

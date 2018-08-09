@@ -25,7 +25,7 @@ public class UpgradePane extends GraphicViewer {
         addComponent(moneyIcon,"moneyIcon");
         addComponent(moneyValue,"moneyValue");
         moneyValue.setText(w.sv.getItem("money").getValueInt()+"");
-        addComponent(new Button("sprites\\Buttons\\main.png",1000,600,100,50) {
+        addComponent(new Button("sprites\\Buttons\\main.png",1000,600,130,50) {
             @Override
             public void act(MouseEvent e) {
                 w.add(new TitlePane(1280,720,200,w));
@@ -33,7 +33,7 @@ public class UpgradePane extends GraphicViewer {
             }
         },"exit");
         getComponentByName("exit").setText("Main Menu");
-        addComponent(new Button("sprites\\Buttons\\main.png",100,600,100,50) {
+        addComponent(new Button("sprites\\Buttons\\main.png",100,600,130,50) {
             @Override
             public void act(MouseEvent e) {
                 w.add(new GamePane(1280,720,100,w));
@@ -71,7 +71,7 @@ public class UpgradePane extends GraphicViewer {
               }
             };
             btn.setText("+");
-            tooltip=new FixedImage("sprites\\Buttons\\main.png",this.locX,this.locY,250,50);
+            tooltip=new FixedImage("sprites\\Buttons\\tooltip.png",this.locX,this.locY,250,50);
             tooltip.setText(text+" : "+100*UpgradePane.this.w.sv.getItem(svKey).getValueInt());
             value=new ValueLabel("sprites\\Buttons\\main.png",this.locX+260,this.locY,100,50);
             value.update(svKey);
