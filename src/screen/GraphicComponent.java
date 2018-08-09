@@ -2,6 +2,7 @@ package screen;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
@@ -14,7 +15,7 @@ import javax.imageio.ImageIO;
 public abstract class GraphicComponent{
     private float alpha=1f;
     private String text="";
-    private Font font=new Font("Consolas",Font.PLAIN,20);
+    private Font font=new Font("맑은 고딕",Font.PLAIN,20);
     private Color textColor=Color.WHITE;
     private int id=-1,x=0,y=0,width=10,height=10;
     private BufferedImage img;
@@ -23,6 +24,20 @@ public abstract class GraphicComponent{
     private boolean isEffect=false;
     private boolean willDestroy=false;
     private boolean isVisible=true;
+    private boolean tooltipable=false;
+    private String description="";
+    public boolean isTooltipable() {
+        return tooltipable;
+    }
+    public void setTooltipable(boolean tooltipable) {
+        this.tooltipable = tooltipable;
+    }
+    public String getDescription() {
+        return description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
+    }
     public boolean isVisible() {
         return isVisible;
     }
@@ -53,7 +68,9 @@ public abstract class GraphicComponent{
     public void setClickable(boolean isClickable) {
         this.isClickable = isClickable;
     }
-    
+    public int getStringSize(Graphics2D g) {
+        return g.getFontMetrics(g.getFont()).stringWidth(getText());
+    }
     public int getId() {
         return id;
     }
@@ -135,4 +152,11 @@ public abstract class GraphicComponent{
         }
         this.alpha = alpha;
     }
+}
+class FontCalculator extends FontMetrics{
+
+    protected FontCalculator(Font font) {
+        super(font);
+    }
+    
 }

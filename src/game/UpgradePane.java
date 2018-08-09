@@ -9,15 +9,16 @@ public class UpgradePane extends GraphicViewer {
     Window w;
     FixedImage img;
     Group dmg,critChance,critDmg;
+    FixedImage mouseTooltip=new FixedImage("sprites\\Buttons\\tooltip.png");
     FixedImage moneyIcon=new FixedImage("sprites\\Money\\icon.png",1000,100,50,50);
     FixedImage moneyValue=new FixedImage(null,1060,100,100,50);
     public UpgradePane(int width, int height, int rate,Window w) {
         super(width, height, rate);
         this.w=w;
         img=new FixedImage("sprites\\title\\title.jpg",0,0,1280,720);
-        dmg=new Group("damage",100,100,"dmgUp");
-        critChance=new Group("critical chance",100,200,"critChanceUp");
-        critDmg=new Group("critical damage",100,300,"critDmgUp");
+        dmg=new Group("피해량",100,100,"dmgUp");
+        critChance=new Group("크리티컬 확률",100,200,"critChanceUp");
+        critDmg=new Group("크리티컬 배수",100,300,"critDmgUp");
         this.addComponent(img,"background");
         dmg.addGroup(this);
         critChance.addGroup(this);
@@ -32,7 +33,7 @@ public class UpgradePane extends GraphicViewer {
                 w.remove(UpgradePane.this);
             }
         },"exit");
-        getComponentByName("exit").setText("Main Menu");
+        getComponentByName("exit").setText("메인 메뉴");
         addComponent(new Button("sprites\\Buttons\\main.png",100,600,130,50) {
             @Override
             public void act(MouseEvent e) {
@@ -40,8 +41,9 @@ public class UpgradePane extends GraphicViewer {
                 w.remove(UpgradePane.this);
             }
         },"start");
-        getComponentByName("start").setText("Game Start");
+        getComponentByName("start").setText("게임 시작");
     }
+    
     class Group{
         Button btn;
         FixedImage tooltip;

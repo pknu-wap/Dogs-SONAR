@@ -3,6 +3,7 @@ package Character;
 import java.util.Random;
 
 import game.GamePane;
+import game.Window;
 import savingModule.SaveManager;
 import screen.*;
 import skill.*;
@@ -20,7 +21,7 @@ public class Dog{
     	this.pane=pane;
         dogAnim=new Animator(100,100);
         dogAnim.setX(100);
-        dogAnim.setY(360);
+        dogAnim.setY(Window.CHARACTER_Y);
         dogAnim.addAnimation(new Animation("sprites\\Dog\\idle",100,100), "idle");
         dogAnim.addAnimation(new Animation("sprites\\Dog\\bark",100,100), "bark");
         dogAnim.addAnimation(new Animation("sprites\\Dog\\barking",100,100), "barking");
@@ -54,10 +55,10 @@ public class Dog{
         }
     	switch(attackMode) {
     		case 0:
-    			baseAttack.attack(now*Math.pow(1.01, sv.getItem("dmgUp").getValueInt()),isCrit);
+    			baseAttack.attack(now*Math.pow(1.03, sv.getItem("dmgUp").getValueInt()),isCrit);
     			break;
     		case 1:
-    			chargeShot.attack(now*Math.pow(1.01, sv.getItem("dmgUp").getValueInt()));
+    			chargeShot.attack(now*Math.pow(1.03, sv.getItem("dmgUp").getValueInt()));
     			break;
     	}
     }

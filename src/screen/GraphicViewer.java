@@ -5,6 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -15,7 +16,7 @@ import java.util.Map.Entry;
 import java.util.TreeMap;
 import java.util.Map;
 
-public class GraphicViewer extends Canvas implements Runnable,MouseListener{
+public class GraphicViewer extends Canvas implements Runnable,MouseListener,MouseMotionListener{
     BufferedImage bf;
     int frameRate=50;
     LinkedHashMap<String,GraphicComponent> buffer;
@@ -25,6 +26,7 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
     public GraphicViewer(int width,int height,int rate) {
         frameRate=rate;
         this.addMouseListener(this);
+        this.addMouseMotionListener(this);
         this.setSize(width,height);
         this.setBackground(Color.white);
         buffer=new LinkedHashMap<String,GraphicComponent>();
@@ -84,7 +86,7 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
                 g2d.drawImage(k,value.getX(),value.getY(),value.getWidth(),value.getHeight(),this);
                 g2d.setFont(value.getFont());
                 g2d.setColor(value.getTextColor());
-                g2d.drawString(value.getText(),(int) (value.getX()+0.76*value.getFont().getSize()/2),(int) (value.getY()+value.getHeight()/2+0.76*value.getFont().getSize()/2));
+                g2d.drawString(value.getText(),(int) (value.getX()+value.getWidth()/2.0-value.getStringSize(g2d)/2.0),(int) (value.getY()+value.getHeight()/2+0.76*value.getFont().getSize()/2));
             }
         }
         g2d.dispose();
@@ -159,6 +161,30 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener{
                 }
             }
         }
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        // TODO Auto-generated method stub
+        int tX=e.getX();
+        int tY=e.getY();
+        for (Entry<String, GraphicComponent> entry : buffer.entrySet()) {
+            String key   = entry.getKey();
+            GraphicComponent value =  entry.getValue();
+            if((value.getX()<tX&&tX<value.getX()+value.getWidth()&&value.getY()<tY&&tY<value.getY()+value.getHeight()&&value.getImg().getRGB(tX-value.getX(),tY-value.getY())!=0)&&value.getAlpha()>0) {
+                hovered(e,value);
+                break;
+            }
+        }
+        
+    }
+    public void hovered(MouseEvent e,GraphicComponent t){
+        
     }
 }
 

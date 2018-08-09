@@ -25,7 +25,7 @@ public class GamePane extends GraphicViewer{
     FixedImage day=new FixedImage("sprites\\Buttons\\tooltip.png",100,50,200,50);
     FixedImage money=new FixedImage("sprites\\Buttons\\tooltip.png",950,50,250,30);
     FixedImage timer=new FixedImage("sprites\\Buttons\\tooltip.png",950,80,180,30);
-    SkillButton feverBtn=new SkillButton("sprites\\Buttons\\main.png",400,600,150,50,"attack fever",20) {
+    SkillButton feverBtn=new SkillButton("sprites\\Buttons\\main.png",400,600,150,50,"목풀기",20) {
         @Override
         public void act(MouseEvent e) {
             if(isCooling) return;
@@ -33,17 +33,17 @@ public class GamePane extends GraphicViewer{
             runCoolTime();
         }
     };
-    SkillButton chargeBtn=new SkillButton("sprites\\Buttons\\main.png",200,600,150,50,"start charge",3) {
+    SkillButton chargeBtn=new SkillButton("sprites\\Buttons\\main.png",200,600,150,50,"기모으기",3) {
     	@Override
     	public void act(MouseEvent e) {
     	    if(isCooling) return;
     		if(dog.attackMode==1) {
     		    this.runCoolTime();
     			dog.command(1);
-    			this.setText("start charge");
+    			this.setText("기모으기");
     		}else if(dog.attackMode==0) {
     			dog.command(0);
-    			this.setText("release charge");
+    			this.setText("발사");
     		}
     	}
     };
@@ -53,8 +53,8 @@ public class GamePane extends GraphicViewer{
         setFocusable(true);
         this.w=w;
         this.sv=w.sv;
-        day.setText("Day "+sv.getItem("day").getValueString());
-        money.setText("Money acquired : 0");
+        day.setText(sv.getItem("day").getValueString()+"일 차");
+        money.setText("얻은 돈 : 0");
         enemyController=new EnemyController(this);
         addComponent(new FixedImage("sprites\\title\\title.jpg",0,0,1280,720),"background");
         dog=new Dog(this);
@@ -85,7 +85,7 @@ public class GamePane extends GraphicViewer{
                         Thread.sleep(100);
                         if(!isPaused) {
                             i+=100;
-                            GamePane.this.timer.setText("Time left : "+(60-(i/1000))+"");
+                            GamePane.this.timer.setText("남은 시간 : "+(60-(i/1000))+"");
                         }
                     }
                     GamePane.this.result(true);
@@ -131,7 +131,7 @@ public class GamePane extends GraphicViewer{
         w.add(new ResultPane(1280,720,200,w,cleared,addMoney));
     }
     public void updateMoney() {
-        money.setText("Money acquired : "+addMoney);
+        money.setText("얻은 돈 : "+addMoney);
     }
     class SkillButton extends Button{
         int coolTime=0;
@@ -154,7 +154,7 @@ public class GamePane extends GraphicViewer{
                 public void run() {
                     fader.setVisible(true);
                     for(int i=coolTime;i>=0;i--) {
-                        fader.setText("Wait : "+i);
+                        fader.setText("쿨타임 : "+i);
                         try {
                             Thread.sleep(1000);
                         } catch (InterruptedException e) {

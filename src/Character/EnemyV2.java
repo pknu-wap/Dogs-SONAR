@@ -4,6 +4,7 @@ package Character;
 import java.awt.Color;
 
 import game.GamePane;
+import game.Window;
 import screen.*;
 
 public class EnemyV2 {
@@ -12,8 +13,8 @@ public class EnemyV2 {
     public double totHp=100.0;
     public double hp=100.0;
     public double armour=1;
-    public double maxSpeed=2.0;
-    public double speed=2.0;
+    public double maxSpeed=4.0;
+    public double speed=4.0;
     public double knockback=1;
     public boolean isDied=false;
     int price=10;
@@ -24,12 +25,14 @@ public class EnemyV2 {
     Animator anim=new Animator(50,100);
     public EnemyV2(int hp,GamePane pane){
         this.pane=pane;
-        this.hp=this.hp*Math.pow(1.02, hp);
+        this.hp=this.hp*Math.pow(1.1, hp);
         
     }
-    public void setSize() {
-        anim.setY(460-anim.getHeight());
+    public void setLoc() {
+        anim.setY(Window.CHARACTER_Y+100-anim.getHeight());
         anim.setX(dist);
+        hpBarBack.setY(anim.getY()-10);
+        hpBarFore.setY(anim.getY()-10);
     }
     public void addComponent(int index) {
         this.id=index;
@@ -57,9 +60,13 @@ public class EnemyV2 {
             dist-=(int)accSpeed;
             accSpeed-=(int)accSpeed;
         }
+        if(dist>1230) {
+            dist=1230;
+        }
         anim.setX(dist);
         hpBarBack.setX(dist);
         hpBarFore.setX(dist+1);
+        
     }
     public void getDamage(double dmg,boolean isCrit) {
         new Thread(new Runnable() {
@@ -82,18 +89,30 @@ public class EnemyV2 {
             die();
         }
     }
+    public void init() {
+        setLoc();
+        hp=totHp;
+        speed=maxSpeed;
+    }
     public void knock(String startAnimSet,String endAnimSet,double dmg) {
+        int tmpY=anim.getY();
         double tmp=speed;
+        double tmpYSpeed=-calcDamage(dmg)/4*knockback;
         speed=tmp-calcDamage(dmg)/2*knockback;
         anim.setNowAnim(startAnimSet);
+        double k=20;
         while(maxSpeed>speed) {
-            speed+=calcDamage(dmg)/20;
+            anim.setY(anim.getY()+(int)tmpYSpeed);
+            tmpYSpeed+=calcDamage(dmg)/k;
+            speed+=calcDamage(dmg)/k;
+            k-=1;
             try {
                 Thread.sleep(50);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
+        anim.setY(tmpY);
         speed=maxSpeed;
         anim.setNowAnim(endAnimSet);
     }

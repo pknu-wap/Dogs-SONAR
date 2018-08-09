@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import Character.Dog;
 import Character.EnemyV2;
+import game.Window;
 import screen.Animation;
 import screen.Animator;
 import screen.Effect;
@@ -26,7 +27,7 @@ public class ChargeShot implements Runnable{
 		Animator chargingAnimator=new Animator(50,50);
 		chargingAnimator.setX(105);
 		chargingAnimator.setY(335);
-		chargingAnimator.addAnimation(new Animation("sprites\\effect\\charging",150,150), "charging");
+		chargingAnimator.addAnimation(new Animation("sprites\\effect\\charging",150,Window.CHARACTER_Y-200), "charging");
 		chargingAnimator.setNowAnim("charging");
 		dog.pane.addComponent(chargingAnimator,"charging");
 	}

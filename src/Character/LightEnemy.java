@@ -10,10 +10,8 @@ public class LightEnemy extends EnemyV2{
         anim.addAnimation(new Animation("sprites\\cat\\move",50,50), "move");
         anim.setNowAnim("move");
         this.totHp/=2;
-        this.hp/=2;
         this.maxSpeed*=2;
-        this.speed*=2;
-        setSize();
+        init();
     }
     @Override
     public void deal (double dmg,boolean isCrit) {

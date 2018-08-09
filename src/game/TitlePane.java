@@ -26,7 +26,7 @@ public class TitlePane extends GraphicViewer{
         addComponent(dog,"dog");
         addComponent(moneyIcon,"moneyIcon");
         addComponent(moneyValue,"moneyValue");
-        start.setText("Game Start");
+        start.setText("게임 시작");
         moneyValue.setText(w.sv.getItem("money").getValueInt()+"");
         
     }
@@ -75,7 +75,7 @@ public class TitlePane extends GraphicViewer{
     class ExitBtn extends Button{
         public ExitBtn(String imgSrc, int locX, int locY, int sizeWidth, int sizeHeight) {
             super(imgSrc,locX,locY,sizeWidth,sizeHeight);
-            this.setText("Exit");
+            this.setText("나가기");
         }
         @Override
         public void act(MouseEvent e) {
@@ -86,7 +86,7 @@ public class TitlePane extends GraphicViewer{
     class UpgradeBtn extends Button{
         public UpgradeBtn(String imgSrc, int locX, int locY, int sizeWidth, int sizeHeight) {
             super(imgSrc, locX, locY, sizeWidth, sizeHeight);
-            this.setText("Upgrades");
+            this.setText("업그레이드");
         }
         @Override
         public void act(MouseEvent e) {

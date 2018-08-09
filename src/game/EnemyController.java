@@ -46,18 +46,15 @@ public class EnemyController implements Runnable{
         public void run() {
             Random rand=new Random();
             while(stopping) {
-                
-                try {
-                    Thread.sleep(rand.nextInt(2500)+500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
                 if(!isPaused) {
                     synchronized(this) {
                         EnemyV2 tt;
-                        switch(rand.nextInt(2)) {
+                        switch(rand.nextInt(3)) {
                         case 0:
                             tt=new LightEnemy(day,pane);
+                            break;
+                        case 1:
+                            tt=new HeavyEnemy(day,pane);
                             break;
                         default:
                             tt=new NormalEnemy(day,pane);
@@ -66,6 +63,11 @@ public class EnemyController implements Runnable{
                         tt.addComponent(count++);
                         buffer.add(tt);
                     }
+                }
+                try {
+                    Thread.sleep(rand.nextInt(2000)+1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
         }
@@ -87,7 +89,9 @@ public class EnemyController implements Runnable{
                 }
                 if(t.dist<100) {
                     pane.result(false);
+                    return;
                 }
+                
                 if(t.isDied) {
                     iter.remove();
                     pane.addMoney+=t.getPrice();

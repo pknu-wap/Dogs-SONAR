@@ -8,6 +8,7 @@ import soundCapture.LevelMeter;
 import soundCapture.SoundHandler;
 
 public class Window extends JFrame{
+    public static int CHARACTER_Y=400;
     public SaveManager sv;
     public LevelMeter lm;
     VoiceHandler vh;
