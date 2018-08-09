@@ -1,5 +1,7 @@
 package Character;
 
+import java.awt.Color;
+
 import game.GamePane;
 import screen.*;
 
@@ -18,7 +20,7 @@ public class EnemyV2 {
     GamePane pane;
     FixedImage hpBarBack=new FixedImage("sprites\\bars\\back.png",dist,350,50,5);
     FixedImage hpBarFore=new FixedImage("sprites\\bars\\hp.png",dist+1,351,48,3);
-    Animator anim=new Animator(50,100);;
+    Animator anim=new Animator(50,100);
     public EnemyV2(int hp,GamePane pane){
         this.pane=pane;
         this.hp=this.hp*Math.pow(1.02, hp);
@@ -65,6 +67,8 @@ public class EnemyV2 {
     }
     public void deal(double dmg) {
         hp-=calcDamage(dmg);
+        pane.addComponent(new TextIndicator((int)dmg+"",20,Color.WHITE,dist,400,20), TextIndicator.counter+"text"+id);
+        pane.addComponent(new Effect(new Animation("sprites\\effect\\charging",50,50),dist,400),"hitEffect"+id);
         hpBarFore.setWidth((int)(48*hp/totHp));
         if(hp<0) {
             die();
@@ -73,7 +77,6 @@ public class EnemyV2 {
     public void knock(String startAnimSet,String endAnimSet) {
         double tmp=speed;
         speed=tmp-knockback;
-        pane.addComponent(new Effect(new Animation("sprites\\effect\\charging",50,50),dist,400),"hitEffect"+id);
         anim.setNowAnim(startAnimSet);
         while(maxSpeed>speed) {
             speed+=0.1;
