@@ -127,6 +127,7 @@ class Reactor implements SoundHandler{
             	 System.out.println(t.get(i).hp);
             	 if(t.get(i).hp<=0) {
             		 enemy_die(t);
+            		 System.out.println(i+"사망");
             		 i++;
             	 }
              }

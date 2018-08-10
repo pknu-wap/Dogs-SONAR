@@ -47,6 +47,14 @@ public class GamePane extends GraphicViewer{
     		}
     	}
     };
+    SkillButton allkillBtn=new SkillButton("sprites\\Buttons\\main.png",600,600,150,50,"올킬",20) {
+        @Override
+        public void act(MouseEvent e) {
+            if(isCooling) return;
+            dog.command(3);
+            runCoolTime();
+        }
+    };
     int addMoney=0;
     public GamePane(int width, int height, int rate,Window w) {
         super(width,height,rate);
@@ -66,6 +74,8 @@ public class GamePane extends GraphicViewer{
         addComponent(chargeBtn.getFader(),"chargeBtnFader");
         addComponent(feverBtn,"feverBtn");
         addComponent(feverBtn.getFader(),"feverBtnFader");
+        addComponent(allkillBtn,"allkillBtn");
+        addComponent(allkillBtn.getFader(),"allkillBtnFader");
         addComponent(new Effect(new Animation("sprites\\effect\\startEffect",1280,720),-10,0),"starter");
         addComponent(money,"money");
         addComponent(day,"day");
