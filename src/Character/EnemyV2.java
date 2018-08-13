@@ -76,8 +76,11 @@ public class EnemyV2 {
             }
         }).start();
     }
+    public double getHp() {
+        return hp;
+    }
     public void deal(double dmg,boolean isCrit) {
-        hp-=calcDamage(dmg);
+        hp-=dmg;
         Color textColor=Color.WHITE;
         if(isCrit) {
             textColor=Color.RED;

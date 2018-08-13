@@ -29,7 +29,7 @@ public class AllKill implements Runnable{
 	public void allAttack() {
 		ArrayList<EnemyV2> arr=dog.pane.getEnemyController().getAll();
 		for(int i=0;i<arr.size();i++) {
-	        arr.get(i).getDamage(100,false);
+	        arr.get(i).deal(arr.get(i).getHp(),false);
 	    }
 	}
 }
