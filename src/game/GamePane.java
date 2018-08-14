@@ -91,7 +91,7 @@ public class GamePane extends GraphicViewer{
                         e1.printStackTrace();
                     }
                     enemyController.startGame();
-                    while(i<=60000) {
+                    while(i<=60000&&w.isGaming) {
                         Thread.sleep(100);
                         if(!isPaused) {
                             i+=100;

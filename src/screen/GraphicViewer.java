@@ -22,6 +22,7 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener,Mous
     LinkedHashMap<String,GraphicComponent> buffer;
     LinkedHashMap<String,GraphicComponent> queue;
     boolean firstPainted=false;
+    boolean noTooltip=true;
     Thread thr;
     public GraphicViewer(int width,int height,int rate) {
         frameRate=rate;
@@ -83,14 +84,11 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener,Mous
             if(value.isDestroy()) {
                 keys.remove();
             }
-            if(k!=null) {
-                g2d.setComposite(AlphaComposite.SrcOver.derive(value.getAlpha()));
-                value.drawImage(g2d,this);
-                value.drawString(g2d);
-                
-            }
-            if(key.contains("_tooltip")) {
-                //value.setVisible(false);
+            g2d.setComposite(AlphaComposite.SrcOver.derive(value.getAlpha()));
+            value.drawImage(g2d,this);
+            value.drawString(g2d);
+            if(key.contains("_tooltip")&&noTooltip) {
+                value.setVisible(false);
             }
         }
         g2d.dispose();
@@ -98,6 +96,7 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener,Mous
         g.dispose();
 
     }
+    
     @Override
     public void run() {
         while(true) {
@@ -149,7 +148,7 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener,Mous
             }
         }
     }
-
+    
     @Override
     public void mouseReleased(MouseEvent arg0) {}
 
@@ -179,17 +178,18 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener,Mous
         // TODO Auto-generated method stub
         int tX=e.getX();
         int tY=e.getY();
+        boolean isCheck=false;
         for (Entry<String, GraphicComponent> entry : buffer.entrySet()) {
             String key   = entry.getKey();
             GraphicComponent value =  entry.getValue();
-            if((value.getX()<tX&&tX<value.getX()+value.getWidth()&&value.getY()<tY&&tY<value.getY()+value.getHeight()&&value.getImg().getRGB(tX-value.getX(),tY-value.getY())!=0)&&value.getAlpha()>0) {
-                if(value.isTooltipable()) {
-                    System.out.println(value.toString());
+            if(value.isTooltipable()) {
+                if((value.getX()<tX&&tX<value.getX()+value.getWidth()&&value.getY()<tY&&tY<value.getY()+value.getHeight()&&value.getImg().getRGB(tX-value.getX(),tY-value.getY())!=0)&&value.getAlpha()>0) {
+                    noTooltip=false;
                     hovered(e,value);
                     break;
                 }
-                
             }
+            noTooltip=true;
         }
         
     }

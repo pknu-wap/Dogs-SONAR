@@ -34,7 +34,7 @@ public abstract class GraphicComponent{
         g2d.drawString(this.getText(),(int) (this.getX()+this.getWidth()/2.0-this.getStringSize(g2d)/2.0),(int) (this.getY()+this.getHeight()/2+0.76*this.getFont().getSize()/2));
     }
     public void drawImage(Graphics2D g2d,GraphicViewer canvas) {
-        g2d.drawImage(getImg(),getX(),getY(),getWidth(),getHeight(),canvas);
+        if(getImg()!=null) g2d.drawImage(getImg(),getX(),getY(),getWidth(),getHeight(),canvas);
     }
     public boolean isTooltipable() {
         return tooltipable;

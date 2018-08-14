@@ -6,7 +6,7 @@ import java.awt.Graphics2D;
 
 public class Tooltip extends GraphicComponent{
     int offsetX,offsetY;
-    Color bgColor;
+    Color bgColor,foreColor;
     public int getOffsetX() {
         return offsetX;
     }
@@ -21,23 +21,29 @@ public class Tooltip extends GraphicComponent{
     }
     public Tooltip(String text,int offsetX,int offsetY,Color bgColor,Color foreColor,int size) {
         this.bgColor=bgColor;
+        this.foreColor=foreColor;
         setText(text);
-        setVisible(false);
+        setVisible(true);
+        setClickable(false);
+        setTooltipable(false);
         setTextColor(foreColor);
         setFont(new Font("맑은 고딕",Font.PLAIN,size));
         setOffsetX(offsetX);
         setOffsetY(offsetY);
         int count=1;
-        for(int i=0;i<text.length();i++){
-         if(text.charAt(i)== '\n'){
-             count++;
-              }
-          }
+        for (String line : getText().split("\n"))count++;
         setHeight(10+getFont().getSize()*count);
+        
     }
     @Override
     public void drawString(Graphics2D g2d) {
-        g2d.drawString(getText(), getX()+getOffsetX()+5, getY()+getOffsetY()+5);
+        g2d.setColor(foreColor);
+        g2d.setFont(getFont());
+        int x=getX()+getOffsetX()+5,y=getY()+getOffsetY()+5;
+        //g2d.drawString(g2d,getText(), getX()+getOffsetX()+5, getY()+getOffsetY()+5);
+        for (String line : getText().split("\n"))
+            g2d.drawString(line, x, y += g2d.getFontMetrics().getHeight());
+        
     }
     @Override
     public void drawImage(Graphics2D g2d,GraphicViewer canvas) {
