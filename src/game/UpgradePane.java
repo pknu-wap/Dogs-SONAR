@@ -79,7 +79,7 @@ public class UpgradePane extends GraphicViewer {
             		SaveManager sv=UpgradePane.this.w.sv;
             		if(sv.getItem(svKey).getValueInt()>0) {
             			System.out.println("downupgraded");
-            			sv.getItem("money").setValueInt(sv.getItem("money").getValueInt()+100*sv.getItem(svKey).getValueInt());
+            			sv.getItem("money").setValueInt(sv.getItem("money").getValueInt()+100*(sv.getItem(svKey).getValueInt()-1));
                         sv.getItem(svKey).setValueInt(sv.getItem(svKey).getValueInt()-1);
                         sv.save();
                         tooltip.setText(text+" : "+100*UpgradePane.this.w.sv.getItem(svKey).getValueInt());
@@ -131,7 +131,7 @@ public class UpgradePane extends GraphicViewer {
         }
         @Override
         public void act(MouseEvent e) {
-            
+  
             lb.update(this.text);
             sv.getItem(text).setValueInt(sv.getItem(text).getValueInt()+1);
         }
