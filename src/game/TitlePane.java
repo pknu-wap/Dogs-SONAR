@@ -19,8 +19,8 @@ public class TitlePane extends GraphicViewer{
     public TitlePane(int width, int height, int rate,Window w) {
         super(width,height);
         this.w=w;
-        exit.setTooltip(new Tooltip("게임을 \n 나갑니다.",5,5,Color.BLACK,Color.WHITE,15));
-        exit.setTooltipable(true);
+        //exit.setTooltip(new Tooltip("게임을 \n 나갑니다.",5,5,Color.BLACK,Color.WHITE,15));
+        //^use line can be by group
         addComponent(img,"background");
         addComponent(start,"start");
         addComponent(upgrade,"upgrade");

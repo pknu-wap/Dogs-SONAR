@@ -31,7 +31,7 @@ public abstract class GraphicComponent{
 
         g2d.setFont(getFont());
         g2d.setColor(getTextColor());
-        g2d.drawString(this.getText(),(int) (this.getX()+this.getWidth()/2.0-this.getStringSize(g2d)/2.0),(int) (this.getY()+this.getHeight()/2+0.76*this.getFont().getSize()/2));
+        g2d.drawString(this.getText(),(int) (this.getX()+this.getWidth()/2.0-this.getStringSize(g2d,this.getText())/2.0),(int) (this.getY()+this.getHeight()/2+0.76*this.getFont().getSize()/2));
     }
     public void drawImage(Graphics2D g2d,GraphicViewer canvas) {
         if(getImg()!=null) g2d.drawImage(getImg(),getX(),getY(),getWidth(),getHeight(),canvas);
@@ -41,6 +41,7 @@ public abstract class GraphicComponent{
     }
     public void setTooltip(Tooltip tooltip) {
         this.tooltip=tooltip;
+        setTooltipable(true);
     }
     public Tooltip getTooltip() {
         return tooltip;
@@ -84,8 +85,8 @@ public abstract class GraphicComponent{
     public void setClickable(boolean isClickable) {
         this.isClickable = isClickable;
     }
-    public int getStringSize(Graphics2D g) {
-        return g.getFontMetrics(g.getFont()).stringWidth(getText());
+    public int getStringSize(Graphics2D g,String text) {
+        return g.getFontMetrics(g.getFont()).stringWidth(text);
     }
     public int getId() {
         return id;
