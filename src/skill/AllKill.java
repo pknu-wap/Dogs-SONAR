@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import Character.Dog;
 import Character.EnemyV2;
 
-public class AllKill implements Runnable{
+public class AllKill {
 	Dog dog;
 	boolean isAllKill = false;
 	
@@ -15,10 +15,6 @@ public class AllKill implements Runnable{
 	
 	public void allkilling() {
 		
-		allAttack();
-	}
-	public void run() {
-		isAllKill=false;
 		allAttack();
 	}
 	public void allAttack() {
