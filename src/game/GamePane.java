@@ -47,7 +47,7 @@ public class GamePane extends GraphicViewer{
     		}
     	}
     };
-    SkillButton allkillBtn=new SkillButton("sprites\\Buttons\\main.png",600,600,150,50,"올킬",20) {
+    SkillButton allkillBtn=new SkillButton("sprites\\Buttons\\main.png",600,600,150,50,"올킬",30) {
         @Override
         public void act(MouseEvent e) {
             if(isCooling) return;
