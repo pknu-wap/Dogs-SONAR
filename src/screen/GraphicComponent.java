@@ -26,8 +26,24 @@ public abstract class GraphicComponent{
     private boolean isVisible=true;
     private boolean tooltipable=false;
     private String description="";
+    private Tooltip tooltip=null;
+    public void drawString(Graphics2D g2d) {
+
+        g2d.setFont(getFont());
+        g2d.setColor(getTextColor());
+        g2d.drawString(this.getText(),(int) (this.getX()+this.getWidth()/2.0-this.getStringSize(g2d)/2.0),(int) (this.getY()+this.getHeight()/2+0.76*this.getFont().getSize()/2));
+    }
+    public void drawImage(Graphics2D g2d,GraphicViewer canvas) {
+        g2d.drawImage(getImg(),getX(),getY(),getWidth(),getHeight(),canvas);
+    }
     public boolean isTooltipable() {
         return tooltipable;
+    }
+    public void setTooltip(Tooltip tooltip) {
+        this.tooltip=tooltip;
+    }
+    public Tooltip getTooltip() {
+        return tooltip;
     }
     public void setTooltipable(boolean tooltipable) {
         this.tooltipable = tooltipable;

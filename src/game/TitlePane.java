@@ -19,6 +19,8 @@ public class TitlePane extends GraphicViewer{
     public TitlePane(int width, int height, int rate,Window w) {
         super(width,height,rate);
         this.w=w;
+        exit.setTooltip(new Tooltip("게임을 \n 나갑니다.",5,5,Color.BLACK,Color.WHITE,10));
+        exit.setTooltipable(true);
         addComponent(img,"background");
         addComponent(start,"start");
         addComponent(upgrade,"upgrade");
@@ -28,7 +30,6 @@ public class TitlePane extends GraphicViewer{
         addComponent(moneyValue,"moneyValue");
         start.setText("게임 시작");
         moneyValue.setText(w.sv.getItem("money").getValueInt()+"");
-        
     }
     class TitleDogAnimator extends Animator {
         Random rand;
@@ -66,7 +67,7 @@ public class TitlePane extends GraphicViewer{
         }
         @Override
         public void act(MouseEvent e) {
-            w.remove(TitlePane.this);
+            remove(w);
             w.add(new GamePane(1280,720,100,w));
             TitlePane.this.dog.isPlaying=false;
         }
@@ -90,9 +91,11 @@ public class TitlePane extends GraphicViewer{
         }
         @Override
         public void act(MouseEvent e) {
-            w.remove(TitlePane.this);
-            w.add(new UpgradePane(1280,720,50,w));
+            
+            
             TitlePane.this.dog.isPlaying=false;
+            remove(w);
+            w.add(new UpgradePane(1280,720,50,w));
             
         }
         

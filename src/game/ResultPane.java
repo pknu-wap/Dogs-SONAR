@@ -13,21 +13,21 @@ public class ResultPane extends GraphicViewer{
     Button nextDay=new Button("sprites\\Buttons\\main.png",600,440,300,50) {
         @Override
         public void act(MouseEvent e) {
-            w.remove(ResultPane.this);
+            remove(w);
             w.add(new GamePane(1280,720,100,w));
         }
     };
     Button upgrade=new Button("sprites\\Buttons\\main.png",780,500,120,50) {
         @Override
         public void act(MouseEvent e) {
-            w.remove(ResultPane.this);
+            remove(w);
             w.add(new UpgradePane(1280,720,100,w));
         }
     };
     Button toMain=new Button("sprites\\Buttons\\main.png",600,500,120,50) {
         @Override
         public void act(MouseEvent e) {
-            w.remove(ResultPane.this);
+            remove(w);
             w.add(new TitlePane(1280,720,100,w));
         }
     };
