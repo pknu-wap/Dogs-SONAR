@@ -137,7 +137,7 @@ public class GamePane extends GraphicViewer{
             sv.getItem("day").setValueInt(sv.getItem("day").getValueInt()+1);            
         }
         enemyController.dispose();
-        w.remove(GamePane.this);
+        remove(w);
         w.add(new ResultPane(1280,720,200,w,cleared,addMoney));
     }
     public void updateMoney() {

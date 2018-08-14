@@ -11,7 +11,7 @@ import screen.Animator;
 import screen.Effect;
 import screen.TextIndicator;
 
-public class ChargeShot implements Runnable{
+public class ChargeShot {
 	double chargedDamage=0.0;
 	boolean isCharging=false;
 	Dog dog;
@@ -45,16 +45,6 @@ public class ChargeShot implements Runnable{
 		}else {
 			System.out.println("wrong access to chargeshot");
 		}		
-	}
-	@Override
-	public void run() {
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		isCharging=false;
-		chargeAttack();
 	}
 	public void chargeAttack() {
 	    dog.pane.addComponent(new Effect(new Animation("sprites\\effect\\beam",1200,50),155,385), "baseBark");

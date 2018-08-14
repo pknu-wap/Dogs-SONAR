@@ -13,6 +13,11 @@ public class Window extends JFrame{
     public LevelMeter lm;
     VoiceHandler vh;
     Dog dog;
+    @Override
+    public void removeAll() {
+        getContentPane().removeAll();
+        getContentPane().repaint();
+    }
     boolean isGaming=false,isPaused=false;
     public static void main(String[] args) {
         Window win=new Window();

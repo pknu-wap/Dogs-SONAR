@@ -43,6 +43,8 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener,Mous
 
     public void addComponent(GraphicComponent btn,String name) {
         queue.put(name, btn);
+        if(btn.isTooltipable()&&btn.getTooltip()!=null)
+        queue.put(name+"_tooltip", btn.getTooltip());
         
         
     }
@@ -83,10 +85,12 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener,Mous
             }
             if(k!=null) {
                 g2d.setComposite(AlphaComposite.SrcOver.derive(value.getAlpha()));
-                g2d.drawImage(k,value.getX(),value.getY(),value.getWidth(),value.getHeight(),this);
-                g2d.setFont(value.getFont());
-                g2d.setColor(value.getTextColor());
-                g2d.drawString(value.getText(),(int) (value.getX()+value.getWidth()/2.0-value.getStringSize(g2d)/2.0),(int) (value.getY()+value.getHeight()/2+0.76*value.getFont().getSize()/2));
+                value.drawImage(g2d,this);
+                value.drawString(g2d);
+                
+            }
+            if(key.contains("_tooltip")) {
+                value.setVisible(false);
             }
         }
         g2d.dispose();
@@ -107,7 +111,9 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener,Mous
         }
 
     }
-
+    public void remove(Window w) {
+        w.removeAll();
+    }
     @Override
     public void mouseClicked(MouseEvent arg0) {
 
@@ -177,14 +183,23 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener,Mous
             String key   = entry.getKey();
             GraphicComponent value =  entry.getValue();
             if((value.getX()<tX&&tX<value.getX()+value.getWidth()&&value.getY()<tY&&tY<value.getY()+value.getHeight()&&value.getImg().getRGB(tX-value.getX(),tY-value.getY())!=0)&&value.getAlpha()>0) {
-                hovered(e,value);
+                if(value.isTooltipable()) {
+                    hovered(e,value);
+                }
+                
                 break;
             }
         }
         
     }
     public void hovered(MouseEvent e,GraphicComponent t){
-        
+        int tX=e.getX(),tY=e.getY();
+        if(t.getTooltip()!=null) {
+            Tooltip tooltip=t.getTooltip();
+            tooltip.setVisible(true);
+            tooltip.setX(e.getX());
+            tooltip.setY(e.getY());
+        }
     }
 }
 
