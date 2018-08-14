@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import Character.Dog;
 import Character.EnemyV2;
 
-public class AllKill implements Runnable{
+public class AllKill {
 	Dog dog;
 	boolean isAllKill = false;
 	
@@ -17,19 +17,10 @@ public class AllKill implements Runnable{
 		
 		allAttack();
 	}
-	public void run() {
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		isAllKill=false;
-		allAttack();
-	}
 	public void allAttack() {
 		ArrayList<EnemyV2> arr=dog.pane.getEnemyController().getAll();
 		for(int i=0;i<arr.size();i++) {
-	        arr.get(i).deal(arr.get(i).getHp(),false);
+	        arr.get(i).deal(arr.get(i).getHp()*2,false);
 	    }
 	}
 }

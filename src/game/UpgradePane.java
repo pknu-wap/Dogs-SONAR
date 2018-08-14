@@ -48,6 +48,7 @@ public class UpgradePane extends GraphicViewer {
     
     class Group{
         Button btn;
+        Button minus;
         FixedImage tooltip;
         ValueLabel value;
         String text,svKey;
@@ -74,7 +75,25 @@ public class UpgradePane extends GraphicViewer {
                   }
               }
             };
+            minus = new Button("sprites\\Buttons\\main.png",this.locX+480,this.locY,100,50) {
+            	@Override
+            	public void act(MouseEvent e) {
+            		SaveManager sv=UpgradePane.this.w.sv;
+            		if(sv.getItem(svKey).getValueInt()>0) {
+            			System.out.println("downupgraded");
+            			sv.getItem("money").setValueInt(sv.getItem("money").getValueInt()+100*sv.getItem(svKey).getValueInt());
+                        sv.getItem(svKey).setValueInt(sv.getItem(svKey).getValueInt()-1);
+                        sv.save();
+                        tooltip.setText(text+" : "+100*UpgradePane.this.w.sv.getItem(svKey).getValueInt());
+                        value.update(svKey);
+                        moneyValue.setText(sv.getItem("money").getValueInt()+"");
+            		}else {
+            			System.out.println("not downupgraded");
+            		}
+            	}
+            };
             btn.setText("+");
+            minus.setText("-");
             tooltip=new FixedImage("sprites\\Buttons\\tooltip.png",this.locX,this.locY,250,50);
             tooltip.setText(text+" : "+100*UpgradePane.this.w.sv.getItem(svKey).getValueInt());
             value=new ValueLabel("sprites\\Buttons\\main.png",this.locX+260,this.locY,100,50);
@@ -82,6 +101,7 @@ public class UpgradePane extends GraphicViewer {
         }
         public void addGroup(GraphicViewer v) {
             v.addComponent(btn,text+"Btn");
+            v.addComponent(minus, text+"Minus");
             v.addComponent(tooltip,text+"Tooltip");
             v.addComponent(value,text+"Value");
         }
