@@ -2,7 +2,7 @@ int--
 	dmgUp : upgrade value of damage
 	critChanceUp : upgrade value of critical chance
 	critDmgUp : upgrade value of critical damage multiplexer
-	hullUp : upgrade value of hull
+	day : cleared stage
 	money : amount of money
 double--
 
