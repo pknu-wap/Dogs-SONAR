@@ -57,7 +57,7 @@ public class GamePane extends GraphicViewer{
     };
     int addMoney=0;
     public GamePane(int width, int height, int rate,Window w) {
-        super(width,height,rate);
+        super(width,height);
         setFocusable(true);
         this.w=w;
         this.sv=w.sv;
@@ -138,7 +138,7 @@ public class GamePane extends GraphicViewer{
         }
         enemyController.dispose();
         remove(w);
-        w.add(new ResultPane(1280,720,200,w,cleared,addMoney));
+        w.add(new ResultPane(1280,720,17,w,cleared,addMoney));
     }
     public void updateMoney() {
         money.setText("얻은 돈 : "+addMoney);

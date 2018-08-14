@@ -14,25 +14,25 @@ public class ResultPane extends GraphicViewer{
         @Override
         public void act(MouseEvent e) {
             remove(w);
-            w.add(new GamePane(1280,720,100,w));
+            w.add(new GamePane(1280,720,17,w));
         }
     };
     Button upgrade=new Button("sprites\\Buttons\\main.png",780,500,120,50) {
         @Override
         public void act(MouseEvent e) {
             remove(w);
-            w.add(new UpgradePane(1280,720,100,w));
+            w.add(new UpgradePane(1280,720,17,w));
         }
     };
     Button toMain=new Button("sprites\\Buttons\\main.png",600,500,120,50) {
         @Override
         public void act(MouseEvent e) {
             remove(w);
-            w.add(new TitlePane(1280,720,100,w));
+            w.add(new TitlePane(1280,720,17,w));
         }
     };
     public ResultPane(int width, int height, int rate, Window w,boolean success,int money) {
-        super(width, height, rate);
+        super(width, height);
         this.w=w;
         this.success=success;
         this.money=money;

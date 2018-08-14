@@ -64,7 +64,7 @@ public class Window extends JFrame{
         this.setSize(1280, 720);
         this.setVisible(true);
         sv=new SaveManager("sav.dat");
-        this.add(new TitlePane(1280,720,200,this));
+        this.add(new TitlePane(1280,720,17,this));
         vh=new VoiceHandler();
         lm=new LevelMeter(vh,0.1,12);
     }

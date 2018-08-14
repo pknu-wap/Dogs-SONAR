@@ -1,5 +1,6 @@
 package game;
 
+import java.awt.Color;
 import java.awt.event.MouseEvent;
 
 import savingModule.SaveItem;
@@ -13,7 +14,7 @@ public class UpgradePane extends GraphicViewer {
     FixedImage moneyIcon=new FixedImage("sprites\\Money\\icon.png",1000,100,50,50);
     FixedImage moneyValue=new FixedImage(null,1060,100,100,50);
     public UpgradePane(int width, int height, int rate,Window w) {
-        super(width, height, rate);
+        super(width, height);
         this.w=w;
         img=new FixedImage("sprites\\title\\title.jpg",0,0,1280,720);
         dmg=new Group("피해량",100,100,"dmgUp");
@@ -30,7 +31,7 @@ public class UpgradePane extends GraphicViewer {
             @Override
             public void act(MouseEvent e) {
                 remove(w);
-                w.add(new TitlePane(1280,720,200,w));
+                w.add(new TitlePane(1280,720,17,w));
                 
             }
         },"exit");
@@ -39,7 +40,7 @@ public class UpgradePane extends GraphicViewer {
             @Override
             public void act(MouseEvent e) {
                 remove(w);
-                w.add(new GamePane(1280,720,100,w));
+                w.add(new GamePane(1280,720,17,w));
                 
             }
         },"start");
@@ -98,6 +99,12 @@ public class UpgradePane extends GraphicViewer {
             tooltip.setText(text+" : "+100*UpgradePane.this.w.sv.getItem(svKey).getValueInt());
             value=new ValueLabel("sprites\\Buttons\\main.png",this.locX+260,this.locY,100,50);
             value.update(svKey);
+        }
+        public void setTooltip(Tooltip tooltip) {
+            this.tooltip.setTooltip(tooltip);
+        }
+        public void setTooltipable(boolean isTooltipable) {
+            this.tooltip.setTooltipable(isTooltipable);
         }
         public void addGroup(GraphicViewer v) {
             v.addComponent(btn,text+"Btn");

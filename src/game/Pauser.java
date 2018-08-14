@@ -19,7 +19,7 @@ public class Pauser {
         public void act(MouseEvent e) {
             pane.enemyController.dispose();
             pane.remove(pane.w);
-            pane.w.add(new TitlePane(1280,720,100,pane.w));
+            pane.w.add(new TitlePane(1280,720,17,pane.w));
             
         }
     };

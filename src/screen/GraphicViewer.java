@@ -24,8 +24,8 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener,Mous
     boolean firstPainted=false;
     boolean noTooltip=true;
     Thread thr;
-    public GraphicViewer(int width,int height,int rate) {
-        frameRate=rate;
+    public GraphicViewer(int width,int height) {
+        frameRate=17;
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
         this.setSize(width,height);
@@ -33,6 +33,26 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener,Mous
         buffer=new LinkedHashMap<String,GraphicComponent>();
         queue=new LinkedHashMap<String,GraphicComponent>();
         new Thread(new GCControl()).start();
+        new Thread() {
+            @Override
+            public void run() {
+                while(true) {
+                    Iterator<String> keys = buffer.keySet().iterator(); 
+                    while( keys.hasNext() ){
+                        String key = keys.next();
+                        GraphicComponent value =  buffer.get(key);
+                        if(value.isAnimated()) {
+                            ((Animated)value).nextFrame();   
+                        }
+                    }
+                    try {
+                        Thread.sleep(200);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }.start();
     }
     public GraphicViewer(int rate) {
         frameRate=rate;
@@ -78,9 +98,6 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener,Mous
             GraphicComponent value =  buffer.get(key);
             if(!value.isVisible())continue;
             BufferedImage k=value.getImg();
-            if(value.isAnimated()) {
-                ((Animated)value).nextFrame();   
-            }
             if(value.isDestroy()) {
                 keys.remove();
             }

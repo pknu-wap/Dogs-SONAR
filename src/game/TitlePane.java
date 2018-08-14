@@ -17,7 +17,7 @@ public class TitlePane extends GraphicViewer{
     FixedImage moneyIcon=new FixedImage("sprites\\Money\\icon.png",1000,100,50,50);
     FixedImage moneyValue=new FixedImage(null,1060,100,100,50);
     public TitlePane(int width, int height, int rate,Window w) {
-        super(width,height,rate);
+        super(width,height);
         this.w=w;
         exit.setTooltip(new Tooltip("게임을 \n 나갑니다.",5,5,Color.BLACK,Color.WHITE,15));
         exit.setTooltipable(true);
@@ -69,7 +69,7 @@ public class TitlePane extends GraphicViewer{
         public void act(MouseEvent e) {
             TitlePane.this.dog.isPlaying=false;
             remove(w);
-            w.add(new GamePane(1280,720,100,w));
+            w.add(new GamePane(1280,720,17,w));
         }
         
     }
@@ -93,7 +93,7 @@ public class TitlePane extends GraphicViewer{
         public void act(MouseEvent e) {
             TitlePane.this.dog.isPlaying=false;
             remove(w);
-            w.add(new UpgradePane(1280,720,50,w));
+            w.add(new UpgradePane(1280,720,17,w));
             
         }
         
