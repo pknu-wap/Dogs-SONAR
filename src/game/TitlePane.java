@@ -67,9 +67,9 @@ public class TitlePane extends GraphicViewer{
         }
         @Override
         public void act(MouseEvent e) {
+            TitlePane.this.dog.isPlaying=false;
             remove(w);
             w.add(new GamePane(1280,720,100,w));
-            TitlePane.this.dog.isPlaying=false;
         }
         
     }
@@ -91,8 +91,6 @@ public class TitlePane extends GraphicViewer{
         }
         @Override
         public void act(MouseEvent e) {
-            
-            
             TitlePane.this.dog.isPlaying=false;
             remove(w);
             w.add(new UpgradePane(1280,720,50,w));

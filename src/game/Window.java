@@ -37,7 +37,23 @@ public class Window extends JFrame{
             win.sv.getItem("day").setValueInt(0);
         }
         win.sv.save();
-        
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                while(true) {
+                System.out.println(win.getComponentCount()+"");
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                }
+            }
+            
+        }).start();
     }
     public void setDog(Dog dog) {
         Window.this.dog=dog;

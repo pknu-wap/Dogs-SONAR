@@ -22,6 +22,7 @@ public class Tooltip extends GraphicComponent{
     public Tooltip(String text,int offsetX,int offsetY,Color bgColor,Color foreColor,int size) {
         this.bgColor=bgColor;
         setText(text);
+        setVisible(false);
         setTextColor(foreColor);
         setFont(new Font("맑은 고딕",Font.PLAIN,size));
         setOffsetX(offsetX);

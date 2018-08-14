@@ -7,7 +7,7 @@ import screen.*;
 public class Pauser {
     GamePane pane;
     FixedImage fader=new FixedImage("sprites\\bars\\back.png",0,0,1280,720);
-    FixedImage pauseTooltip=new FixedImage("sprites\\buttons\\main.png",600,300,200,50,"Paused");
+    FixedImage pauseTooltip=new FixedImage("sprites\\buttons\\main.png",600,300,200,50,"일시 정지");
     Button resume=new Button("sprites\\buttons\\main.png",600,360,200,50) {
         @Override
         public void act(MouseEvent e) {
@@ -25,8 +25,8 @@ public class Pauser {
     };
     public Pauser(GamePane pane) {
         this.pane=pane;
-        resume.setText("resume");
-        toMain.setText("main menu");
+        resume.setText("계속하기");
+        toMain.setText("메인메뉴");
         fader.setAlpha(0.6f);
         pause();
     }

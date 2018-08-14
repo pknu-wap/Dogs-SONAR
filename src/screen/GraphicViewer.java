@@ -90,7 +90,7 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener,Mous
                 
             }
             if(key.contains("_tooltip")) {
-                value.setVisible(false);
+                //value.setVisible(false);
             }
         }
         g2d.dispose();
@@ -184,10 +184,11 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener,Mous
             GraphicComponent value =  entry.getValue();
             if((value.getX()<tX&&tX<value.getX()+value.getWidth()&&value.getY()<tY&&tY<value.getY()+value.getHeight()&&value.getImg().getRGB(tX-value.getX(),tY-value.getY())!=0)&&value.getAlpha()>0) {
                 if(value.isTooltipable()) {
+                    System.out.println(value.toString());
                     hovered(e,value);
+                    break;
                 }
                 
-                break;
             }
         }
         
