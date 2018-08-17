@@ -26,7 +26,7 @@ public class TextIndicator extends GraphicComponent{
                         e.printStackTrace();
                     }
                     TextIndicator.this.setY(TextIndicator.this.getY()-2);
-                    //TextIndicator.this.setAlpha(TextIndicator.this.getAlpha()*0.9f);
+                    TextIndicator.this.setAlpha(TextIndicator.this.getAlpha()*0.9f);
                 }
                 TextIndicator.this.dispose();
             }

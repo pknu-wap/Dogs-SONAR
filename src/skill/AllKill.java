@@ -8,13 +8,10 @@ import Character.EnemyV2;
 public class AllKill {
 	Dog dog;
 	boolean isAllKill = false;
-	
 	public AllKill(Dog dog) {
         this.dog=dog;
     }
-	
 	public void allkilling() {
-		
 		allAttack();
 	}
 	public void allAttack() {

@@ -1,8 +1,5 @@
 package screen;
 
-import java.awt.Color;
-import java.awt.Font;
-
 public class FixedImage extends GraphicComponent{
     public FixedImage(String imgSrc) {
         setImg(imgSrc);

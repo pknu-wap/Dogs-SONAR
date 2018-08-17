@@ -1,20 +1,13 @@
 package screen;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
-import java.util.TreeMap;
-import java.util.Map;
 
 public class GraphicViewer extends Canvas implements Runnable,MouseListener,MouseMotionListener{
     BufferedImage bf;
@@ -41,15 +34,11 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener,Mous
                     while( keys.hasNext() ){
                         String key = keys.next();
                         GraphicComponent value =  buffer.get(key);
-                        if(value.isAnimated()) {
-                            ((Animated)value).nextFrame();   
-                        }
+                        if(value.isAnimated())((Animated)value).nextFrame();
                     }
                     try {
                         Thread.sleep(200);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                    } catch (InterruptedException e) {}
                 }
             }
         }.start();
@@ -61,13 +50,10 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener,Mous
         this.setBackground(Color.white);
         buffer=new LinkedHashMap<String,GraphicComponent>();
     }
-
     public void addComponent(GraphicComponent btn,String name) {
         queue.put(name, btn);
         if(btn.isTooltipable()&&btn.getTooltip()!=null)
         queue.put(name+"_tooltip", btn.getTooltip());
-        
-        
     }
     public GraphicComponent getComponentByName(String name) {
         GraphicComponent ret=buffer.get(name);
@@ -97,7 +83,6 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener,Mous
             String key = keys.next();
             GraphicComponent value =  buffer.get(key);
             if(!value.isVisible())continue;
-            BufferedImage k=value.getImg();
             if(value.isDestroy()) {
                 keys.remove();
             }
@@ -111,9 +96,7 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener,Mous
         g2d.dispose();
         g.drawImage(bf,0,0,null);
         g.dispose();
-
     }
-    
     @Override
     public void run() {
         while(true) {
@@ -125,26 +108,16 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener,Mous
                 e.printStackTrace();
             }
         }
-
     }
     public void remove(Window w) {
         w.removeAll();
     }
     @Override
-    public void mouseClicked(MouseEvent arg0) {
-
-    }
-
+    public void mouseClicked(MouseEvent arg0) {}
     @Override
-    public void mouseEntered(MouseEvent arg0) {
-
-    }
-
+    public void mouseEntered(MouseEvent arg0) {}
     @Override
-    public void mouseExited(MouseEvent arg0) {
-
-    }
-
+    public void mouseExited(MouseEvent arg0) {}
     @Override
     public void mousePressed(MouseEvent arg0) {
         int tX=arg0.getX();
@@ -165,39 +138,26 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener,Mous
             }
         }
     }
-    
     @Override
     public void mouseReleased(MouseEvent arg0) {}
-
     class GCControl implements Runnable{
-
         @Override
         public void run() {
             while(true) {
                 try {
                     System.gc();
                     Thread.sleep(5000);
-                } catch (InterruptedException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
+                } catch (InterruptedException e) {}
             }
         }
     }
-
     @Override
-    public void mouseDragged(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
+    public void mouseDragged(MouseEvent e) {}
     @Override
     public void mouseMoved(MouseEvent e) {
-        // TODO Auto-generated method stub
         int tX=e.getX();
         int tY=e.getY();
-        boolean isCheck=false;
         for (Entry<String, GraphicComponent> entry : buffer.entrySet()) {
-            String key   = entry.getKey();
             GraphicComponent value =  entry.getValue();
             if(value.isTooltipable()) {
                 if((value.getX()<tX&&tX<value.getX()+value.getWidth()&&value.getY()<tY&&tY<value.getY()+value.getHeight()&&value.getImg().getRGB(tX-value.getX(),tY-value.getY())!=0)&&value.getAlpha()>0) {
@@ -208,10 +168,8 @@ public class GraphicViewer extends Canvas implements Runnable,MouseListener,Mous
             }
             noTooltip=true;
         }
-        
     }
     public void hovered(MouseEvent e,GraphicComponent t){
-        int tX=e.getX(),tY=e.getY();
         if(t.getTooltip()!=null) {
             Tooltip tooltip=t.getTooltip();
             tooltip.setVisible(true);

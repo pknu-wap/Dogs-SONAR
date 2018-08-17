@@ -1,15 +1,9 @@
 package game;
 
 import screen.*;
-import soundCapture.*;
-
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Random;
-
 import Character.*;
 import savingModule.SaveManager;
 public class GamePane extends GraphicViewer{
@@ -84,12 +78,7 @@ public class GamePane extends GraphicViewer{
             @Override
             public void run() {
                 try {
-                    try {
-                        Thread.sleep(2900);
-                    } catch (InterruptedException e1) {
-                        // TODO Auto-generated catch block
-                        e1.printStackTrace();
-                    }
+                    Thread.sleep(2900);
                     enemyController.startGame();
                     while(i<=60000&&w.isGaming) {
                         Thread.sleep(100);
@@ -99,43 +88,25 @@ public class GamePane extends GraphicViewer{
                         }
                     }
                     GamePane.this.result(true);
-                }catch (InterruptedException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
+                }catch (InterruptedException e) {}
             }
         });
         k.start();
         this.addKeyListener(new KeyListener() {
-            
             @Override
             public void keyTyped(KeyEvent e) {
-                // TODO Auto-generated method stub
-                if(isPaused) {
-                    p.resume();
-                }else {
-                    p=new Pauser(GamePane.this);
-                }
-                
+                if(isPaused) p.resume();
+                else p=new Pauser(GamePane.this);
             }
-            
             @Override
-            public void keyReleased(KeyEvent e) {
-                // TODO Auto-generated method stub
-            }
-            
+            public void keyReleased(KeyEvent e) {}
             @Override
-            public void keyPressed(KeyEvent e) {
-                // TODO Auto-generated method stub
-                
-            }
+            public void keyPressed(KeyEvent e) {}
         });
     }
     public void result(boolean cleared) {
         w.isGaming=false;
-        if(cleared) {
-            sv.getItem("day").setValueInt(sv.getItem("day").getValueInt()+1);            
-        }
+        if(cleared) sv.getItem("day").setValueInt(sv.getItem("day").getValueInt()+1);
         enemyController.dispose();
         remove(w);
         w.add(new ResultPane(1280,720,17,w,cleared,addMoney));
@@ -165,12 +136,7 @@ public class GamePane extends GraphicViewer{
                     fader.setVisible(true);
                     for(int i=coolTime;i>=0;i--) {
                         fader.setText("쿨타임 : "+i);
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        }
+                        try {Thread.sleep(1000);} catch (InterruptedException e) {}
                     }
                     fader.setVisible(false);
                     isCooling=false;
@@ -179,4 +145,3 @@ public class GamePane extends GraphicViewer{
         }
     }
 }
-

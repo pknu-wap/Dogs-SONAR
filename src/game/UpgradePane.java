@@ -1,9 +1,6 @@
 package game;
 
-import java.awt.Color;
 import java.awt.event.MouseEvent;
-
-import savingModule.SaveItem;
 import savingModule.SaveManager;
 import screen.*;
 public class UpgradePane extends GraphicViewer {
@@ -32,7 +29,6 @@ public class UpgradePane extends GraphicViewer {
             public void act(MouseEvent e) {
                 remove(w);
                 w.add(new TitlePane(1280,720,17,w));
-                
             }
         },"exit");
         getComponentByName("exit").setText("메인 메뉴");
@@ -41,12 +37,10 @@ public class UpgradePane extends GraphicViewer {
             public void act(MouseEvent e) {
                 remove(w);
                 w.add(new GamePane(1280,720,17,w));
-                
             }
         },"start");
         getComponentByName("start").setText("게임 시작");
     }
-    
     class Group{
         Button btn;
         Button minus;
@@ -60,10 +54,10 @@ public class UpgradePane extends GraphicViewer {
             this.locY=locY;
             this.svKey=svKey;
             btn=new Button("sprites\\Buttons\\main.png",this.locX+370,this.locY,100,50) {
-              @Override
-              public void act(MouseEvent e) {
-                  SaveManager sv=UpgradePane.this.w.sv;
-                  if(sv.getItem("money").getValueInt()>100*sv.getItem(svKey).getValueInt()) {
+                @Override
+                public void act(MouseEvent e) {
+                    SaveManager sv=UpgradePane.this.w.sv;
+                    if(sv.getItem("money").getValueInt()>100*sv.getItem(svKey).getValueInt()) {
                         System.out.println("upgraded");
                         sv.getItem("money").setValueInt(sv.getItem("money").getValueInt()-100*sv.getItem(svKey).getValueInt());
                         sv.getItem(svKey).setValueInt(sv.getItem(svKey).getValueInt()+1);
@@ -71,10 +65,8 @@ public class UpgradePane extends GraphicViewer {
                         tooltip.setText(text+" : "+100*UpgradePane.this.w.sv.getItem(svKey).getValueInt());
                         value.update(svKey);
                         moneyValue.setText(sv.getItem("money").getValueInt()+"");
-                  }else {
-                      System.out.println("not upgraded");
-                  }
-              }
+                    }else System.out.println("not upgraded");
+                }
             };
             minus = new Button("sprites\\Buttons\\main.png",this.locX+480,this.locY,100,50) {
             	@Override
@@ -88,9 +80,7 @@ public class UpgradePane extends GraphicViewer {
                         tooltip.setText(text+" : "+100*UpgradePane.this.w.sv.getItem(svKey).getValueInt());
                         value.update(svKey);
                         moneyValue.setText(sv.getItem("money").getValueInt()+"");
-            		}else {
-            			System.out.println("not downupgraded");
-            		}
+            		}else System.out.println("not downupgraded");
             	}
             };
             btn.setText("+");
@@ -112,18 +102,15 @@ public class UpgradePane extends GraphicViewer {
             v.addComponent(tooltip,text+"Tooltip");
             v.addComponent(value,text+"Value");
         }
-        
     }
     class ValueLabel extends FixedImage{
         String text;
         public ValueLabel(String imgSrc, int locX, int locY, int sizeWidth, int sizeHeight) {
             super(imgSrc, locX, locY, sizeWidth, sizeHeight);
-            
         }
         public void update(String key) {
             this.setText(w.sv.getItem(key).getValueInt()+"");
         }
-        
     }
     class StatButton extends Button{
         ValueLabel lb;
@@ -136,11 +123,9 @@ public class UpgradePane extends GraphicViewer {
         }
         public StatButton(String imgSrc, int locX, int locY, int sizeWidth, int sizeHeight) {
             super(imgSrc, locX, locY, sizeWidth, sizeHeight);
-            // TODO Auto-generated constructor stub
         }
         @Override
         public void act(MouseEvent e) {
-  
             lb.update(this.text);
             sv.getItem(text).setValueInt(sv.getItem(text).getValueInt()+1);
         }

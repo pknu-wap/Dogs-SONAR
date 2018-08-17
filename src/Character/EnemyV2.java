@@ -26,7 +26,6 @@ public class EnemyV2 {
     public EnemyV2(int hp,GamePane pane){
         this.pane=pane;
         this.hp=this.hp*Math.pow(1.1, hp);
-        
     }
     public void setLoc() {
         anim.setY(Window.CHARACTER_Y+100-anim.getHeight());
@@ -60,9 +59,8 @@ public class EnemyV2 {
             dist-=(int)accSpeed;
             accSpeed-=(int)accSpeed;
         }
-        if(dist>1230) {
+        if(dist>1230)
             dist=1230;
-        }
         anim.setX(dist);
         hpBarBack.setX(dist);
         hpBarFore.setX(dist+1);
@@ -82,15 +80,13 @@ public class EnemyV2 {
     public void deal(double dmg,boolean isCrit) {
         hp-=dmg;
         Color textColor=Color.WHITE;
-        if(isCrit) {
+        if(isCrit)
             textColor=Color.RED;
-        }
         pane.addComponent(new TextIndicator((int)dmg+"",20,textColor,dist,400,20), TextIndicator.counter+"text"+id);
         pane.addComponent(new Effect(new Animation("sprites\\effect\\charging",50,50),dist,400),"hitEffect"+id);
         hpBarFore.setWidth((int)(48*hp/totHp));
-        if(hp<0) {
+        if(hp<0)
             die();
-        }
     }
     public void init() {
         setLoc();

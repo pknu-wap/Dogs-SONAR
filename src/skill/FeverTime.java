@@ -15,9 +15,7 @@ public class FeverTime {
                 dog.pane.w.lm.timer=3;
                 try {
                     Thread.sleep(4000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                } catch (InterruptedException e) {}
                 dog.pane.w.lm.timer=12;
             }
         }.start();

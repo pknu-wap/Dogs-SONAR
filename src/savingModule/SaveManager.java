@@ -15,12 +15,7 @@ public class SaveManager {
     public SaveManager(String src) {
         this.src=src;
         arr=new TreeMap<String,SaveItem>();
-        try {
-            this.load();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        try {this.load();} catch (IOException e) {}
     }
     public void load() throws IOException {
         try {
@@ -67,11 +62,9 @@ public class SaveManager {
             }
             pw.close();
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
-
     public SaveItem getItem(String key) {
         SaveItem ret=arr.get(key);
         if(ret==null) {
@@ -82,13 +75,4 @@ public class SaveManager {
         }
         return ret;
     }
-
-
-    /*public static void main(String args[]) {
-        Scanner scan=new Scanner(System.in);
-        SaveManager sv=new SaveManager("save.dat");
-
-        scan.nextLine();
-
-    }*/
 }

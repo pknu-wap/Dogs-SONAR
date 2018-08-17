@@ -14,9 +14,6 @@ public class BaseAttack {
 	    dog.dogAnim.setNowAnim("bark");
 		dog.pane.addComponent(new Effect(new Animation("sprites\\effect\\baseBark",100,100),170,Window.CHARACTER_Y), "baseBark");
 		EnemyV2 t=dog.pane.getEnemyController().getNearest();
-		if(t!=null) {
-		    t.getDamage(now,isCrit);
-		}
-		//TODO attacking
+		if(t!=null) t.getDamage(now,isCrit);
 	}
 }

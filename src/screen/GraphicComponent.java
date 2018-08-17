@@ -28,7 +28,6 @@ public abstract class GraphicComponent{
     private String description="";
     private Tooltip tooltip=null;
     public void drawString(Graphics2D g2d) {
-
         g2d.setFont(getFont());
         g2d.setColor(getTextColor());
         g2d.drawString(this.getText(),(int) (this.getX()+this.getWidth()/2.0-this.getStringSize(g2d,this.getText())/2.0),(int) (this.getY()+this.getHeight()/2+0.76*this.getFont().getSize()/2));
@@ -162,16 +161,12 @@ public abstract class GraphicComponent{
         this.textColor = textColor;
     }
     public void setAlpha(float alpha) {
-        if(alpha>1) {
-            alpha=1f;
-        }else if(alpha<0) {
-            alpha=0f;
-        }
+        if(alpha>1) alpha=1f;
+        else if(alpha<0) alpha=0f;
         this.alpha = alpha;
     }
 }
 class FontCalculator extends FontMetrics{
-
     protected FontCalculator(Font font) {
         super(font);
     }

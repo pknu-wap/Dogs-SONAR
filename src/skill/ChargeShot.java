@@ -16,8 +16,8 @@ public class ChargeShot {
 	boolean isCharging=false;
 	Dog dog;
 	public ChargeShot(Dog dog) {
-		this.dog=dog;
-	}
+	    this.dog=dog;
+    }
 	public void charge() {
 		chargedDamage=0.0;
 		isCharging=true;
@@ -26,8 +26,8 @@ public class ChargeShot {
 		dog.dogAnim.setNowAnim("bark");
 		Animator chargingAnimator=new Animator(50,50);
 		chargingAnimator.setX(105);
-		chargingAnimator.setY(335);
-		chargingAnimator.addAnimation(new Animation("sprites\\effect\\charging",150,Window.CHARACTER_Y-200), "charging");
+		chargingAnimator.setY(Window.CHARACTER_Y-20);
+		chargingAnimator.addAnimation(new Animation("sprites\\effect\\charging",150,150), "charging");
 		chargingAnimator.setNowAnim("charging");
 		dog.pane.addComponent(chargingAnimator,"charging");
 	}
@@ -40,18 +40,12 @@ public class ChargeShot {
 	public void attack(double now) {
 		if(isCharging) {
 			chargedDamage+=(now/5);//TODO balance damage
-			dog.pane.addComponent(new TextIndicator((int)(now/5)+"",20,new Color(51, 153, 255),105,400,20),"charge");
-			
-		}else {
-			System.out.println("wrong access to chargeshot");
-		}		
+			dog.pane.addComponent(new TextIndicator((int)chargedDamage+"",20,new Color(51, 153, 255),155,400,20),"charge");
+		}else System.out.println("wrong access to chargeshot");
 	}
 	public void chargeAttack() {
-	    dog.pane.addComponent(new Effect(new Animation("sprites\\effect\\beam",1200,50),155,385), "baseBark");
+	    dog.pane.addComponent(new Effect(new Animation("sprites\\effect\\beam",1200,50),155,Window.CHARACTER_Y+20), "beam");
 	    ArrayList<EnemyV2> arr=dog.pane.getEnemyController().getAll();
-	    for(int i=0;i<arr.size();i++) {
-	        arr.get(i).getDamage(chargedDamage,false);
-	    }
-		//TODO make attack
+	    for(int i=0;i<arr.size();i++) arr.get(i).getDamage(chargedDamage,false);
 	}
 }

@@ -34,9 +34,7 @@ public class Tooltip extends GraphicComponent{
         setOffsetX(offsetX);
         setOffsetY(offsetY);
         setAlpha(0.8f);
-        for(String line : text.split("\n")) {
-            texts.add(line);
-        }
+        for(String line : text.split("\n")) texts.add(line);
     }
     public void setSize(Graphics2D g2d) {
         int count=1;
@@ -46,20 +44,16 @@ public class Tooltip extends GraphicComponent{
             Canvas c=new Canvas();
             c.setFont(getFont());
             int t=this.getStringSize(g2d,line);
-            if(tWidth<t) {
-                tWidth=t;
-            }
+            if(tWidth<t) tWidth=t;
         }
         setWidth(tWidth);
         setHeight(10+getFont().getSize()*count);
-        
     }
     @Override
     public void drawString(Graphics2D g2d) {
         g2d.setColor(foreColor);
         g2d.setFont(getFont());
         int x=getX()+getOffsetX()+5,y=getY()+getOffsetY()+5;
-        //g2d.drawString(g2d,getText(), getX()+getOffsetX()+5, getY()+getOffsetY()+5);
         for(String line:texts) {
             g2d.drawString(line, x, y += g2d.getFontMetrics().getHeight());
         }

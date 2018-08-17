@@ -1,17 +1,13 @@
 package screen;
 
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
 import java.util.Random;
 import javax.swing.JFrame;
-import javax.swing.Timer;
 
 public class TESTUI {
     
-    public static void main(String args[]){//TODO main method
+    public static void main(String args[]){
         GraphicViewer gV1=new GraphicViewer(500,500);
         gV1.setLocation(new Point(0,0));
         ExampleJFrame frame=new ExampleJFrame();

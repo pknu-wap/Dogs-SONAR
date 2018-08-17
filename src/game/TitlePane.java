@@ -1,10 +1,7 @@
 package game;
 
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.util.Random;
-
 import screen.*;
 
 public class TitlePane extends GraphicViewer{
@@ -20,7 +17,6 @@ public class TitlePane extends GraphicViewer{
         super(width,height);
         this.w=w;
         //exit.setTooltip(new Tooltip("게임을 \n 나갑니다.",5,5,Color.BLACK,Color.WHITE,15));
-        //^use line can be by group
         addComponent(img,"background");
         addComponent(start,"start");
         addComponent(upgrade,"upgrade");
@@ -41,7 +37,6 @@ public class TitlePane extends GraphicViewer{
             this.addAnimation(new Animation("sprites\\Dog\\bark",500,500), "bark");
             this.setNext("bark", "idle");
             new Thread(new Runnable() {
-                
                 @Override
                 public void run() {
                     int changeInterval=1000;
@@ -49,21 +44,15 @@ public class TitlePane extends GraphicViewer{
                         System.out.println(changeInterval+"");
                         TitleDogAnimator.this.setNowAnim("bark");
                         changeInterval=rand.nextInt(10000)+1000;
-                        try {
-                            Thread.sleep(changeInterval);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                        try {Thread.sleep(changeInterval);} catch (InterruptedException e) {}
                     }
                 }
             }).start();
         }
-        
     }
     class StartBtn extends Button{
         public StartBtn(String imgSrc, int locX, int locY, int sizeWidth, int sizeHeight) {
             super(imgSrc, locX, locY, sizeWidth, sizeHeight);
-            // TODO Auto-generated constructor stub
         }
         @Override
         public void act(MouseEvent e) {
@@ -71,7 +60,6 @@ public class TitlePane extends GraphicViewer{
             remove(w);
             w.add(new GamePane(1280,720,17,w));
         }
-        
     }
     class ExitBtn extends Button{
         public ExitBtn(String imgSrc, int locX, int locY, int sizeWidth, int sizeHeight) {
@@ -94,9 +82,6 @@ public class TitlePane extends GraphicViewer{
             TitlePane.this.dog.isPlaying=false;
             remove(w);
             w.add(new UpgradePane(1280,720,17,w));
-            
         }
-        
     }
-
 }

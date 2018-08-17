@@ -66,9 +66,7 @@ public class EnemyController implements Runnable{
                 }
                 try {
                     Thread.sleep(rand.nextInt(2000)+1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                } catch (InterruptedException e) {}
             }
         }
     };
@@ -91,22 +89,14 @@ public class EnemyController implements Runnable{
                     pane.result(false);
                     return;
                 }
-                
                 if(t.isDied) {
                     iter.remove();
                     pane.addMoney+=t.getPrice();
                     pane.updateMoney();
-                }   
+                    }   
+                }
             }
+            try {Thread.sleep(50);} catch (InterruptedException e) {}
         }
-            try {
-                Thread.sleep(50);
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-        
     }
-    
 }

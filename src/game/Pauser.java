@@ -20,7 +20,6 @@ public class Pauser {
             pane.enemyController.dispose();
             pane.remove(pane.w);
             pane.w.add(new TitlePane(1280,720,17,pane.w));
-            
         }
     };
     public Pauser(GamePane pane) {
@@ -42,7 +41,6 @@ public class Pauser {
     public void resume() {
         pane.w.resumeSound();
         pane.enemyController.resumeGame();
-        
         pane.isPaused=false;
         fader.dispose();
         resume.dispose();
