@@ -44,6 +44,7 @@ public class UpgradePane extends GraphicViewer {
     class Group{
         Button btn;
         Button minus;
+        Button reset;
         FixedImage tooltip;
         ValueLabel value;
         String text,svKey;
@@ -83,8 +84,28 @@ public class UpgradePane extends GraphicViewer {
             		}else System.out.println("not downupgraded");
             	}
             };
+            reset = new Button("sprites\\Buttons\\main.png",this.locX+590,this.locY,100,50) {
+            	@Override
+            	public void act(MouseEvent e) {
+            		SaveManager sv=UpgradePane.this.w.sv;
+            		if(sv.getItem(svKey).getValueInt()>0) {
+            			int sum=0;
+            			for(int i=1; i<=sv.getItem(svKey).getValueInt()-1;i++) {
+            				sum+=i;
+            			}
+            			System.out.println("초기화완료");
+            			sv.getItem("money").setValueInt(sv.getItem("money").getValueInt()+100*sum);
+                        sv.getItem(svKey).setValueInt(0);
+                        sv.save();
+                        tooltip.setText(text+" : "+100*UpgradePane.this.w.sv.getItem(svKey).getValueInt());
+                        value.update(svKey);
+                        moneyValue.setText(sv.getItem("money").getValueInt()+"");
+            		}else System.out.println("초기화할수 없습니다.");
+            	}
+            };
             btn.setText("+");
             minus.setText("-");
+            reset.setText("초기화");
             tooltip=new FixedImage("sprites\\Buttons\\tooltip.png",this.locX,this.locY,250,50);
             tooltip.setText(text+" : "+100*UpgradePane.this.w.sv.getItem(svKey).getValueInt());
             value=new ValueLabel("sprites\\Buttons\\main.png",this.locX+260,this.locY,100,50);
@@ -99,6 +120,7 @@ public class UpgradePane extends GraphicViewer {
         public void addGroup(GraphicViewer v) {
             v.addComponent(btn,text+"Btn");
             v.addComponent(minus, text+"Minus");
+            v.addComponent(reset, text+"Reset");
             v.addComponent(tooltip,text+"Tooltip");
             v.addComponent(value,text+"Value");
         }
