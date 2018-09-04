@@ -1,5 +1,6 @@
 package game;
 
+import java.awt.Color;
 import java.awt.event.MouseEvent;
 import savingModule.SaveManager;
 import screen.*;
@@ -55,10 +56,10 @@ public class UpgradePane extends GraphicViewer {
             this.locX=locX;
             this.locY=locY;
             this.svKey=svKey;
-            btn=new Button("sprites\\Buttons\\main.png",this.locX+370,this.locY,100,50) {
+            btn=new Button("sprites\\Buttons\\main.png",this.locX+480,this.locY,100,50) {
                 @Override
                 public void act(MouseEvent e) {
-                    SaveManager sv=UpgradePane.this.w.sv;
+                    SaveManager sv=UpgradePane.this.w.sv; 
                     if(sv.getItem("money").getValueInt()>100*sv.getItem(svKey).getValueInt()) {
                         System.out.println("upgraded");
                         sv.getItem("money").setValueInt(sv.getItem("money").getValueInt()-100*sv.getItem(svKey).getValueInt());
@@ -70,7 +71,7 @@ public class UpgradePane extends GraphicViewer {
                     }else System.out.println("not upgraded");
                 }
             };
-            minus = new Button("sprites\\Buttons\\main.png",this.locX+480,this.locY,100,50) {
+            minus = new Button("sprites\\Buttons\\main.png",this.locX+260,this.locY,100,50) {
             	@Override
             	public void act(MouseEvent e) {
             		SaveManager sv=UpgradePane.this.w.sv;
@@ -126,12 +127,17 @@ public class UpgradePane extends GraphicViewer {
             	}
             };
             btn.setText("+");
+           //btn.setTooltip(new Tooltip(text+"을 "+(UpgradePane.this.w.sv.getItem(svKey).getValueInt()+1)+"로\n업그레이드 합니다.",5,5,Color.BLACK,Color.WHITE,15));
             minus.setText("-");
             reset.setText("초기화");
             allup.setText("모두");
+            btn.setTooltip(new Tooltip(text+"를 1만큼\n업그레이드 합니다.",5,5,Color.BLACK,Color.WHITE,15));
+            minus.setTooltip(new Tooltip(text+"를 1만큼\n다운그레이드 합니다.",5,5,Color.BLACK,Color.WHITE,15));
+            reset.setTooltip(new Tooltip("모든 업그레이드를\n초기화합니다.",5,5,Color.BLACK,Color.WHITE,15));
+            allup.setTooltip(new Tooltip("가능한 최대로\n업그레이드합니다.",5,5,Color.BLACK,Color.WHITE,15));
             tooltip=new FixedImage("sprites\\Buttons\\tooltip.png",this.locX,this.locY,250,50);
             tooltip.setText(text+" : "+100*UpgradePane.this.w.sv.getItem(svKey).getValueInt());
-            value=new ValueLabel("sprites\\Buttons\\main.png",this.locX+260,this.locY,100,50);
+            value=new ValueLabel("sprites\\Buttons\\main.png",this.locX+370,this.locY,100,50);
             value.update(svKey);
         }
         public void setTooltip(Tooltip tooltip) {

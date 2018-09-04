@@ -1,6 +1,8 @@
 package game;
 
 import screen.*;
+
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -19,7 +21,7 @@ public class GamePane extends GraphicViewer{
     FixedImage day=new FixedImage("sprites\\Buttons\\tooltip.png",100,50,200,50);
     FixedImage money=new FixedImage("sprites\\Buttons\\tooltip.png",950,50,250,30);
     FixedImage timer=new FixedImage("sprites\\Buttons\\tooltip.png",950,80,180,30);
-    SkillButton feverBtn=new SkillButton("sprites\\Buttons\\main.png",400,600,150,50,"목풀기",20) {
+    SkillButton feverBtn=new SkillButton("sprites\\Buttons\\main.png",525,600,150,50,"목풀기",20) {
         @Override
         public void act(MouseEvent e) {
             if(isCooling) return;
@@ -27,7 +29,7 @@ public class GamePane extends GraphicViewer{
             runCoolTime();
         }
     };
-    SkillButton chargeBtn=new SkillButton("sprites\\Buttons\\main.png",200,600,150,50,"기모으기",3) {
+    SkillButton chargeBtn=new SkillButton("sprites\\Buttons\\main.png",225,600,150,50,"기모으기",3) {
     	@Override
     	public void act(MouseEvent e) {
     	    if(isCooling) return;
@@ -41,7 +43,7 @@ public class GamePane extends GraphicViewer{
     		}
     	}
     };
-    SkillButton allkillBtn=new SkillButton("sprites\\Buttons\\main.png",600,600,150,50,"올킬",30) {
+    SkillButton allkillBtn=new SkillButton("sprites\\Buttons\\main.png",825,600,150,50,"올킬",30) {
         @Override
         public void act(MouseEvent e) {
             if(isCooling) return;
@@ -55,6 +57,9 @@ public class GamePane extends GraphicViewer{
         setFocusable(true);
         this.w=w;
         this.sv=w.sv;
+        chargeBtn.setTooltip(new Tooltip("'발사' 전까지 기를 모아 한번에 공격합니다. \n( 쿨타임 : 3 ).",5,5,Color.BLACK,Color.WHITE,15));
+        feverBtn.setTooltip(new Tooltip("4초간 빠른 공격을 합니다. \n( 쿨타임 : 20초 ).",5,5,Color.BLACK,Color.WHITE,15));
+        allkillBtn.setTooltip(new Tooltip("모든 도둑을 제거합니다.\n( 쿨타임 : 30초 )",5,5,Color.BLACK,Color.WHITE,15));
         day.setText(sv.getItem("day").getValueString()+"일 차");
         money.setText("얻은 돈 : 0");
         enemyController=new EnemyController(this);
@@ -80,24 +85,28 @@ public class GamePane extends GraphicViewer{
                 try {
                     Thread.sleep(2900);
                     enemyController.startGame();
-                    while(i<=60000&&w.isGaming) {
+                    while(i<=60000) {
                         Thread.sleep(100);
                         if(!isPaused) {
                             i+=100;
                             GamePane.this.timer.setText("남은 시간 : "+(60-(i/1000))+"");
                         }
-                    }
+                        if(!w.isGaming) return;
+                    }	
                     GamePane.this.result(true);
                 }catch (InterruptedException e) {}
             }
         });
         k.start();
-        this.addKeyListener(new KeyListener() {
+        w.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
-                if(isPaused) p.resume();
-                else p=new Pauser(GamePane.this);
+            	System.out.println(e.getKeyCode());
+               if(e.getKeyCode()==0) {
+            	if(isPaused) p.resume();
+                else p=new Pauser(GamePane.this);}
             }
+            
             @Override
             public void keyReleased(KeyEvent e) {}
             @Override
