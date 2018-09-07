@@ -84,9 +84,10 @@ public class EnemyV2 {
             textColor=Color.RED;
         pane.addComponent(new TextIndicator((int)dmg+"",20,textColor,dist,400,20), TextIndicator.counter+"text"+id);
         pane.addComponent(new Effect(new Animation("sprites\\effect\\charging",50,50),dist,400),"hitEffect"+id);
-        hpBarFore.setWidth((int)(48*hp/totHp));
-        if(hp<0)
-            die();
+        if (hp >= 0)
+			hpBarFore.setWidth((int) (48 * hp / totHp));
+		else
+			die();
     }
     public void init() {
         setLoc();

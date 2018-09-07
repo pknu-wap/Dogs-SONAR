@@ -41,6 +41,7 @@ public class Window extends JFrame{
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setSize(1280, 720);
         this.setVisible(true);
+        this.setLocationRelativeTo(null);
         sv=new SaveManager("sav.dat");
         this.add(new TitlePane(1280,720,17,this));
         vh=new VoiceHandler();

@@ -1,5 +1,6 @@
 package game;
 
+import java.awt.Color;
 import java.awt.event.MouseEvent;
 import savingModule.SaveManager;
 import screen.*;
@@ -45,6 +46,7 @@ public class UpgradePane extends GraphicViewer {
         Button btn;
         Button minus;
         Button reset;
+        Button allup;
         FixedImage tooltip;
         ValueLabel value;
         String text,svKey;
@@ -54,10 +56,10 @@ public class UpgradePane extends GraphicViewer {
             this.locX=locX;
             this.locY=locY;
             this.svKey=svKey;
-            btn=new Button("sprites\\Buttons\\main.png",this.locX+370,this.locY,100,50) {
+            btn=new Button("sprites\\Buttons\\main.png",this.locX+480,this.locY,100,50) {
                 @Override
                 public void act(MouseEvent e) {
-                    SaveManager sv=UpgradePane.this.w.sv;
+                    SaveManager sv=UpgradePane.this.w.sv; 
                     if(sv.getItem("money").getValueInt()>100*sv.getItem(svKey).getValueInt()) {
                         System.out.println("upgraded");
                         sv.getItem("money").setValueInt(sv.getItem("money").getValueInt()-100*sv.getItem(svKey).getValueInt());
@@ -69,7 +71,7 @@ public class UpgradePane extends GraphicViewer {
                     }else System.out.println("not upgraded");
                 }
             };
-            minus = new Button("sprites\\Buttons\\main.png",this.locX+480,this.locY,100,50) {
+            minus = new Button("sprites\\Buttons\\main.png",this.locX+260,this.locY,100,50) {
             	@Override
             	public void act(MouseEvent e) {
             		SaveManager sv=UpgradePane.this.w.sv;
@@ -84,7 +86,7 @@ public class UpgradePane extends GraphicViewer {
             		}else System.out.println("not downupgraded");
             	}
             };
-            reset = new Button("sprites\\Buttons\\main.png",this.locX+590,this.locY,100,50) {
+            reset = new Button("sprites\\Buttons\\main.png",this.locX+700,this.locY,100,50) {
             	@Override
             	public void act(MouseEvent e) {
             		SaveManager sv=UpgradePane.this.w.sv;
@@ -93,22 +95,49 @@ public class UpgradePane extends GraphicViewer {
             			for(int i=1; i<=sv.getItem(svKey).getValueInt()-1;i++) {
             				sum+=i;
             			}
-            			System.out.println("초기화완료");
+            			System.out.println(svKey+" 초기화완료");
             			sv.getItem("money").setValueInt(sv.getItem("money").getValueInt()+100*sum);
                         sv.getItem(svKey).setValueInt(0);
                         sv.save();
                         tooltip.setText(text+" : "+100*UpgradePane.this.w.sv.getItem(svKey).getValueInt());
                         value.update(svKey);
                         moneyValue.setText(sv.getItem("money").getValueInt()+"");
-            		}else System.out.println("초기화할수 없습니다.");
+            		}else System.out.println(svKey+"를 초기화할수 없습니다.");
+            	}
+            };
+            allup = new Button("sprites\\Buttons\\main.png",this.locX+590,this.locY,100,50) {
+            	@Override
+            	public void act(MouseEvent e) {
+            		SaveManager sv=UpgradePane.this.w.sv;
+            		if((sv.getItem(svKey).getValueInt()-1)*100<sv.getItem("money").getValueInt()) {
+            			int sum=0;
+            			int i=sv.getItem(svKey).getValueInt();
+            			while((i-1)*100<sv.getItem("money").getValueInt()) {
+            				sum++;
+            				sv.getItem("money").setValueInt(sv.getItem("money").getValueInt()-100*(i));
+            				i++;
+            			}
+            			System.out.println(svKey+" 를 모두올렸습니다.");
+                        sv.getItem(svKey).setValueInt(sv.getItem(svKey).getValueInt()+sum);
+                        sv.save();
+                        tooltip.setText(text+" : "+100*UpgradePane.this.w.sv.getItem(svKey).getValueInt());
+                        value.update(svKey);
+                        moneyValue.setText(sv.getItem("money").getValueInt()+"");
+            		}else System.out.println(svKey+"를 올릴 수 없습니다.");
             	}
             };
             btn.setText("+");
+           //btn.setTooltip(new Tooltip(text+"을 "+(UpgradePane.this.w.sv.getItem(svKey).getValueInt()+1)+"로\n업그레이드 합니다.",5,5,Color.BLACK,Color.WHITE,15));
             minus.setText("-");
             reset.setText("초기화");
+            allup.setText("모두");
+            btn.setTooltip(new Tooltip(text+"를 1만큼\n업그레이드 합니다.",5,5,Color.BLACK,Color.WHITE,15));
+            minus.setTooltip(new Tooltip(text+"를 1만큼\n다운그레이드 합니다.",5,5,Color.BLACK,Color.WHITE,15));
+            reset.setTooltip(new Tooltip("모든 업그레이드를\n초기화합니다.",5,5,Color.BLACK,Color.WHITE,15));
+            allup.setTooltip(new Tooltip("가능한 최대로\n업그레이드합니다.",5,5,Color.BLACK,Color.WHITE,15));
             tooltip=new FixedImage("sprites\\Buttons\\tooltip.png",this.locX,this.locY,250,50);
             tooltip.setText(text+" : "+100*UpgradePane.this.w.sv.getItem(svKey).getValueInt());
-            value=new ValueLabel("sprites\\Buttons\\main.png",this.locX+260,this.locY,100,50);
+            value=new ValueLabel("sprites\\Buttons\\main.png",this.locX+370,this.locY,100,50);
             value.update(svKey);
         }
         public void setTooltip(Tooltip tooltip) {
@@ -121,6 +150,7 @@ public class UpgradePane extends GraphicViewer {
             v.addComponent(btn,text+"Btn");
             v.addComponent(minus, text+"Minus");
             v.addComponent(reset, text+"Reset");
+            v.addComponent(allup, text+"Allup");
             v.addComponent(tooltip,text+"Tooltip");
             v.addComponent(value,text+"Value");
         }
