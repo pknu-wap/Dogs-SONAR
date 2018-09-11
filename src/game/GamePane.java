@@ -14,6 +14,20 @@ public class GamePane extends GraphicViewer{
     boolean isPaused=false;
     SaveManager sv;
     EnemyController enemyController;
+    KeyListener kL=new KeyListener() {
+        @Override
+        public void keyTyped(KeyEvent e) {
+            System.out.println(e.getKeyCode());
+           if(e.getKeyCode()==0) {
+            if(isPaused) p.resume();
+            else p=new Pauser(GamePane.this);}
+        }
+        
+        @Override
+        public void keyReleased(KeyEvent e) {}
+        @Override
+        public void keyPressed(KeyEvent e) {}
+    };
     public EnemyController getEnemyController() {
         return enemyController;
     }
@@ -98,20 +112,15 @@ public class GamePane extends GraphicViewer{
             }
         });
         k.start();
-        w.addKeyListener(new KeyListener() {
+        this.addKeyListener(new KeyListener() {
             @Override
-            public void keyTyped(KeyEvent e) {
-            	System.out.println(e.getKeyCode());
-               if(e.getKeyCode()==0) {
-            	if(isPaused) p.resume();
-                else p=new Pauser(GamePane.this);}
-            }
-            
+            public void keyPressed(KeyEvent arg0) {}
             @Override
             public void keyReleased(KeyEvent e) {}
             @Override
-            public void keyPressed(KeyEvent e) {}
+            public void keyTyped(KeyEvent e) {w.pause(e);}
         });
+        w.addKeyListener(kL);
     }
     public void result(boolean cleared) {
         w.isGaming=false;

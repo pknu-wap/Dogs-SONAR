@@ -1,5 +1,7 @@
 package game;
 
+import java.awt.event.KeyEvent;
+
 import javax.swing.JFrame;
 
 import Character.*;
@@ -35,6 +37,9 @@ public class Window extends JFrame{
     }
     public void setDog(Dog dog) {
         Window.this.dog=dog;
+    }
+    public void pause(KeyEvent e) {
+        processKeyEvent(e);
     }
     public Window() {
         this.setResizable(false);

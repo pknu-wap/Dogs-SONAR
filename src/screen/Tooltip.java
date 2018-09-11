@@ -53,7 +53,7 @@ public class Tooltip extends GraphicComponent{
     public void drawString(Graphics2D g2d) {
         g2d.setColor(foreColor);
         g2d.setFont(getFont());
-        int x=getX()+getOffsetX()+5,y=getY()+getOffsetY()+5;
+        int x=getX()+getOffsetX()+5,y=getY()+getOffsetY()+5-getHeight();
         for(String line:texts) {
             g2d.drawString(line, x, y += g2d.getFontMetrics().getHeight());
         }
@@ -65,6 +65,6 @@ public class Tooltip extends GraphicComponent{
             initiated=false;
         }
         g2d.setColor(bgColor);
-        g2d.fillRect(getX()+getOffsetX(),getY()+getOffsetY(),getWidth(),getHeight());
+        g2d.fillRect(getX()+getOffsetX(),getY()+getOffsetY()-getHeight(),getWidth(),getHeight());
     }
 }
