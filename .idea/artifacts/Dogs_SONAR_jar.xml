@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Dogs-SONAR:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Dogs_SONAR_jar</output-path>
+    <root id="archive" name="Dogs-SONAR.jar">
+      <element id="module-output" name="Dogs-SONAR" />
+    </root>
+  </artifact>
+</component>
