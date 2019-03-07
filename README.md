@@ -16,4 +16,4 @@
 
 실행 파일 : [Build.jar](Build.jar)
 
-필요 파일 : [sprites](sprites/)
+필요 파일 : [sprites](sprites/) 폴더를 실행파일과 같이 두세요!
