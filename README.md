@@ -2,7 +2,7 @@
 
 소리로 하는 디펜스 게임
 
-![플레이장면](https://lh3.googleusercontent.com/X5J4fTOvIQhnfUtwfqQ-iriJIk5xTiPgi4yR6d7hKlK1aOpqubH_7O4NRAEOg9-_xZMbIApR4xKoxZSstxToMDwiBLy8gH-J0ebtYiwMglzEHzkvZbdZ7WBtlWhbfwvTkiiTnTg3su1QRR0blDbBRj7mlcNmKdasXGzG5w9KYbu6QK1hu9auMDEh-GLDonxtYX1P0K27yxa2lXUQyrw2mqd6LNkYCqdwudsLodqgGBSEkPdcvwu28fxK54dZr9398HtpzhXnRHveGBTnlR6jWEZavsi8qGUdEOuvPvMVGaWeKq_7k-hsaETzN_4_i890nt7rk-cLtEAEgD1F8u0-8PvAWufb-3iq3cdjLq63HE_e1znMk61Wrdfl39GEMtFNRVrxVWyr1VP6zgkzgbzit7d5vZrplIli3fWh5Vna7mTjsn5rljHFHEMfYrySnByGDRWJzBzic2_Uze4ZsAUrm_jV5WDoOwxSjkvb5BCjPIhbNfIWVA105-MfYt9JPI6dTTuck-bNhoQDy_XkwupbJJacGPuJwK46lSnoYPR8JJYoRVRPxWzTqOqJPVT7oVt3apA6fkPVPSXiiu0BMXA9K6lHVsCT8ye5mdsyAE9p-jgLhJfZ6_NDqLcq1gqHJh8Ix-4ezZ-YYKRxB5itz6-9aB-btvbMJO4=w1266-h713-no)
+![플레이장면](https://raw.githubusercontent.com/Jaeguins/ImagePool/main/Files/%ED%99%94%EB%A9%B4%20%EC%BA%A1%EC%B2%98%202020-10-02%20230048.png)
 
 집을 지키는 개가 되어, 주인의 재산을 노리는 여러 적을 짖어 쫓아내는 게임입니다.
 
